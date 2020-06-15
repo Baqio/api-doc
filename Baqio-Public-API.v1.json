@@ -28,148 +28,22 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          }
-        },
-        "operationId": "get-customers",
-        "parameters": [],
-        "description": "Liste des clients",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              },
-              "examples": {
-                "example-1": {
-                  "value": [
-                    {
-                      "id": 124407,
-                      "account_id": 520,
-                      "name": "Agathe Faure",
-                      "email": "agathe.faure@gmail.com",
-                      "note": null,
-                      "accepts_emailing": true,
-                      "created_at": "2020-01-15T16:56:05.592+01:00",
-                      "updated_at": "2020-01-15T16:56:05.592+01:00",
-                      "sales_agent_id": null,
-                      "price_grid_id": 4287,
-                      "reference": null,
-                      "accepts_mailing": true,
-                      "warehouse_id": null,
-                      "visibility": "all",
-                      "channel": null,
-                      "customer_category_id": 5071,
-                      "deleted_at": null,
-                      "payment_method": null,
-                      "payment_period": null,
-                      "code": "AGATHE",
-                      "vinosoft_id": null,
-                      "accounted_at": null,
-                      "hid": null,
-                      "user_id": null,
-                      "automatic_discount_rate": null,
-                      "sponsor_id": null,
-                      "commission_rate": null,
-                      "invoice_preference": null,
-                      "block_orders": false,
-                      "sticky_note": false,
-                      "tag_list": [],
-                      "billing_information": {
-                        "id": 217809,
-                        "billable_id": 124407,
-                        "company_name": null,
-                        "first_name": "Agathe",
-                        "last_name": "Faure",
-                        "email": null,
-                        "address1": null,
-                        "address2": null,
-                        "city": "ARGENTEUIL",
-                        "zip": "95100",
-                        "province": null,
-                        "country_code": "FR",
-                        "phone": null,
-                        "company_number": null,
-                        "vat_number": null,
-                        "excise_number": null,
-                        "created_at": "2020-01-15T16:56:05.689+01:00",
-                        "updated_at": "2020-01-15T16:56:05.689+01:00",
-                        "billable_type": "Customer",
-                        "legal_form": null,
-                        "subdivision_code": "95",
-                        "title": null,
-                        "mobile": null,
-                        "undeliverable_address": false,
-                        "address3": null,
-                        "fax": null,
-                        "tax_exempt": false,
-                        "website": null
-                      },
-                      "shipping_information": {
-                        "id": 270454,
-                        "shippable_id": 124407,
-                        "use_billing_address": true,
-                        "company_name": null,
-                        "first_name": null,
-                        "last_name": null,
-                        "address1": null,
-                        "address2": null,
-                        "city": null,
-                        "zip": null,
-                        "province": null,
-                        "country_code": null,
-                        "phone": null,
-                        "note": null,
-                        "delivery_schedules": null,
-                        "closing_days": null,
-                        "created_at": "2020-01-15T16:56:05.737+01:00",
-                        "updated_at": "2020-01-15T16:56:05.737+01:00",
-                        "shippable_type": "Customer",
-                        "dae_number": null,
-                        "title": null,
-                        "undeliverable_address": false,
-                        "address3": null,
-                        "mobile": null,
-                        "excise_number": null
-                      },
-                      "price_grid": {
-                        "id": 4287,
-                        "account_id": 520,
-                        "name": "Particulier",
-                        "deleted_at": null,
-                        "created_at": "2020-01-15T09:56:12.633+01:00",
-                        "updated_at": "2020-01-15T09:56:12.633+01:00",
-                        "price_kind": "with_tax",
-                        "country_tax_id": 1,
-                        "calculation_method": "product_variant",
-                        "payment_method": null,
-                        "payment_period": null,
-                        "displayed": true,
-                        "quantities": null,
-                        "supplier": false,
-                        "default": false
-                      },
-                      "customer_category": {
-                        "id": 5071,
-                        "account_id": 520,
-                        "name": "Particulier",
-                        "price_grid_id": 4287,
-                        "individual": true,
-                        "deleted_at": null,
-                        "created_at": "2020-01-15T09:56:12.885+01:00",
-                        "updated_at": "2020-01-15T09:56:12.885+01:00",
-                        "payment_method": null,
-                        "payment_period": null,
-                        "kiosk": false
-                      }
-                    }
-                  ]
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Customer"
+                  }
                 }
               }
             }
           }
-        }
+        },
+        "operationId": "get-customers",
+        "parameters": [],
+        "description": "Liste des clients"
       },
       "parameters": [],
       "post": {
