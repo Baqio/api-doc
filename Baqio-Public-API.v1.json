@@ -23,8 +23,14 @@
     "/customers.json": {
       "get": {
         "summary": "Liste des clients",
-        "tags": [],
-        "responses": {},
+        "tags": [
+          "customers"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
         "operationId": "get-customers",
         "parameters": [],
         "description": "Liste des clients",
@@ -201,7 +207,10 @@
             }
           },
           "description": "La référence doit être unique pour le compte."
-        }
+        },
+        "tags": [
+          "customers"
+        ]
       }
     },
     "/customers/{id}.json": {
@@ -218,8 +227,21 @@
       ],
       "get": {
         "summary": "Informations sur un client",
-        "tags": [],
-        "responses": {},
+        "tags": [
+          "customers"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer"
+                }
+              }
+            }
+          }
+        },
         "operationId": "get-customers-id-.json",
         "description": "Récupère les informations d'un client."
       }
@@ -227,8 +249,24 @@
     "/orders.json": {
       "get": {
         "summary": "Liste des commandes",
-        "tags": [],
-        "responses": {},
+        "tags": [
+          "orders"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          }
+        },
         "operationId": "get-orders.json",
         "description": "Liste des commandes paginées."
       }
@@ -243,8 +281,20 @@
         "properties": {
           "id": {
             "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price_grid": {
+            "$ref": "#/components/schemas/PriceGrid"
+          },
+          "customer_category": {
+            "$ref": "#/components/schemas/CustomerCategory"
           }
-        }
+        },
+        "x-tags": [
+          "customers"
+        ]
       },
       "CustomerCategory": {
         "title": "CustomerCategory",
@@ -263,16 +313,22 @@
             "payment_method": null,
             "payment_period": null
           }
-        }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "x-tags": [
+          "Customer Categories"
+        ]
       },
       "PriceGrid": {
         "title": "PriceGrid",
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        },
         "x-examples": {
           "example-1": {
             "id": 4287,
@@ -290,7 +346,34 @@
             "supplier": false,
             "default": false
           }
-        }
+        },
+        "description": "Grilles tarifaires.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "x-tags": [
+          "Price Grids"
+        ]
+      },
+      "Order": {
+        "title": "Order",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "x-tags": [
+          "orders"
+        ]
       }
     },
     "securitySchemes": {
