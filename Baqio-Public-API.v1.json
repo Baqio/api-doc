@@ -20,7 +20,7 @@
     }
   ],
   "paths": {
-    "/customers.json": {
+    "/customers": {
       "get": {
         "summary": "Liste des clients",
         "tags": [
@@ -213,7 +213,7 @@
         ]
       }
     },
-    "/customers/{id}.json": {
+    "/customers/{id}": {
       "parameters": [
         {
           "schema": {
@@ -282,6 +282,32 @@
         "description": "Liste des expéditions."
       },
       "parameters": []
+    },
+    "/price_grids": {
+      "get": {
+        "summary": "Liste des grilles tarifaires",
+        "tags": [
+          "Price Grids"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PriceGrid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-price_grids",
+        "parameters": [],
+        "description": "Récupération de la liste des grilles tarifaires du compte."
+      }
     }
   },
   "components": {
