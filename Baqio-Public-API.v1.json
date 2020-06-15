@@ -54,7 +54,7 @@
             "description": "OK"
           }
         },
-        "description": "Créé un nouveau client.",
+        "description": "Créé un nouveau client. Le champ `reference` doit être unique pour le compte (`account_id`).",
         "requestBody": {
           "content": {
             "application/json": {
@@ -63,7 +63,7 @@
                 "properties": {}
               },
               "examples": {
-                "example-1": {
+                "example": {
                   "value": {
                     "customer": {
                       "billing_information": {
@@ -80,7 +80,7 @@
               }
             }
           },
-          "description": "La référence doit être unique pour le compte."
+          "description": ""
         },
         "tags": [
           "customers"
@@ -498,22 +498,48 @@
         "title": "Customer",
         "type": "object",
         "description": "Le modèle Customer stock les informations sur les clients d'un compte Baqio telles que ses données de facturation et livraison.",
+        "x-tags": [
+          "customers"
+        ],
         "properties": {
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "example": 12
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Nom du client",
+            "example": "Agathe Fauré"
           },
           "price_grid": {
             "$ref": "#/components/schemas/PriceGrid"
           },
           "customer_category": {
             "$ref": "#/components/schemas/CustomerCategory"
+          },
+          "email": {
+            "type": "string",
+            "example": "agathe.faure@gmail.com",
+            "format": "email"
+          },
+          "note": {
+            "type": "string",
+            "description": "Commentaire sur ce client",
+            "example": "Rencontré au Salon des Vignerons Indépendant de Paris"
+          },
+          "accepts_emailing": {
+            "type": "boolean",
+            "description": "Accepte les newsletter ?",
+            "example": "true"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Référence unique du client",
+            "example": "CL4151414"
           }
         },
-        "x-tags": [
-          "customers"
+        "required": [
+          "reference"
         ]
       },
       "CustomerCategory": {
