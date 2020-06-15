@@ -144,6 +144,18 @@
         "operationId": "get-orders.json",
         "description": "Liste des commandes paginées."
       }
+    },
+    "/fulfillments.json": {
+      "get": {
+        "summary": "Liste les expéditions",
+        "tags": [
+          "Fulfillments"
+        ],
+        "responses": {},
+        "operationId": "get-fulfillments",
+        "description": "Liste des expéditions."
+      },
+      "parameters": []
     }
   },
   "components": {
@@ -175,7 +187,7 @@
         "type": "object",
         "description": "Catégorie Client.",
         "x-examples": {
-          "example-1": {
+          "example": {
             "id": 5071,
             "account_id": 520,
             "name": "Particulier",
