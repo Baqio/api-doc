@@ -9536,6 +9536,81 @@
           },
           "product_size": {
             "$ref": "#/components/schemas/ProductSize"
+          },
+          "sku": {
+            "type": "string",
+            "description": "Identifiant de la variante"
+          },
+          "default_barcode": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "product_packaging_id": {
+            "type": "string"
+          },
+          "product_packaging": {
+            "$ref": "#/components/schemas/ProductPackaging"
+          },
+          "deleted_at": {
+            "type": "string"
+          },
+          "product_vintage_id": {
+            "type": "string"
+          },
+          "product_vintage": {
+            "$ref": "#/components/schemas/ProductVintage"
+          },
+          "nc8_code": {
+            "type": "string"
+          },
+          "net_weight": {
+            "type": "string"
+          },
+          "tare": {
+            "type": "string"
+          },
+          "functional_code": {
+            "type": "string"
+          },
+          "cost_price_cents": {
+            "type": "integer"
+          },
+          "cost_price_currency": {
+            "type": "string"
+          },
+          "marketable": {
+            "type": "boolean",
+            "description": "Commercialisable"
+          },
+          "fulfillable": {
+            "type": "string",
+            "description": "Expédiable (produit physique)"
+          },
+          "capsule_id": {
+            "type": "integer"
+          },
+          "capsule": {
+            "$ref": "#/components/schemas/Capsule"
+          },
+          "neutral_capsule_id": {
+            "type": "integer"
+          },
+          "neutral_capsule": {
+            "$ref": "#/components/schemas/Capsule"
+          },
+          "sales_unit": {
+            "type": "integer"
+          },
+          "cspc": {
+            "type": "string"
+          },
+          "ttb_id": {
+            "type": "string"
           }
         }
       }
