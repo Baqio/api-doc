@@ -2537,6 +2537,12 @@
           },
           "neutral_capsule_id": {
             "type": "integer"
+          },
+          "capsule": {
+            "$ref": ""
+          },
+          "neutral_capsule": {
+            "$ref": "#/components/schemas/Capsule"
           }
         }
       },
