@@ -245,7 +245,7 @@
         "description": "Récupère les informations d'un client."
       }
     },
-    "/orders.json": {
+    "/orders": {
       "get": {
         "summary": "Liste des commandes",
         "tags": [
@@ -569,9 +569,19 @@
             }
           }
         },
-        "operationId": "get-orders.json",
-        "description": "Liste des commandes paginées."
-      }
+        "operationId": "get-orders",
+        "description": "Liste des commandes paginées. Paginées par 50, indiquer le paramètre page pour obtenir les commandes suivantes, exemple : ",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "page"
+          }
+        ]
+      },
+      "parameters": []
     },
     "/fulfillments.json": {
       "get": {
@@ -899,9 +909,9 @@
         "x-tags": [
           "orders"
         ],
-        "description": "Le modèle Commande contient toutes les informations sur une commande. ",
+        "description": "Le modèle Commande contient toutes les informations sur une commande. \n\n**Valeurs possibles** \n\n- state\n    - draft : Brouillon (uniquement pour les commandes réalisées depuis le site e-commerce et non finalisées par le visiteur)\n    - pending : En attente (devis). Il est encore possible de modifier la commande\n    - validated : Validée (pro forma). Il n'est plus possible de la modifier (il faut alors la dévalider) et les produits correspondant sont marqués comme réservés dans le stock.\n    - removed : Annulée. Commande non facturée annulée.\n    - invoiced : Facturée\n    - cancelled : Annulée avec avoir. La commande était facturée et elle a été annulée. Elle a donc à la fois une facture et un avoir du même montant.\n- payment_status\n    - not_paid : Non payé\n    - partial : Règlement partiel\n    - paid : Payé\n    - cancelled : Annulé (commande non facturée annulée donc le paiement n'est plus dû ou commande facturée annulée sans paiement)\n    - to_refund : A rembourser (commande facturée et avec un paiement qu'il convient de rembourser)",
         "x-examples": {
-          "exampl": {
+          "example": {
             "id": 107580,
             "account_id": 520,
             "customer_id": 124389,
@@ -1408,6 +1418,127 @@
         },
         "x-tags": [
           "Shipping Informations"
+        ]
+      },
+      "TaxLine": {
+        "title": "TaxLine",
+        "type": "object",
+        "x-tags": [
+          "Tax Lines"
+        ],
+        "description": "Ligne de TVA",
+        "x-examples": {
+          "example": {
+            "id": 305879,
+            "taxable_id": 107580,
+            "taxable_type": "Order",
+            "country_tax_id": 1,
+            "name": "TVA France",
+            "tax_percentage": "20.0",
+            "price_cents": 7560,
+            "price_currency": "EUR",
+            "created_at": "2020-02-11T17:41:46.156+01:00",
+            "updated_at": "2020-02-11T17:41:46.156+01:00"
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "country_tax_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "example": "TVA France"
+          },
+          "tax_percentage": {
+            "type": "string",
+            "example": "\"20.0\""
+          },
+          "price_cents": {
+            "type": "integer",
+            "example": 7560
+          },
+          "price_currency": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        }
+      },
+      "ShippingLine": {
+        "title": "ShippingLine",
+        "type": "object",
+        "x-tags": [
+          "Shipping Lines"
+        ],
+        "description": "Modèle relatif aux frais de port et transporteur utilisé.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "order_id": {
+            "type": "integer"
+          },
+          "price_cents": {
+            "type": "integer"
+          },
+          "price_currency": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "fulfillment_service_id": {
+            "type": "integer",
+            "description": "Transporteur utilisé"
+          },
+          "calculation_method": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "manual"
+            ]
+          },
+          "price_with_tax_cents": {
+            "type": "integer"
+          },
+          "price_with_tax_currency": {
+            "type": "string"
+          },
+          "cost_price_cents": {
+            "type": "integer"
+          },
+          "cost_price_currency": {
+            "type": "string"
+          },
+          "gross_margin_cents": {
+            "type": "integer"
+          },
+          "gross_margin_currency": {
+            "type": "string"
+          },
+          "departure_conditions": {
+            "type": "boolean"
+          },
+          "accounting_tax": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "example": "Livraison : Enlèvement sur place"
+          }
+        },
+        "required": [
+          "calculation_method"
         ]
       }
     },
