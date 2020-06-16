@@ -1073,6 +1073,245 @@
         ],
         "description": "Liste des capsules"
       }
+    },
+    "/product_families": {
+      "get": {
+        "summary": "Liste des familles de produits",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductFamily"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 511,
+                        "account_id": 86,
+                        "name": "Vin",
+                        "handle": "standard",
+                        "displayed": true,
+                        "deletable": false,
+                        "deleted_at": null,
+                        "created_at": "2017-07-19T12:11:43.222+02:00",
+                        "updated_at": "2018-09-04T23:10:57.954+02:00",
+                        "position": 10,
+                        "inventory": true,
+                        "kind": "standard"
+                      },
+                      {
+                        "id": 512,
+                        "account_id": 86,
+                        "name": "Coffret",
+                        "handle": "pack",
+                        "displayed": true,
+                        "deletable": false,
+                        "deleted_at": null,
+                        "created_at": "2017-07-19T12:11:43.226+02:00",
+                        "updated_at": "2018-09-04T23:10:57.959+02:00",
+                        "position": 9,
+                        "inventory": true,
+                        "kind": "pack"
+                      },
+                      {
+                        "id": 611,
+                        "account_id": 86,
+                        "name": "Ateliers",
+                        "handle": "ateliers",
+                        "displayed": true,
+                        "deletable": true,
+                        "deleted_at": null,
+                        "created_at": "2017-09-26T19:12:43.254+02:00",
+                        "updated_at": "2018-09-04T23:10:58.392+02:00",
+                        "position": 0,
+                        "inventory": false,
+                        "kind": "other"
+                      },
+                      {
+                        "id": 514,
+                        "account_id": 86,
+                        "name": "Avoir",
+                        "handle": "refund",
+                        "displayed": true,
+                        "deletable": false,
+                        "deleted_at": null,
+                        "created_at": "2017-07-19T12:11:43.246+02:00",
+                        "updated_at": "2018-11-13T18:34:39.710+01:00",
+                        "position": 0,
+                        "inventory": false,
+                        "kind": "other"
+                      },
+                      {
+                        "id": 610,
+                        "account_id": 86,
+                        "name": "Boutique",
+                        "handle": "boutique",
+                        "displayed": false,
+                        "deletable": true,
+                        "deleted_at": null,
+                        "created_at": "2017-09-26T19:12:24.285+02:00",
+                        "updated_at": "2018-09-04T23:10:59.893+02:00",
+                        "position": 0,
+                        "inventory": true,
+                        "kind": "other"
+                      },
+                      {
+                        "id": 609,
+                        "account_id": 86,
+                        "name": "Caisses bois",
+                        "handle": "conditionnements",
+                        "displayed": true,
+                        "deletable": true,
+                        "deleted_at": null,
+                        "created_at": "2017-09-14T14:32:01.057+02:00",
+                        "updated_at": "2018-09-04T23:10:58.386+02:00",
+                        "position": 0,
+                        "inventory": true,
+                        "kind": "other"
+                      },
+                      {
+                        "id": 2761,
+                        "account_id": 86,
+                        "name": "Champagne",
+                        "handle": "champagne",
+                        "displayed": true,
+                        "deletable": true,
+                        "deleted_at": null,
+                        "created_at": "2019-10-17T14:10:31.077+02:00",
+                        "updated_at": "2019-10-17T14:10:31.077+02:00",
+                        "position": 0,
+                        "inventory": true,
+                        "kind": "standard"
+                      },
+                      {
+                        "id": 516,
+                        "account_id": 86,
+                        "name": "Commission",
+                        "handle": "commission",
+                        "displayed": false,
+                        "deletable": false,
+                        "deleted_at": null,
+                        "created_at": "2017-07-19T12:11:43.258+02:00",
+                        "updated_at": "2018-09-04T23:10:58.080+02:00",
+                        "position": 0,
+                        "inventory": false,
+                        "kind": "other"
+                      },
+                      {
+                        "id": 612,
+                        "account_id": 86,
+                        "name": "Formules",
+                        "handle": "formules",
+                        "displayed": false,
+                        "deletable": true,
+                        "deleted_at": null,
+                        "created_at": "2017-09-26T19:12:56.887+02:00",
+                        "updated_at": "2018-09-04T23:10:58.576+02:00",
+                        "position": 0,
+                        "inventory": false,
+                        "kind": "other"
+                      },
+                      {
+                        "id": 1504,
+                        "account_id": 86,
+                        "name": "Port fournisseurs",
+                        "handle": "port-fournisseurs",
+                        "displayed": true,
+                        "deletable": true,
+                        "deleted_at": null,
+                        "created_at": "2018-07-04T10:40:22.083+02:00",
+                        "updated_at": "2018-09-04T23:11:03.542+02:00",
+                        "position": 0,
+                        "inventory": true,
+                        "kind": "other"
+                      },
+                      {
+                        "id": 851,
+                        "account_id": 86,
+                        "name": "Prestation",
+                        "handle": "service",
+                        "displayed": true,
+                        "deletable": true,
+                        "deleted_at": null,
+                        "created_at": "2017-12-28T15:31:00.557+01:00",
+                        "updated_at": "2018-09-04T23:11:00.175+02:00",
+                        "position": 0,
+                        "inventory": false,
+                        "kind": "other"
+                      },
+                      {
+                        "id": 515,
+                        "account_id": 86,
+                        "name": "Remise / Promotion",
+                        "handle": "discount",
+                        "displayed": false,
+                        "deletable": false,
+                        "deleted_at": null,
+                        "created_at": "2017-07-19T12:11:43.254+02:00",
+                        "updated_at": "2018-09-04T23:10:58.086+02:00",
+                        "position": 0,
+                        "inventory": false,
+                        "kind": "other"
+                      },
+                      {
+                        "id": 2762,
+                        "account_id": 86,
+                        "name": "Spiritueux",
+                        "handle": "spiritueux",
+                        "displayed": true,
+                        "deletable": true,
+                        "deleted_at": null,
+                        "created_at": "2019-10-17T14:10:46.023+02:00",
+                        "updated_at": "2019-10-17T14:10:46.023+02:00",
+                        "position": 0,
+                        "inventory": true,
+                        "kind": "standard"
+                      },
+                      {
+                        "id": 1421,
+                        "account_id": 86,
+                        "name": "Taxes",
+                        "handle": "taxes",
+                        "displayed": true,
+                        "deletable": true,
+                        "deleted_at": null,
+                        "created_at": "2018-06-05T11:15:47.506+02:00",
+                        "updated_at": "2018-09-04T23:11:03.158+02:00",
+                        "position": 0,
+                        "inventory": false,
+                        "kind": "other"
+                      },
+                      {
+                        "id": 513,
+                        "account_id": 86,
+                        "name": "Transport",
+                        "handle": "transport",
+                        "displayed": false,
+                        "deletable": false,
+                        "deleted_at": null,
+                        "created_at": "2017-07-19T12:11:43.231+02:00",
+                        "updated_at": "2018-09-04T23:10:58.089+02:00",
+                        "position": 0,
+                        "inventory": false,
+                        "kind": "other"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-product_families",
+        "description": ""
+      }
     }
   },
   "components": {
