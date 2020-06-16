@@ -812,11 +812,13 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer"
           },
           "name": "id",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "ID de la facture",
+          "style": "matrix"
         }
       ],
       "get": {
@@ -830,7 +832,8 @@
           }
         },
         "operationId": "get-accountings-invoices-id",
-        "description": "Récupère la facture au format PDF."
+        "description": "Récupère la facture au format PDF.",
+        "parameters": []
       }
     }
   },
