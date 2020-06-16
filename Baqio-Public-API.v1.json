@@ -807,6 +807,31 @@
         "operationId": "get-orders-id",
         "description": "Récupère les informations sur une commande."
       }
+    },
+    "/accountings/invoices/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Récupération d'une facture",
+        "tags": [
+          "Accountings"
+        ],
+        "responses": {
+          "200": {
+            "description": "Facture au format binaire encodé en base 64. "
+          }
+        },
+        "operationId": "get-accountings-invoices-id",
+        "description": "Récupère la facture au format PDF."
+      }
     }
   },
   "components": {
@@ -1826,6 +1851,9 @@
     },
     {
       "name": "Payment Sources"
+    },
+    {
+      "name": "Accountings"
     }
   ]
 }
