@@ -751,7 +751,9 @@
     "/payment_sources": {
       "get": {
         "summary": "Liste des modes de paiement",
-        "tags": [],
+        "tags": [
+          "Payment Sources"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1786,6 +1788,9 @@
   "tags": [
     {
       "name": "orders"
+    },
+    {
+      "name": "Payment Sources"
     }
   ]
 }
