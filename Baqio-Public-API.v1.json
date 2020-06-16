@@ -2148,6 +2148,53 @@
             "kind": "bottle"
           }
         }
+      },
+      "ProductPackaging": {
+        "title": "ProductPackaging",
+        "type": "object",
+        "description": "Conditionnements (carton, vrac, etc.)",
+        "x-tags": [
+          "Product Packagings"
+        ],
+        "x-examples": {
+          "example": {
+            "id": 2340,
+            "account_id": 520,
+            "name": "Carton 6",
+            "quantity": 1,
+            "created_at": "2020-01-15T09:56:10.795+01:00",
+            "updated_at": "2020-01-15T16:55:19.730+01:00",
+            "deleted_at": null,
+            "packing_quantity": 6,
+            "package_kind_id": null,
+            "net_weight": null
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "example": "Carton 6"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "deleted_at": {
+            "type": "string"
+          },
+          "packing_quantity": {
+            "type": "integer",
+            "description": "Colisage"
+          },
+          "package_kind_id": {
+            "type": "integer"
+          },
+          "net_weight": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {
