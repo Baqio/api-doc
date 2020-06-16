@@ -839,7 +839,9 @@
     "/accountings/entries": {
       "get": {
         "summary": "Récupère les écritures comptables sur une période donnée.",
-        "tags": [],
+        "tags": [
+          "Accountings"
+        ],
         "responses": {
           "200": {
             "description": "OK",
