@@ -772,6 +772,41 @@
         "operationId": "get-payment_sources",
         "description": "Récupère la liste des modes de paiements."
       }
+    },
+    "/orders/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Informations sur une commande",
+        "tags": [
+          "orders"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                },
+                "examples": {
+                  "example-1": {}
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-orders-id",
+        "description": "Récupère les informations sur une commande."
+      }
     }
   },
   "components": {
