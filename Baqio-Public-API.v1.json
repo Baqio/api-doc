@@ -2195,6 +2195,47 @@
             "type": "string"
           }
         }
+      },
+      "ProductPrice": {
+        "title": "ProductPrice",
+        "type": "object",
+        "x-tags": [
+          "Product Variants"
+        ],
+        "description": "Tarif d'une variante produit pour une grille tarifaire ou pour un client.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "product_variant_id": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Quantité applicable"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "deleted_at": {
+            "type": "string"
+          },
+          "price_cents": {
+            "type": "integer"
+          },
+          "price_currency": {
+            "type": "string"
+          },
+          "price_grid_id": {
+            "type": "integer"
+          },
+          "price_grid": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {
