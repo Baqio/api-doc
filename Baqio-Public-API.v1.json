@@ -7609,6 +7609,32 @@
         "operationId": "get-product_families",
         "description": ""
       }
+    },
+    "/product_packagings": {
+      "get": {
+        "summary": "Liste des conditionnements",
+        "tags": [
+          "Product Variants"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductPackaging"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-product_packagings",
+        "description": ""
+      }
     }
   },
   "components": {
