@@ -3,7 +3,7 @@
   "info": {
     "title": "Baqio Public API",
     "version": "1.0",
-    "description": "Documentation de l'API Baqio, logiciel de gestion commerciale spécialisée pour les domaines viticoles et les négoces.\n\nL'API est uniquement accessible en HTTPS. Si l'API est appelée en HTTP, elle retournera une erreur de type tls_required.\n\n### Authentification\n\nPour accéder à l'API vous devez disposer de trois informations : \n\n- une clé API\n- un mot de passe\n- une clé secrète\n\nVous pouvez créer ces informations sur Baqio dans Paramètres > Mon compte. Tout en bas dans \"Clés API\".\n\nLorsque vous faites un appel à l'API, vous devez utilisez une authentification basique avec la clé API et le mot de passe.\n\n### MIME Types\n\nToutes les requêtes et toutes les réponses sont au format JSON et encodées en UTF-8.\n\nUn `Accept` header est nécessaire pour les requêtes. Exemple :\n\n```jsx\n'Content-Type' => 'application/json',\n'Accept' => 'application/json'\n```\n\nDans le cas des requêtes de type POST, il est nécessaire de signer les requêtes et de transmettre la signature dans un header `X-Baqio-Hmac-Sha256`\n\nCette signature est calculée à partir du body envoyé en POST et de la clef secrète : \n```ruby\ndigest = OpenSSL::Digest.new('sha256')\nBase64.encode64(OpenSSL::HMAC.digest(digest, secret, body.to_s)).strip\n```",
+    "description": "Documentation de l'API Baqio, logiciel de gestion commerciale spécialisée pour les domaines viticoles et les négoces.\n\nL'API est uniquement accessible en HTTPS. Si l'API est appelée en HTTP, elle retournera une erreur de type tls_required.\n\n### Authentification\n\nPour accéder à l'API vous devez disposer de trois informations : \n\n- une clé API\n- un mot de passe\n- une clé secrète\n\nVous pouvez créer ces informations sur Baqio dans Paramètres > Mon compte. Tout en bas dans \"Clés API\".\n\nLorsque vous faites un appel à l'API, vous devez utilisez une authentification basique avec la clé API et le mot de passe.\n\nL'authentification utilisée est type (https://en.wikipedia.org/wiki/Basic_access_authentication)[Basic authentication ], lors des requêtes HTTP il faut transmettre un Authorization header contenant le mot \"Basic\" suivi par un espace et string encodé en base64 (strict) contenant username:password. Par exemple pour autoriser en tant que demo / p@55w0rd, le client enverrait : \n\n```\nAuthorization: Basic ZGVtbzpwQDU1dzByZA==\n```\n\n### MIME Types\n\nToutes les requêtes et toutes les réponses sont au format JSON et encodées en UTF-8.\n\nUn `Accept` header est nécessaire pour les requêtes. Exemple :\n\n```jsx\n'Content-Type' => 'application/json',\n'Accept' => 'application/json'\n```\n\nDans le cas des requêtes de type POST, il est nécessaire de signer les requêtes et de transmettre la signature dans un header `X-Baqio-Hmac-Sha256`\n\nCette signature est calculée à partir du body envoyé en POST et de la clef secrète : \n```ruby\ndigest = OpenSSL::Digest.new('sha256')\nBase64.encode64(OpenSSL::HMAC.digest(digest, secret, body.to_s)).strip\n```",
     "contact": {
       "name": "Sylvain Gautier",
       "email": "support@baqio.com"
@@ -751,7 +751,8 @@
     "securitySchemes": {
       "Basic": {
         "type": "http",
-        "scheme": "basic"
+        "scheme": "basic",
+        "description": ""
       }
     }
   },
