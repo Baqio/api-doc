@@ -23364,14 +23364,6 @@
       "Order": {
         "title": "Order",
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
         "x-tags": [
           "orders"
         ],
@@ -23673,6 +23665,185 @@
                 "updated_at": "2020-02-11T17:41:46.156+01:00"
               }
             ]
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "account_id": {
+            "type": "integer"
+          },
+          "customer_id": {
+            "type": "integer"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "sales_agent_id": {
+            "type": "integer"
+          },
+          "number": {
+            "type": "integer"
+          },
+          "fulfillment_status": {
+            "type": "string"
+          },
+          "total_price_cents": {
+            "type": "integer"
+          },
+          "total_price_currency": {
+            "type": "string"
+          },
+          "total_tax_cents": {
+            "type": "integer"
+          },
+          "total_tax_currency": {
+            "type": "string"
+          },
+          "total_weight": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "cancel_reason": {
+            "type": "string"
+          },
+          "cancelled_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "commission_price_cents": {
+            "type": "integer"
+          },
+          "commission_price_currency": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          },
+          "bottle_quantity": {
+            "type": "string"
+          },
+          "price_grid_id": {
+            "type": "integer"
+          },
+          "total_order_lines_price_cents": {
+            "type": "integer"
+          },
+          "total_order_lines_price_currency": {
+            "type": "string"
+          },
+          "total_discounts_cents": {
+            "type": "string"
+          },
+          "total_discounts_currency": {
+            "type": "string"
+          },
+          "subtotal_price_cents": {
+            "type": "integer"
+          },
+          "subtotal_price_currency": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "name": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "paid_amount_cents": {
+            "type": "integer"
+          },
+          "paid_amount_currency": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "warehouse_id": {
+            "type": "integer"
+          },
+          "api_key_id": {
+            "type": "integer"
+          },
+          "order_type": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "hid": {
+            "type": "string"
+          },
+          "excise_duty_state": {
+            "type": "string"
+          },
+          "trade_union_reference": {
+            "type": "string"
+          },
+          "customs_document": {
+            "type": "string"
+          },
+          "customs_number": {
+            "type": "string"
+          },
+          "invoice_note": {
+            "type": "string"
+          },
+          "accounting_tax": {
+            "type": "string"
+          },
+          "picking_note": {
+            "type": "string"
+          },
+          "register_id": {
+            "type": "integer"
+          },
+          "payment_status": {
+            "type": "string"
+          },
+          "gross_margin_cents": {
+            "type": "integer"
+          },
+          "gross_margin_currency": {
+            "type": "string"
+          },
+          "external_id": {
+            "type": "string"
+          },
+          "price_with_tax": {
+            "type": "boolean"
+          },
+          "manual_fulfillment": {
+            "type": "boolean"
+          },
+          "primeured": {
+            "type": "boolean"
+          },
+          "order_lines_not_deleted": {
+            "type": "array",
+            "items": {}
+          },
+          "shipping_line": {
+            "$ref": "#/components/schemas/ShippingLine"
+          },
+          "fulfillments": {
+            "$ref": "#/components/schemas/Fulfillment"
+          },
+          "payment_links": {
+            "type": "array",
+            "items": {}
           }
         }
       },
