@@ -247,7 +247,7 @@
     },
     "/orders": {
       "get": {
-        "summary": "Création d'une commande",
+        "summary": "Liste des commandes",
         "tags": [
           "orders"
         ],
@@ -583,7 +583,7 @@
       },
       "parameters": [],
       "post": {
-        "summary": "",
+        "summary": "Création d'une commande",
         "operationId": "post-orders",
         "responses": {
           "200": {
@@ -698,7 +698,11 @@
             }
           },
           "description": "Si vous renvoyez une commande avec la même référence mais que vous spécifiez un state différent, celle-ci sera mise à jour. \n\n- Si la commande est à l'état 'pending' et que vous passez le state 'validated', cela validera la commande et réservera le stock.\n- Si la commande est à l'état 'pending' ou 'validated' et que vous passez l'état 'removed', cela annulera la commande.\n- Si la commande est à l'état 'invoiced' et que vous passez l'état 'cancelled', la commande sera annulée et un avoir sera créé."
-        }
+        },
+        "tags": [
+          "orders"
+        ],
+        "description": "Création de commande."
       }
     },
     "/fulfillments.json": {
@@ -1671,6 +1675,11 @@
   "security": [
     {
       "Authentification basique par login et mot de passe.": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "orders"
     }
   ]
 }
