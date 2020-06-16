@@ -2534,6 +2534,9 @@
           "appellation": {
             "type": "string",
             "example": "AOP Cabernet d'Anjou"
+          },
+          "neutral_capsule_id": {
+            "type": "integer"
           }
         }
       }
