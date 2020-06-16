@@ -747,6 +747,29 @@
         "parameters": [],
         "description": "Récupération de la liste des grilles tarifaires du compte."
       }
+    },
+    "/payment_sources": {
+      "get": {
+        "summary": "Liste des modes de paiement",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentSource"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-payment_sources",
+        "description": "Récupère la liste des modes de paiements."
+      }
     }
   },
   "components": {
