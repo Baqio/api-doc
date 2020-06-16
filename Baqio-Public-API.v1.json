@@ -2539,6 +2539,77 @@
             "type": "integer"
           }
         }
+      },
+      "Capsule": {
+        "title": "Capsule",
+        "type": "object",
+        "description": "Capsule CRD ou Neutre utilisée.",
+        "x-examples": {
+          "example": {
+            "id": 31,
+            "account_id": 86,
+            "color": "blue",
+            "deleted_at": null,
+            "created_at": "2017-09-15T16:32:10.397+02:00",
+            "updated_at": "2019-10-09T16:53:22.428+02:00",
+            "kind": "collective",
+            "label": "",
+            "product_category_id": null,
+            "name": "Bleue (C)"
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "account_id": {
+            "type": "integer"
+          },
+          "color": {
+            "type": "string",
+            "enum": [
+              "none",
+              "green",
+              "blue",
+              "wine",
+              "orange",
+              "yellow",
+              "gray",
+              "red",
+              "white"
+            ]
+          },
+          "deleted_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "collective",
+              "custom"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "description": "Nom personnalisé"
+          },
+          "product_category_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "description": "Bleue (C)"
+          }
+        },
+        "x-tags": [
+          "Product Variants"
+        ]
       }
     },
     "securitySchemes": {
