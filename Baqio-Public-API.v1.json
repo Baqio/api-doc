@@ -185,8 +185,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {}
+                "$ref": "#/components/schemas/Customer"
               },
               "examples": {
                 "example": {
