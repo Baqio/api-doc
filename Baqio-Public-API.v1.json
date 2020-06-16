@@ -2646,6 +2646,9 @@
           },
           "neutral_capsule": {
             "$ref": "#/components/schemas/Capsule"
+          },
+          "product_family": {
+            "$ref": "#/components/schemas/ProductFamily"
           }
         }
       },
@@ -2810,7 +2813,10 @@
               "other"
             ]
           }
-        }
+        },
+        "x-tags": [
+          "Product Variants"
+        ]
       }
     },
     "securitySchemes": {
