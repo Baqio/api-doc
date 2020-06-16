@@ -2406,6 +2406,136 @@
             "handle": "red"
           }
         }
+      },
+      "Product": {
+        "title": "Product",
+        "type": "object",
+        "x-tags": [
+          "Product Variants"
+        ],
+        "description": "",
+        "x-examples": {
+          "example": {
+            "id": 2812,
+            "account_id": 520,
+            "name": "Cuvée des copains Rouge",
+            "product_color_id": 1,
+            "created_at": "2020-01-15T10:24:08.746+01:00",
+            "updated_at": "2020-01-15T10:24:08.746+01:00",
+            "deleted_at": null,
+            "supplier_id": null,
+            "appellation_id": null,
+            "body_html": "",
+            "text": null,
+            "product_category_id": 1,
+            "country_code": "FR",
+            "classification": "",
+            "position": 0,
+            "product_certification_id": 2,
+            "inao_appellation_id": 145,
+            "inao_denomination_id": 306,
+            "inao_product_id": 1717,
+            "excise_duty_state": null,
+            "kind": "standard",
+            "capsule_id": 430,
+            "interprofessional_code": "",
+            "vinosoft_id": null,
+            "zone_code": "",
+            "product_family_id": 2972,
+            "neutral_capsule_id": 431,
+            "tag_list": [],
+            "appellation": "AOP Cabernet d'Anjou",
+            "product_color": {
+              "id": 1,
+              "name": "Rouge",
+              "position": 0,
+              "created_at": "2015-06-30T14:39:54.110+02:00",
+              "updated_at": "2018-09-28T17:31:41.753+02:00",
+              "handle": "red"
+            }
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "account_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "product_color_id": {
+            "type": "integer"
+          },
+          "product_color": {
+            "$ref": "#/components/schemas/ProductColor"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "deleted_at": {
+            "type": "string"
+          },
+          "supplier_id": {
+            "type": "string"
+          },
+          "body_html": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "product_category_id": {
+            "type": "string"
+          },
+          "country_code": {
+            "type": "string"
+          },
+          "classification": {
+            "type": "string"
+          },
+          "position": {
+            "type": "string"
+          },
+          "product_certification_id": {
+            "type": "integer"
+          },
+          "inao_appellation_id": {
+            "type": "integer"
+          },
+          "inao_denomination_id": {
+            "type": "integer"
+          },
+          "inao_product_id": {
+            "type": "integer"
+          },
+          "excise_duty_state": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "capsule_id": {
+            "type": "integer"
+          },
+          "interprofessional_code": {
+            "type": "string"
+          },
+          "zone_code": {
+            "type": "string"
+          },
+          "tag_list": {
+            "type": "string"
+          },
+          "appellation": {
+            "type": "string",
+            "example": "AOP Cabernet d'Anjou"
+          }
+        }
       }
     },
     "securitySchemes": {
