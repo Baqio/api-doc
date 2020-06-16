@@ -627,6 +627,9 @@
         "x-tags": [
           "customers"
         ],
+        "x-examples": {
+          "example-1": {}
+        },
         "properties": {
           "id": {
             "type": "integer",
@@ -655,13 +658,39 @@
           },
           "accepts_emailing": {
             "type": "boolean",
-            "description": "Accepte les newsletter ?",
+            "description": "Accepte les newsletters ?",
             "example": "true"
           },
           "reference": {
             "type": "string",
             "description": "Référence unique du client",
             "example": "CL4151414"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-01-15T16:56:05.592+01:00"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-01-15T16:56:05.592+01:00"
+          },
+          "price_grid_id": {
+            "type": "integer",
+            "description": "ID de la grille tarifaire"
+          },
+          "accepts_mailing": {
+            "type": "boolean",
+            "description": "Accepte les courriers papiers ?"
+          },
+          "code": {
+            "type": "string",
+            "description": "Code comptable du client"
+          },
+          "warehouse_id": {
+            "type": "integer",
+            "description": "ID de l'entrepôt assigné au client si existant\n"
           }
         },
         "required": [
@@ -745,7 +774,382 @@
         },
         "x-tags": [
           "orders"
-        ]
+        ],
+        "description": "Le modèle Commande contient toutes les informations sur une commande. ",
+        "x-examples": {
+          "exampl": {
+            "id": 107580,
+            "account_id": 520,
+            "customer_id": 124389,
+            "sales_agent_id": null,
+            "number": 274,
+            "fulfillment_status": "none",
+            "total_price_cents": 45360,
+            "total_price_currency": "EUR",
+            "total_tax_cents": 7560,
+            "total_tax_currency": "EUR",
+            "total_weight": null,
+            "note": "",
+            "cancel_reason": null,
+            "cancelled_at": null,
+            "created_at": "2020-02-11T17:40:52.772+01:00",
+            "updated_at": "2020-02-11T17:44:33.740+01:00",
+            "commission_price_cents": 0,
+            "commission_price_currency": "EUR",
+            "quantity": "36.0",
+            "bottle_quantity": "36.0",
+            "price_grid_id": 4287,
+            "total_order_lines_price_cents": 42000,
+            "total_order_lines_price_currency": "EUR",
+            "total_discounts_cents": 4200,
+            "total_discounts_currency": "EUR",
+            "subtotal_price_cents": 37800,
+            "subtotal_price_currency": "EUR",
+            "date": "2020-02-11",
+            "name": "#1274",
+            "reference": null,
+            "paid_amount_cents": 45360,
+            "paid_amount_currency": "EUR",
+            "state": "invoiced",
+            "warehouse_id": 638,
+            "api_key_id": null,
+            "order_type": "normal",
+            "channel": "backoffice",
+            "hid": null,
+            "excise_duty_state": "pay",
+            "trade_union_reference": null,
+            "customs_document": null,
+            "customs_number": null,
+            "invoice_note": null,
+            "accounting_tax": "fr",
+            "picking_note": null,
+            "register_id": null,
+            "payment_status": "paid",
+            "gross_margin_cents": 25200,
+            "gross_margin_currency": "EUR",
+            "external_id": null,
+            "price_with_tax": true,
+            "manual_fulfillment": false,
+            "primeured": false,
+            "tag_list": [],
+            "outstanding_amount": {
+              "cents": 0,
+              "currency_iso": "EUR"
+            },
+            "customer": {
+              "id": 124389,
+              "account_id": 520,
+              "name": "Lucas Picard",
+              "email": "sylvain@baqio.com",
+              "note": null,
+              "accepts_emailing": true,
+              "created_at": "2020-01-15T16:55:59.697+01:00",
+              "updated_at": "2020-02-11T16:11:46.028+01:00",
+              "sales_agent_id": null,
+              "price_grid_id": 4287,
+              "reference": null,
+              "accepts_mailing": true,
+              "warehouse_id": null,
+              "visibility": "all",
+              "channel": null,
+              "customer_category_id": 5071,
+              "deleted_at": null,
+              "payment_method": null,
+              "payment_period": null,
+              "code": "LUCASP",
+              "vinosoft_id": null,
+              "accounted_at": null,
+              "hid": null,
+              "user_id": null,
+              "automatic_discount_rate": null,
+              "sponsor_id": null,
+              "commission_rate": null,
+              "invoice_preference": null,
+              "block_orders": false,
+              "sticky_note": false,
+              "tag_list": [],
+              "billing_information": {
+                "id": 217791,
+                "billable_id": 124389,
+                "company_name": "",
+                "first_name": "Lucas",
+                "last_name": "Picard",
+                "email": "sylvain@baqio.com",
+                "address1": "",
+                "address2": "",
+                "city": "MONTPELLIER",
+                "zip": "34000",
+                "province": "",
+                "country_code": "FR",
+                "phone": "",
+                "company_number": "",
+                "vat_number": "",
+                "excise_number": "",
+                "created_at": "2020-01-15T16:55:59.816+01:00",
+                "updated_at": "2020-02-11T16:11:45.963+01:00",
+                "billable_type": "Customer",
+                "legal_form": "",
+                "subdivision_code": "34",
+                "title": null,
+                "mobile": "",
+                "undeliverable_address": false,
+                "address3": "",
+                "fax": null,
+                "tax_exempt": false,
+                "website": ""
+              },
+              "shipping_information": {
+                "id": 270436,
+                "shippable_id": 124389,
+                "use_billing_address": true,
+                "company_name": null,
+                "first_name": null,
+                "last_name": null,
+                "address1": null,
+                "address2": null,
+                "city": null,
+                "zip": null,
+                "province": null,
+                "country_code": null,
+                "phone": null,
+                "note": null,
+                "delivery_schedules": null,
+                "closing_days": null,
+                "created_at": "2020-01-15T16:55:59.867+01:00",
+                "updated_at": "2020-01-15T16:55:59.867+01:00",
+                "shippable_type": "Customer",
+                "dae_number": null,
+                "title": null,
+                "undeliverable_address": false,
+                "address3": null,
+                "mobile": null,
+                "excise_number": null
+              }
+            },
+            "order_lines_not_deleted": [
+              {
+                "id": 259104,
+                "order_id": 107580,
+                "product_variant_id": 6182,
+                "name": "Pink 2019",
+                "description": "Bouteille (75 cl) - Carton 6",
+                "quantity": "36.0",
+                "price_cents": 1167,
+                "price_currency": "EUR",
+                "total_price_cents": 42000,
+                "total_price_currency": "EUR",
+                "created_at": "2020-02-11T17:41:17.803+01:00",
+                "updated_at": "2020-02-11T17:41:45.521+01:00",
+                "fulfilled_quantity": "0.0",
+                "pending_fulfilled_quantity": "0.0",
+                "total_discount_cents": 4200,
+                "total_discount_currency": "EUR",
+                "free_shipping": false,
+                "product_price_id": 5074,
+                "deleted_at": null,
+                "product_vintage_id": 4412,
+                "capsule_id": 430,
+                "complement": "AOP Rosé d'Anjou - Rosé",
+                "bottle_quantity": "36.0",
+                "manual_price_cents": null,
+                "manual_price_currency": "EUR",
+                "product_label_id": null,
+                "final_price_cents": 37800,
+                "final_price_currency": "EUR",
+                "note": null,
+                "price_with_tax_cents": 1400,
+                "price_with_tax_currency": "EUR",
+                "total_price_with_tax_cents": 50400,
+                "total_price_with_tax_currency": "EUR",
+                "final_price_with_tax_cents": 45360,
+                "final_price_with_tax_currency": "EUR",
+                "batch_id": null,
+                "gross_margin_cents": 25200,
+                "gross_margin_currency": "EUR",
+                "manual_country_tax_id": null,
+                "vintage_complement": "",
+                "capsule_kind": null,
+                "primeured": false,
+                "manual_tax_exempted": false,
+                "accounting_tax": null,
+                "product_variant": {
+                  "id": 6182,
+                  "product_size_id": 2,
+                  "sku": "",
+                  "default_barcode": "",
+                  "created_at": "2020-01-15T10:22:16.174+01:00",
+                  "updated_at": "2020-01-15T16:55:22.034+01:00",
+                  "product_packaging_id": 2340,
+                  "deleted_at": null,
+                  "product_label_id": null,
+                  "product_vintage_id": 4412,
+                  "nc8_code": "",
+                  "vinosoft_id": null,
+                  "net_weight": null,
+                  "tare": null,
+                  "functional_code": "",
+                  "cost_price_cents": 350,
+                  "cost_price_currency": "EUR",
+                  "marketable": true,
+                  "fulfillable": true,
+                  "capsule_id": null,
+                  "neutral_capsule_id": null
+                },
+                "commission_line": {
+                  "id": 225401,
+                  "order_line_id": 259104,
+                  "calculation_method": "relative",
+                  "rate": "0.0",
+                  "discount_rate": "0.0",
+                  "commission_price_cents": 0,
+                  "commission_price_currency": "EUR",
+                  "discount_amount_cents": 0,
+                  "discount_amount_currency": "EUR",
+                  "created_at": "2020-02-11T17:41:18.699+01:00",
+                  "updated_at": "2020-02-11T17:41:18.699+01:00",
+                  "original_rate": "0.0",
+                  "discount_amount_with_tax_cents": 0,
+                  "discount_amount_with_tax_currency": "EUR",
+                  "unit_deducted_amount_cents": 0,
+                  "unit_deducted_amount_currency": "EUR",
+                  "total_deducted_amount_cents": 0,
+                  "total_deducted_amount_currency": "EUR"
+                }
+              }
+            ],
+            "invoice_debit": {
+              "id": 105844,
+              "order_id": 107580,
+              "number": 260,
+              "name": "FA-1260",
+              "due_date": "2020-03-12",
+              "created_at": "2020-02-11T17:42:55.068+01:00",
+              "updated_at": "2020-02-11T17:44:33.509+01:00",
+              "date": "2020-02-11",
+              "status": "debit",
+              "file": {
+                "url": "https://vinosoft-staging.s3-eu-west-3.amazonaws.com/uploads/invoice/file/105844/1274.pdf?X-Amz-Expires=300&X-Amz-Date=20200217T160824Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJQAEM4Z3DPIKNLLQ%2F20200217%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=e8cf0faad55bd7d14ca4e4a6ead03b372eb5d594f9dcffe36a0ccf17b11c703c"
+              },
+              "notify_customer": false,
+              "kind": "facture",
+              "payment_duration": 0,
+              "payment_method": null,
+              "payment_period": null,
+              "commission_statement_id": null,
+              "paid_at": "2020-02-11",
+              "accounted_at": null,
+              "file_url": "https://vinosoft-staging.s3-eu-west-3.amazonaws.com/uploads/invoice/file/105844/1274.pdf?X-Amz-Expires=300&X-Amz-Date=20200217T160810Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJQAEM4Z3DPIKNLLQ%2F20200217%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=4741d7ef88316c8056deb1d6aab2ef283be4393fb3b51a264c28ec60361b3625"
+            },
+            "shipping_line": {
+              "id": 107577,
+              "order_id": 107580,
+              "price_cents": 0,
+              "price_currency": "EUR",
+              "created_at": "2020-02-11T17:40:52.895+01:00",
+              "updated_at": "2020-02-11T17:40:52.895+01:00",
+              "fulfillment_service_id": null,
+              "calculation_method": "auto",
+              "price_with_tax_cents": 0,
+              "price_with_tax_currency": "EUR",
+              "cost_price_cents": 0,
+              "cost_price_currency": "EUR",
+              "gross_margin_cents": 0,
+              "gross_margin_currency": "EUR",
+              "departure_conditions": false,
+              "accounting_tax": null,
+              "name": "Livraison : Enlèvement sur place"
+            },
+            "tax_lines": [
+              {
+                "id": 305879,
+                "taxable_id": 107580,
+                "taxable_type": "Order",
+                "country_tax_id": 1,
+                "name": "TVA France",
+                "tax_percentage": "20.0",
+                "price_cents": 7560,
+                "price_currency": "EUR",
+                "created_at": "2020-02-11T17:41:46.156+01:00",
+                "updated_at": "2020-02-11T17:41:46.156+01:00"
+              }
+            ]
+          }
+        }
+      },
+      "BillingInformation": {
+        "title": "BillingInformation",
+        "type": "object",
+        "description": "Informations de facturation.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "company_name": {
+            "type": "string",
+            "description": "Nom de la société\n"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "Prénom\n"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Nom de famille"
+          },
+          "email": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "country_code": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "company_number": {
+            "type": "string"
+          },
+          "vat_number": {
+            "type": "string"
+          },
+          "excise_number": {
+            "type": "string"
+          },
+          "legal_form": {
+            "type": "string"
+          },
+          "mobile": {
+            "type": "string",
+            "description": "Numéro de téléphone portable"
+          },
+          "undeliverable_address": {
+            "type": "boolean"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "fax": {
+            "type": "string"
+          },
+          "tax_exempt": {
+            "type": "boolean",
+            "description": "Exportateur en franchise de TVA"
+          },
+          "website": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {
