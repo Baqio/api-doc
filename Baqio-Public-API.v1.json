@@ -247,7 +247,7 @@
     },
     "/orders": {
       "get": {
-        "summary": "Liste des commandes",
+        "summary": "Création d'une commande",
         "tags": [
           "orders"
         ],
@@ -581,7 +581,125 @@
           }
         ]
       },
-      "parameters": []
+      "parameters": [],
+      "post": {
+        "summary": "",
+        "operationId": "post-orders",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "customer_id": 124389,
+                    "sales_agent_id": null,
+                    "note": "",
+                    "price_grid_id": 4287,
+                    "date": "2020-02-11",
+                    "name": "#1274",
+                    "reference": null,
+                    "warehouse_id": 638,
+                    "invoice_note": null,
+                    "price_with_tax": true,
+                    "tag_list": [],
+                    "customer": {
+                      "id": 124389,
+                      "name": "Lucas Picard",
+                      "email": "sylvain@baqio.com",
+                      "note": null,
+                      "accepts_emailing": true,
+                      "sales_agent_id": null,
+                      "price_grid_id": 4287,
+                      "reference": null,
+                      "accepts_mailing": true,
+                      "warehouse_id": null,
+                      "customer_category_id": 5071,
+                      "automatic_discount_rate": null,
+                      "commission_rate": null,
+                      "tag_list": [],
+                      "billing_information": {
+                        "company_name": "",
+                        "first_name": "Lucas",
+                        "last_name": "Picard",
+                        "email": "sylvain@baqio.com",
+                        "address1": "",
+                        "address2": "",
+                        "city": "MONTPELLIER",
+                        "zip": "34000",
+                        "country_code": "FR",
+                        "phone": "",
+                        "company_number": "",
+                        "vat_number": "",
+                        "excise_number": "",
+                        "legal_form": "",
+                        "mobile": "",
+                        "address3": "",
+                        "fax": null,
+                        "tax_exempt": false,
+                        "website": ""
+                      },
+                      "shipping_information": {
+                        "use_billing_address": true,
+                        "company_name": null,
+                        "first_name": null,
+                        "last_name": null,
+                        "address1": null,
+                        "address2": null,
+                        "city": null,
+                        "zip": null,
+                        "country_code": null,
+                        "phone": null,
+                        "note": null,
+                        "delivery_schedules": null,
+                        "closing_days": null,
+                        "dae_number": null,
+                        "address3": null,
+                        "mobile": null,
+                        "excise_number": null
+                      }
+                    },
+                    "order_lines": [
+                      {
+                        "product_variant_sku": 6182,
+                        "capsule_id": 430,
+                        "product_label_id": null,
+                        "batch_id": null,
+                        "note": null,
+                        "quantity": "36.0",
+                        "manual_price": 11.67
+                      }
+                    ],
+                    "shipping_line": {
+                      "price_cents": 0,
+                      "fulfillment_service_id": null,
+                      "price_with_tax_cents": 0
+                    },
+                    "payments": [
+                      {
+                        "date": "09/06/2020",
+                        "payment_source_id": 709,
+                        "source_reference": "ST8171",
+                        "comment": "paiement stripe",
+                        "amount": 100
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "description": "Si vous renvoyez une commande avec la même référence mais que vous spécifiez un state différent, celle-ci sera mise à jour. \n\n- Si la commande est à l'état 'pending' et que vous passez le state 'validated', cela validera la commande et réservera le stock.\n- Si la commande est à l'état 'pending' ou 'validated' et que vous passez l'état 'removed', cela annulera la commande.\n- Si la commande est à l'état 'invoiced' et que vous passez l'état 'cancelled', la commande sera annulée et un avoir sera créé."
+        }
+      }
     },
     "/fulfillments.json": {
       "get": {
