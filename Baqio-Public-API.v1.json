@@ -2295,6 +2295,78 @@
             }
           }
         }
+      },
+      "ProductVintage": {
+        "title": "ProductVintage",
+        "type": "object",
+        "description": "Millésime (appartient à un Produit)",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "product_id": {
+            "type": "integer"
+          },
+          "vintage": {
+            "type": "integer"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "body_html": {
+            "type": "string"
+          },
+          "abv": {
+            "type": "string",
+            "description": "Degré d'alcool"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "primeur": {
+            "type": "boolean"
+          },
+          "grapes": {
+            "type": "string"
+          },
+          "vineyard_work": {
+            "type": "string"
+          },
+          "winemaking": {
+            "type": "string"
+          },
+          "wine_ageing": {
+            "type": "string"
+          },
+          "wine_preparation": {
+            "type": "string"
+          },
+          "bottling": {
+            "type": "string"
+          },
+          "traceability": {
+            "type": "string"
+          },
+          "operating_temperature": {
+            "type": "string"
+          },
+          "tasting_advice": {
+            "type": "string"
+          },
+          "complement": {
+            "type": "string"
+          },
+          "parent_id": {
+            "type": "integer",
+            "description": "Produit parent"
+          }
+        },
+        "x-tags": [
+          "Product Variants"
+        ]
       }
     },
     "securitySchemes": {
