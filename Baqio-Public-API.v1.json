@@ -835,6 +835,139 @@
         "description": "Récupère la facture au format PDF.",
         "parameters": []
       }
+    },
+    "/accountings/entries": {
+      "get": {
+        "summary": "Récupère les écritures comptables sur une période donnée.",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccountingEntry"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "journal": "VEL",
+                        "date": "24/12/2019",
+                        "reference": "FA-1001",
+                        "number": "411GAUTIE",
+                        "name": "Facture FA-1001",
+                        "customer_name": "Sylvain Gautier",
+                        "debit": "452,00",
+                        "credit": "0,00",
+                        "code": "",
+                        "lettering_alpha": "A",
+                        "quantity": "36,00",
+                        "internal_reference": "89510"
+                      },
+                      {
+                        "journal": "VEL",
+                        "date": "24/12/2019",
+                        "reference": "FA-1001",
+                        "number": "7010060",
+                        "name": "Vin",
+                        "customer_name": "Sylvain Gautier",
+                        "debit": "0,00",
+                        "credit": "360,00",
+                        "code": "V1",
+                        "lettering_alpha": "",
+                        "quantity": "36,00",
+                        "internal_reference": "89510"
+                      },
+                      {
+                        "journal": "VEL",
+                        "date": "24/12/2019",
+                        "reference": "FA-1001",
+                        "number": "7010080",
+                        "name": "Livraison",
+                        "customer_name": "Sylvain Gautier",
+                        "debit": "0,00",
+                        "credit": "16,67",
+                        "code": "V1",
+                        "lettering_alpha": "",
+                        "quantity": "1",
+                        "internal_reference": "89510"
+                      },
+                      {
+                        "journal": "VEL",
+                        "date": "24/12/2019",
+                        "reference": "FA-1001",
+                        "number": "4457150",
+                        "name": "TVA France (20,00%)",
+                        "customer_name": "Sylvain Gautier",
+                        "debit": "0,00",
+                        "credit": "75,33",
+                        "code": "",
+                        "lettering_alpha": "",
+                        "quantity": "",
+                        "internal_reference": "89510"
+                      },
+                      {
+                        "journal": "B01",
+                        "date": "24/12/2019",
+                        "reference": "40977",
+                        "number": "411GAUTIE",
+                        "name": "Carte Bancaire : FA-1001",
+                        "customer_name": "Sylvain Gautier",
+                        "debit": "0,00",
+                        "credit": "452,00",
+                        "code": "",
+                        "lettering_alpha": "A",
+                        "quantity": "",
+                        "internal_reference": "40977"
+                      },
+                      {
+                        "journal": "B01",
+                        "date": "24/12/2019",
+                        "reference": "40977",
+                        "number": "5111000",
+                        "name": "Carte Bancaire : FA-1001",
+                        "customer_name": "Sylvain Gautier",
+                        "debit": "452,00",
+                        "credit": "0,00",
+                        "code": "",
+                        "lettering_alpha": "",
+                        "quantity": "",
+                        "internal_reference": "40977"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-accountings-entries",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "start_date",
+            "required": true,
+            "description": " date de début de la période récupérée"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "end_date",
+            "required": true,
+            "description": "date de fin de la période récupérée"
+          }
+        ],
+        "description": "Récupère les écritures comptables sur une période donnée. "
+      }
     }
   },
   "components": {
@@ -1833,6 +1966,136 @@
         "x-tags": [
           "Payment Sources"
         ]
+      },
+      "AccountingEntry": {
+        "title": "AccountingEntry",
+        "type": "object",
+        "x-tags": [
+          "Accountings"
+        ],
+        "description": "Écriture comptable",
+        "properties": {
+          "journal": {
+            "type": "string",
+            "description": "Journal"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date da pièce comptable"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Référence de la pièce"
+          },
+          "number": {
+            "type": "string",
+            "description": "Numéro de compte"
+          },
+          "name": {
+            "type": "string",
+            "description": "libellé de l'écriture comptable"
+          },
+          "customer_name": {
+            "type": "string",
+            "description": "nom du client"
+          },
+          "debit": {
+            "type": "string",
+            "description": "débit"
+          },
+          "credit": {
+            "type": "string",
+            "description": "crédit"
+          },
+          "code": {
+            "type": "string",
+            "description": " code TVA"
+          },
+          "lettering_alpha": {
+            "type": "string",
+            "description": "lettrage alphabétique"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "quantité"
+          },
+          "internal_reference": {
+            "type": "string",
+            "description": "référence interne (utilisé pour récupérer la facture)"
+          }
+        },
+        "x-examples": {
+          "compte client": {
+            "journal": "VEL",
+            "date": "24/12/2019",
+            "reference": "FA-1001",
+            "number": "411GAUTIE",
+            "name": "Facture FA-1001",
+            "customer_name": "Sylvain Gautier",
+            "debit": "452,00",
+            "credit": "0,00",
+            "code": "",
+            "lettering_alpha": "A",
+            "quantity": "36,00",
+            "internal_reference": "89510"
+          },
+          "compte de vente": {
+            "journal": "VEL",
+            "date": "24/12/2019",
+            "reference": "FA-1001",
+            "number": "7010060",
+            "name": "Vin",
+            "customer_name": "Sylvain Gautier",
+            "debit": "0,00",
+            "credit": "360,00",
+            "code": "V1",
+            "lettering_alpha": "",
+            "quantity": "36,00",
+            "internal_reference": "89510"
+          },
+          "compte tva": {
+            "journal": "VEL",
+            "date": "24/12/2019",
+            "reference": "FA-1001",
+            "number": "4457150",
+            "name": "TVA France (20,00%)",
+            "customer_name": "Sylvain Gautier",
+            "debit": "0,00",
+            "credit": "75,33",
+            "code": "",
+            "lettering_alpha": "",
+            "quantity": "",
+            "internal_reference": "89510"
+          },
+          "reglement-client": {
+            "journal": "B01",
+            "date": "24/12/2019",
+            "reference": "40977",
+            "number": "411GAUTIE",
+            "name": "Carte Bancaire : FA-1001",
+            "customer_name": "Sylvain Gautier",
+            "debit": "0,00",
+            "credit": "452,00",
+            "code": "",
+            "lettering_alpha": "A",
+            "quantity": "",
+            "internal_reference": "40977"
+          },
+          "reglement-banque": {
+            "journal": "B01",
+            "date": "24/12/2019",
+            "reference": "40977",
+            "number": "5111000",
+            "name": "Carte Bancaire : FA-1001",
+            "customer_name": "Sylvain Gautier",
+            "debit": "452,00",
+            "credit": "0,00",
+            "code": "",
+            "lettering_alpha": "",
+            "quantity": "",
+            "internal_reference": "40977"
+          }
+        }
       }
     },
     "securitySchemes": {
