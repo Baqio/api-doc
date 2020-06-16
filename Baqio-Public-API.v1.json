@@ -1005,17 +1005,64 @@
           }
         },
         "description": "Grilles tarifaires.",
+        "x-tags": [
+          "Price Grids"
+        ],
         "properties": {
           "id": {
             "type": "integer"
           },
           "name": {
+            "type": "string",
+            "description": "Particulier"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_at": {
             "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "price_kind": {
+            "type": "string",
+            "enum": [
+              "with_tax",
+              "without_tax"
+            ],
+            "description": "Mode de définition des prix (TTC ou HT)"
+          },
+          "country_tax_id": {
+            "type": "integer",
+            "description": "TVA utilisée pour calculer le prix HT dans le cas d'une définition des prix en TTC"
+          },
+          "calculation_method": {
+            "type": "string"
+          },
+          "payment_method": {
+            "type": "string"
+          },
+          "payment_period": {
+            "type": "string"
+          },
+          "displayed": {
+            "type": "string"
+          },
+          "quantities": {
+            "type": "string"
+          },
+          "supplier": {
+            "type": "boolean"
+          },
+          "default": {
+            "type": [
+              "string",
+              "boolean"
+            ]
           }
-        },
-        "x-tags": [
-          "Price Grids"
-        ]
+        }
       },
       "Order": {
         "title": "Order",
