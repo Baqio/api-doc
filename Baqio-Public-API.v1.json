@@ -2233,7 +2233,66 @@
             "type": "integer"
           },
           "price_grid": {
+            "$ref": "#/components/schemas/PriceGrid"
+          },
+          "customer_id": {
+            "type": "integer"
+          },
+          "free_shipping": {
+            "type": "boolean"
+          },
+          "price_with_tax_cents": {
+            "type": "integer"
+          },
+          "price_with_tax_currency": {
             "type": "string"
+          },
+          "advance_payment_amount_cents": {
+            "type": "integer"
+          },
+          "advance_payment_amount_currency": {
+            "type": "string"
+          }
+        },
+        "x-examples": {
+          "example": {
+            "id": 5084,
+            "product_variant_id": 6183,
+            "quantity": "1.0",
+            "created_at": "2020-01-15T10:35:22.561+01:00",
+            "updated_at": "2020-01-15T10:35:22.561+01:00",
+            "deleted_at": null,
+            "price_cents": 308,
+            "price_currency": "EUR",
+            "price_grid_id": 4288,
+            "customer_id": null,
+            "free_shipping": false,
+            "supplier_price_cents": 0,
+            "supplier_price_currency": "EUR",
+            "price_with_tax_cents": 0,
+            "price_with_tax_currency": "EUR",
+            "vinosoft_id": null,
+            "advance_payment_amount_cents": 0,
+            "advance_payment_amount_currency": "EUR",
+            "price_grid": {
+              "id": 4288,
+              "name": "Export",
+              "deleted_at": null,
+              "created_at": "2020-01-15T10:33:34.383+01:00",
+              "updated_at": "2020-01-15T10:33:34.383+01:00",
+              "price_kind": "without_tax",
+              "country_tax_id": 1,
+              "calculation_method": "total",
+              "payment_method": null,
+              "payment_period": null,
+              "displayed": true,
+              "quantities": [
+                null,
+                "1.0"
+              ],
+              "supplier": false,
+              "default": false
+            }
           }
         }
       }
