@@ -25304,9 +25304,6 @@
             "items": {
               "$ref": "#/components/schemas/FulfillmentLine"
             }
-          },
-          "": {
-            "type": "string"
           }
         }
       },
