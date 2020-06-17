@@ -25050,11 +25050,6 @@
       "Fulfillment": {
         "title": "Fulfillment",
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        },
         "description": "Expédition ou Transfert",
         "x-examples": {
           "example": {
@@ -25185,7 +25180,135 @@
         },
         "x-tags": [
           "Fulfillments"
-        ]
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "order_id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "fulfillment_service_id": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "notify_customer": {
+            "type": "boolean"
+          },
+          "notify_fulfillment_service": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "integer"
+          },
+          "note": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "picking_note": {
+            "type": "string"
+          },
+          "account_id": {
+            "type": "integer"
+          },
+          "customs_document": {
+            "type": "string"
+          },
+          "customs_number": {
+            "type": "string"
+          },
+          "excise_duty_state": {
+            "type": "string"
+          },
+          "cancelled_at": {
+            "type": "string"
+          },
+          "deleted_at": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "picking_requested_at": {
+            "type": "string"
+          },
+          "picking_started_at": {
+            "type": "string"
+          },
+          "picking_completed_at": {
+            "type": "string"
+          },
+          "transportation_mode": {
+            "type": "string"
+          },
+          "fulfillment_note": {
+            "type": "string"
+          },
+          "source_type": {
+            "type": "string"
+          },
+          "source_id": {
+            "type": "integer"
+          },
+          "destination_type": {
+            "type": "string"
+          },
+          "destination_id": {
+            "type": "integer"
+          },
+          "fulfillment_group_id": {
+            "type": "integer"
+          },
+          "trade_union_reference": {
+            "type": "string"
+          },
+          "initial_date": {
+            "type": "string"
+          },
+          "source": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Warehouse"
+              },
+              {
+                "$ref": "#/components/schemas/Customer"
+              }
+            ]
+          },
+          "destination": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Warehouse"
+              },
+              {
+                "$ref": "#/components/schemas/Customer"
+              }
+            ]
+          },
+          "fulfillment_lines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FulfillmentLine"
+            }
+          },
+          "": {
+            "type": "string"
+          }
+        }
       },
       "ProductVariant": {
         "title": "ProductVariant",
@@ -26279,6 +26402,97 @@
             "excise_duty_suspended": true
           }
         }
+      },
+      "FulfillmentLine": {
+        "title": "FulfillmentLine",
+        "type": "object",
+        "description": "Line d'expédition",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "fulfillment_id": {
+            "type": "integer"
+          },
+          "order_line_id": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "product_variant_id": {
+            "type": "integer"
+          },
+          "product_label_id": {
+            "type": "integer"
+          },
+          "capsule_id": {
+            "type": "integer"
+          },
+          "batch_id": {
+            "type": "integer"
+          },
+          "capsule_kind": {
+            "type": "string"
+          },
+          "supplier_order_line_id": {
+            "type": "integer"
+          },
+          "product_variant": {
+            "$ref": "#/components/schemas/ProductVariant"
+          }
+        },
+        "x-examples": {
+          "example": {
+            "id": 870846,
+            "fulfillment_id": 312955,
+            "order_line_id": 934486,
+            "quantity": "6.0",
+            "created_at": "2020-06-15T09:23:25.601+02:00",
+            "updated_at": "2020-06-15T09:23:25.601+02:00",
+            "product_variant_id": 17421,
+            "product_label_id": null,
+            "capsule_id": 233,
+            "batch_id": null,
+            "capsule_kind": null,
+            "supplier_order_line_id": null,
+            "product_variant": {
+              "id": 17421,
+              "product_size_id": 2,
+              "sku": "TER-2018-75",
+              "default_barcode": "",
+              "created_at": "2020-05-29T15:07:32.715+02:00",
+              "updated_at": "2020-06-09T17:01:10.105+02:00",
+              "product_packaging_id": 836,
+              "deleted_at": null,
+              "product_label_id": null,
+              "product_vintage_id": 13266,
+              "nc8_code": "2204 21 80",
+              "vinosoft_id": null,
+              "net_weight": null,
+              "tare": null,
+              "functional_code": "",
+              "cost_price_cents": 0,
+              "cost_price_currency": "EUR",
+              "marketable": true,
+              "fulfillable": true,
+              "capsule_id": null,
+              "neutral_capsule_id": null,
+              "sales_unit": 1,
+              "cspc": "",
+              "ttb_id": ""
+            }
+          }
+        },
+        "x-tags": [
+          "Fulfillments"
+        ]
       }
     },
     "securitySchemes": {
