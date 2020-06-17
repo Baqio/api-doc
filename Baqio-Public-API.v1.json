@@ -7630,7 +7630,7 @@
           }
         },
         "operationId": "get-product_packagings",
-        "description": "",
+        "description": "Récupération de la liste des conditionnements.",
         "tags": [
           "Product Packagings"
         ]
@@ -23075,6 +23075,51 @@
         },
         "operationId": "get-product_variants-id",
         "description": "Récupération des informations d'une variante produit."
+      }
+    },
+    "/product_variants/{id}/stock": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Stock associé à une variante produit",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "string",
+                          "description": "Stock total"
+                        },
+                        "": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-product_variants-id-stock",
+        "description": "Récupération des stocks par entrepôt pour une variante produit."
       }
     }
   },
