@@ -25602,6 +25602,321 @@
             "items": {}
           }
         }
+      },
+      "OrderLine": {
+        "title": "OrderLine",
+        "type": "object",
+        "description": "Ligne de commande.",
+        "x-examples": {
+          "example": {
+            "id": 259104,
+            "order_id": 107580,
+            "product_variant_id": 6182,
+            "name": "Pink 2019",
+            "description": "Bouteille (75 cl) - Carton 6",
+            "quantity": "36.0",
+            "price_cents": 1167,
+            "price_currency": "EUR",
+            "total_price_cents": 42000,
+            "total_price_currency": "EUR",
+            "created_at": "2020-02-11T17:41:17.803+01:00",
+            "updated_at": "2020-02-11T17:41:45.521+01:00",
+            "fulfilled_quantity": "0.0",
+            "pending_fulfilled_quantity": "0.0",
+            "total_discount_cents": 4200,
+            "total_discount_currency": "EUR",
+            "free_shipping": false,
+            "product_price_id": 5074,
+            "deleted_at": null,
+            "product_vintage_id": 4412,
+            "capsule_id": 430,
+            "complement": "AOP Rosé d'Anjou - Rosé",
+            "bottle_quantity": "36.0",
+            "manual_price_cents": null,
+            "manual_price_currency": "EUR",
+            "product_label_id": null,
+            "final_price_cents": 37800,
+            "final_price_currency": "EUR",
+            "note": null,
+            "price_with_tax_cents": 1400,
+            "price_with_tax_currency": "EUR",
+            "total_price_with_tax_cents": 50400,
+            "total_price_with_tax_currency": "EUR",
+            "final_price_with_tax_cents": 45360,
+            "final_price_with_tax_currency": "EUR",
+            "batch_id": null,
+            "gross_margin_cents": 25200,
+            "gross_margin_currency": "EUR",
+            "manual_country_tax_id": null,
+            "vintage_complement": "",
+            "capsule_kind": null,
+            "primeured": false,
+            "manual_tax_exempted": false,
+            "accounting_tax": null,
+            "product_variant": {
+              "id": 6182,
+              "product_size_id": 2,
+              "sku": "",
+              "default_barcode": "",
+              "created_at": "2020-01-15T10:22:16.174+01:00",
+              "updated_at": "2020-01-15T16:55:22.034+01:00",
+              "product_packaging_id": 2340,
+              "deleted_at": null,
+              "product_label_id": null,
+              "product_vintage_id": 4412,
+              "nc8_code": "",
+              "vinosoft_id": null,
+              "net_weight": null,
+              "tare": null,
+              "functional_code": "",
+              "cost_price_cents": 350,
+              "cost_price_currency": "EUR",
+              "marketable": true,
+              "fulfillable": true,
+              "capsule_id": null,
+              "neutral_capsule_id": null
+            },
+            "commission_line": {
+              "id": 225401,
+              "order_line_id": 259104,
+              "calculation_method": "relative",
+              "rate": "0.0",
+              "discount_rate": "0.0",
+              "commission_price_cents": 0,
+              "commission_price_currency": "EUR",
+              "discount_amount_cents": 0,
+              "discount_amount_currency": "EUR",
+              "created_at": "2020-02-11T17:41:18.699+01:00",
+              "updated_at": "2020-02-11T17:41:18.699+01:00",
+              "original_rate": "0.0",
+              "discount_amount_with_tax_cents": 0,
+              "discount_amount_with_tax_currency": "EUR",
+              "unit_deducted_amount_cents": 0,
+              "unit_deducted_amount_currency": "EUR",
+              "total_deducted_amount_cents": 0,
+              "total_deducted_amount_currency": "EUR"
+            }
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "order_id": {
+            "type": "integer"
+          },
+          "product_variant_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          },
+          "price_cents": {
+            "type": "integer"
+          },
+          "price_currency": {
+            "type": "string"
+          },
+          "total_price_cents": {
+            "type": "integer"
+          },
+          "total_price_currency": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "fulfilled_quantity": {
+            "type": "string"
+          },
+          "pending_fulfilled_quantity": {
+            "type": "string"
+          },
+          "total_discount_cents": {
+            "type": "integer"
+          },
+          "total_discount_currency": {
+            "type": "string"
+          },
+          "free_shipping": {
+            "type": "boolean"
+          },
+          "product_price_id": {
+            "type": "integer"
+          },
+          "deleted_at": {
+            "type": "string"
+          },
+          "product_vintage_id": {
+            "type": "integer"
+          },
+          "capsule_id": {
+            "type": "integer"
+          },
+          "complement": {
+            "type": "string"
+          },
+          "bottle_quantity": {
+            "type": "string"
+          },
+          "manual_price_cents": {},
+          "manual_price_currency": {
+            "type": "string"
+          },
+          "product_label_id": {
+            "type": "integer"
+          },
+          "final_price_cents": {
+            "type": "integer"
+          },
+          "final_price_currency": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "price_with_tax_cents": {
+            "type": "integer"
+          },
+          "price_with_tax_currency": {
+            "type": "string"
+          },
+          "total_price_with_tax_cents": {
+            "type": "integer"
+          },
+          "total_price_with_tax_currency": {
+            "type": "string"
+          },
+          "final_price_with_tax_cents": {
+            "type": "integer"
+          },
+          "final_price_with_tax_currency": {
+            "type": "string"
+          },
+          "batch_id": {
+            "type": "integer",
+            "description": "Numéro de Lot"
+          },
+          "gross_margin_cents": {
+            "type": "integer"
+          },
+          "gross_margin_currency": {
+            "type": "string"
+          },
+          "manual_country_tax_id": {
+            "type": "integer"
+          },
+          "vintage_complement": {
+            "type": "string"
+          },
+          "capsule_kind": {
+            "type": "string"
+          },
+          "primeured": {
+            "type": "boolean"
+          },
+          "manual_tax_exempted": {
+            "type": "boolean"
+          },
+          "accounting_tax": {
+            "type": "string"
+          },
+          "product_variant": {
+            "$ref": "#/components/schemas/ProductVariant"
+          },
+          "commission_line": {
+            "$ref": "#/components/schemas/CommissionLine"
+          }
+        }
+      },
+      "CommissionLine": {
+        "title": "CommissionLine",
+        "type": "object",
+        "description": "Ligne de commission liée à une ligne de commande.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "order_line_id": {
+            "type": "integer"
+          },
+          "calculation_method": {
+            "type": "string"
+          },
+          "rate": {
+            "type": "string"
+          },
+          "discount_rate": {
+            "type": "string"
+          },
+          "commission_price_cents": {
+            "type": "integer"
+          },
+          "commission_price_currency": {
+            "type": "string"
+          },
+          "discount_amount_cents": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "original_rate": {
+            "type": "string"
+          },
+          "discount_amount_with_tax_cents": {
+            "type": "integer"
+          },
+          "discount_amount_with_tax_currency": {
+            "type": "string"
+          },
+          "unit_deducted_amount_cents": {
+            "type": "integer"
+          },
+          "unit_deducted_amount_currency": {
+            "type": "string"
+          },
+          "total_deducted_amount_cents": {
+            "type": "integer"
+          },
+          "total_deducted_amount_currency": {
+            "type": "string"
+          }
+        },
+        "x-examples": {
+          "example": {
+            "id": 225401,
+            "order_line_id": 259104,
+            "calculation_method": "relative",
+            "rate": "0.0",
+            "discount_rate": "0.0",
+            "commission_price_cents": 0,
+            "commission_price_currency": "EUR",
+            "discount_amount_cents": 0,
+            "discount_amount_currency": "EUR",
+            "created_at": "2020-02-11T17:41:18.699+01:00",
+            "updated_at": "2020-02-11T17:41:18.699+01:00",
+            "original_rate": "0.0",
+            "discount_amount_with_tax_cents": 0,
+            "discount_amount_with_tax_currency": "EUR",
+            "unit_deducted_amount_cents": 0,
+            "unit_deducted_amount_currency": "EUR",
+            "total_deducted_amount_cents": 0,
+            "total_deducted_amount_currency": "EUR"
+          }
+        }
       }
     },
     "securitySchemes": {
