@@ -7613,9 +7613,6 @@
     "/product_packagings": {
       "get": {
         "summary": "Liste des conditionnements",
-        "tags": [
-          "Product Variants"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -7633,7 +7630,10 @@
           }
         },
         "operationId": "get-product_packagings",
-        "description": ""
+        "description": "",
+        "tags": [
+          "Product Packagings"
+        ]
       }
     },
     "/product_variants": {
@@ -26211,6 +26211,9 @@
     },
     {
       "name": "Product Variants"
+    },
+    {
+      "name": "Product Packagings"
     }
   ]
 }
