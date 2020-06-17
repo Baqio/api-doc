@@ -23044,6 +23044,38 @@
         "operationId": "get-product_variants",
         "description": "Récupération de la liste des variantes produits"
       }
+    },
+    "/product_variants/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Récupération d'une variante produit",
+        "tags": [
+          "Product Variants"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductVariant"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-product_variants-id",
+        "description": "Récupération des informations d'une variante produit."
+      }
     }
   },
   "components": {
