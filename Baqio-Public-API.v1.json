@@ -23090,7 +23090,9 @@
       ],
       "get": {
         "summary": "Stock associé à une variante produit",
-        "tags": [],
+        "tags": [
+          "Product Variants"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23098,20 +23100,28 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "total": {
-                          "type": "string",
-                          "description": "Stock total"
+                  "items": {}
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      [
+                        {
+                          "id": 638,
+                          "account_id": 520,
+                          "name": "Chai",
+                          "deleted_at": null,
+                          "created_at": "2020-01-15T09:56:13.202+01:00",
+                          "updated_at": "2020-01-15T09:56:13.202+01:00",
+                          "default": true,
+                          "excise_duty_suspended": true
                         },
-                        "": {
-                          "type": "string"
+                        {
+                          "total": "200.0",
+                          "available": "50.0"
                         }
-                      }
-                    }
+                      ]
+                    ]
                   }
                 }
               }
@@ -26224,6 +26234,49 @@
           },
           "payment": {
             "$ref": "#/components/schemas/Payment"
+          }
+        }
+      },
+      "Warehouse": {
+        "title": "Warehouse",
+        "type": "object",
+        "x-tags": [
+          "Warehouses"
+        ],
+        "description": "Modèle Entrepôt",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "account_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "default": {
+            "type": "boolean"
+          },
+          "excise_duty_suspended": {
+            "type": "boolean"
+          }
+        },
+        "x-examples": {
+          "example": {
+            "id": 638,
+            "account_id": 520,
+            "name": "Chai",
+            "deleted_at": null,
+            "created_at": "2020-01-15T09:56:13.202+01:00",
+            "updated_at": "2020-01-15T09:56:13.202+01:00",
+            "default": true,
+            "excise_duty_suspended": true
           }
         }
       }
