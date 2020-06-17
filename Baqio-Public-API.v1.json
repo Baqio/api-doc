@@ -25836,7 +25836,10 @@
           "commission_line": {
             "$ref": "#/components/schemas/CommissionLine"
           }
-        }
+        },
+        "x-tags": [
+          "orders"
+        ]
       },
       "CommissionLine": {
         "title": "CommissionLine",
