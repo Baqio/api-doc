@@ -23131,6 +23131,60 @@
         "operationId": "get-product_variants-id-stock",
         "description": "Récupération des stocks par entrepôt pour une variante produit."
       }
+    },
+    "/collections": {
+      "get": {
+        "summary": "Liste des collections",
+        "tags": [
+          "collections"
+        ],
+        "responses": {},
+        "operationId": "get-collections",
+        "description": "Récupère la liste des collections de produits disponibles pour votre compte.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Collection"
+                }
+              }
+            }
+          },
+          "description": "OK"
+        }
+      }
+    },
+    "/collections/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Détails d'une collection",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collection"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-collections-id",
+        "description": "Récupère les détails d'une collection par son id."
+      }
     }
   },
   "components": {
@@ -26126,7 +26180,10 @@
             "total_deducted_amount_cents": 0,
             "total_deducted_amount_currency": "EUR"
           }
-        }
+        },
+        "x-tags": [
+          "orders"
+        ]
       },
       "Payment": {
         "title": "Payment",
@@ -26490,6 +26547,34 @@
         "x-tags": [
           "Fulfillments"
         ]
+      },
+      "Collection": {
+        "title": "Collection",
+        "type": "object",
+        "description": "Liste de produits.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        },
+        "x-tags": [
+          "collections"
+        ]
       }
     },
     "securitySchemes": {
@@ -26523,6 +26608,9 @@
     },
     {
       "name": "Product Packagings"
+    },
+    {
+      "name": "collections"
     }
   ]
 }
