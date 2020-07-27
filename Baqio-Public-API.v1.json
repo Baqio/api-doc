@@ -23185,6 +23185,119 @@
         "operationId": "get-collections-id",
         "description": "Récupère les détails d'une collection par son id."
       }
+    },
+    "/sales_agent_categories": {
+      "get": {
+        "summary": "Liste des catégories de représentants commerciaux",
+        "tags": [
+          "Sales Agents"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SalesAgentCategory"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-sales_agent_categories",
+        "description": "Récupère la liste des catégories de représentants commerciaux"
+      }
+    },
+    "/sales_agent_categories/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Détails d'une catégorie de représentant commerciaux",
+        "tags": [
+          "Sales Agents"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalesAgentCategory"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-sales_agent_categories-id"
+      }
+    },
+    "/sales_agents": {
+      "get": {
+        "summary": "Représentants commerciaux",
+        "tags": [
+          "Sales Agents"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SalesAgent"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-sales_agents",
+        "description": "Liste des représentants commerciaux"
+      }
+    },
+    "/sales_agents/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Détail d'un représentant commercial",
+        "tags": [
+          "Sales Agents"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalesAgent"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-sales_agents-id",
+        "description": ""
+      }
     }
   },
   "components": {
@@ -26575,6 +26688,111 @@
         "x-tags": [
           "collections"
         ]
+      },
+      "SalesAgentCategory": {
+        "title": "SalesAgentCategory",
+        "type": "object",
+        "description": "Catégorie de représentant commercial.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "commission_rate": {
+            "type": "boolean"
+          },
+          "note": {
+            "type": "string"
+          },
+          "payment_method": {
+            "type": "string",
+            "enum": [
+              "payment_date",
+              "order_date"
+            ],
+            "description": "Méthode de commissionnement"
+          },
+          "payment_periodicity": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "quarterly"
+            ]
+          },
+          "statement_with_amount": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "commission_rate",
+          "payment_method",
+          "payment_periodicity"
+        ],
+        "x-tags": [
+          "Sales Agents"
+        ]
+      },
+      "BankInformation": {
+        "title": "BankInformation",
+        "type": "object",
+        "description": "Compte Bancaire",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "domiciliation": {
+            "type": "string"
+          },
+          "iban": {
+            "type": "string"
+          },
+          "bic": {
+            "type": "string"
+          },
+          "rib": {
+            "type": "string"
+          },
+          "primary": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SalesAgent": {
+        "title": "SalesAgent",
+        "type": "object",
+        "description": "Représentant commercial appartenant à une catégorie de représentant commercial",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "statement_note": {
+            "type": "string"
+          },
+          "sales_agent_category": {
+            "$ref": "#/components/schemas/SalesAgentCategory"
+          },
+          "bank_information": {
+            "$ref": "#/components/schemas/BankInformation"
+          },
+          "billing_information": {
+            "$ref": "#/components/schemas/BillingInformation"
+          }
+        },
+        "x-tags": [
+          "Sales Agents"
+        ]
       }
     },
     "securitySchemes": {
@@ -26611,6 +26829,9 @@
     },
     {
       "name": "collections"
+    },
+    {
+      "name": "Sales Agents"
     }
   ]
 }
