@@ -23298,6 +23298,28 @@
         "operationId": "get-sales_agents-id",
         "description": ""
       }
+    },
+    "/bank_informations": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [
+          "Bank Informations"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankInformation"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-bank_informations",
+        "description": "Fetch all bank accounts for an account"
+      }
     }
   },
   "components": {
