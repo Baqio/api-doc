@@ -23363,7 +23363,7 @@
             "invoice_preference": null,
             "block_orders": false,
             "sticky_note": false,
-            "tag_list": [],
+            "customer_tags": [],
             "billing_information": {
               "id": 217809,
               "billable_id": 124407,
@@ -23520,6 +23520,10 @@
           },
           "shipping_information": {
             "$ref": "#/components/schemas/ShippingInformation"
+          },
+          "customer_tags": {
+            "type": "array",
+            "items": {}
           }
         },
         "required": [
@@ -23735,7 +23739,7 @@
               "invoice_preference": null,
               "block_orders": false,
               "sticky_note": false,
-              "tag_list": [],
+              "order_tags": [],
               "billing_information": {
                 "id": 217791,
                 "billable_id": 124389,
