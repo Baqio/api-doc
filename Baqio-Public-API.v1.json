@@ -23320,6 +23320,72 @@
         "operationId": "get-bank_informations",
         "description": "Fetch all bank accounts for an account"
       }
+    },
+    "/country_taxes": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryTax"
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "id": 22,
+                        "code": "AT",
+                        "tax_name": "TVA",
+                        "tax_type": "standard",
+                        "tax_percentage": "20.0",
+                        "starts_at": "1970-01-01",
+                        "ends_at": null,
+                        "deleted_at": null,
+                        "created_at": "2016-06-08T11:25:54.971+02:00",
+                        "updated_at": "2017-09-13T13:21:07.151+02:00"
+                      },
+                      {
+                        "id": 23,
+                        "code": "AT",
+                        "tax_name": "TVA",
+                        "tax_type": "reduced",
+                        "tax_percentage": "13.0",
+                        "starts_at": "1970-01-01",
+                        "ends_at": null,
+                        "deleted_at": null,
+                        "created_at": "2016-06-08T11:25:54.976+02:00",
+                        "updated_at": "2017-09-13T13:21:07.159+02:00"
+                      },
+                      {
+                        "id": 2,
+                        "code": "BE",
+                        "tax_name": "TVA",
+                        "tax_type": "standard",
+                        "tax_percentage": "21.0",
+                        "starts_at": "1970-01-01",
+                        "ends_at": null,
+                        "deleted_at": null,
+                        "created_at": "2016-06-08T11:25:54.828+02:00",
+                        "updated_at": "2017-09-13T13:21:06.921+02:00"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-country_taxes",
+        "description": "Baqio all CountryTaxes"
+      }
     }
   },
   "components": {
@@ -26823,6 +26889,74 @@
         "x-tags": [
           "Sales Agents"
         ]
+      },
+      "CountryTax": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tax_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tax_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tax_percentage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "starts_at": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ends_at": {
+            "type": "string"
+          },
+          "deleted_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "minLength": 1
+          },
+          "updated_at": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "tax_name",
+          "tax_type",
+          "tax_percentage",
+          "starts_at",
+          "created_at",
+          "updated_at"
+        ],
+        "x-examples": {
+          "example-1": {
+            "id": 22,
+            "code": "AT",
+            "tax_name": "TVA",
+            "tax_type": "standard",
+            "tax_percentage": "20.0",
+            "starts_at": "1970-01-01",
+            "ends_at": null,
+            "deleted_at": null,
+            "created_at": "2016-06-08T11:25:54.971+02:00",
+            "updated_at": "2017-09-13T13:21:07.151+02:00"
+          }
+        },
+        "title": "CountryTax"
       }
     },
     "securitySchemes": {
