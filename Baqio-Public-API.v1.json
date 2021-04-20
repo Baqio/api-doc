@@ -23324,7 +23324,9 @@
     "/country_taxes": {
       "get": {
         "summary": "Your GET endpoint",
-        "tags": [],
+        "tags": [
+          "CountryTaxes"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -26956,7 +26958,10 @@
             "updated_at": "2017-09-13T13:21:07.151+02:00"
           }
         },
-        "title": "CountryTax"
+        "title": "CountryTax",
+        "x-tags": [
+          "CountryTaxes"
+        ]
       }
     },
     "securitySchemes": {
