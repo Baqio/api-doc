@@ -23392,9 +23392,6 @@
     "/warehouses": {
       "get": {
         "summary": "Liste des entrepôts",
-        "tags": [
-          "Warehouses"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23439,7 +23436,10 @@
           }
         },
         "operationId": "get-warehouses",
-        "description": "Récupération de la liste des entrepôts du compte."
+        "description": "Récupération de la liste des entrepôts du compte.",
+        "tags": [
+          "Warehouses"
+        ]
       }
     }
   },
@@ -26681,9 +26681,6 @@
       "Warehouse": {
         "title": "Warehouse",
         "type": "object",
-        "x-tags": [
-          "Warehouses"
-        ],
         "description": "Modèle Entrepôt",
         "properties": {
           "id": {
@@ -26719,7 +26716,10 @@
             "default": true,
             "excise_duty_suspended": true
           }
-        }
+        },
+        "x-tags": [
+          "Warehouses"
+        ]
       },
       "FulfillmentLine": {
         "title": "FulfillmentLine",
