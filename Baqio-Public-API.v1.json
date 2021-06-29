@@ -23388,6 +23388,57 @@
         "operationId": "get-country_taxes",
         "description": "Baqio all CountryTaxes"
       }
+    },
+    "/warehouses": {
+      "get": {
+        "summary": "Liste des entrepôts",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Warehouse"
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "id": 748,
+                        "account_id": 216,
+                        "name": "Stock Nicolas",
+                        "deleted_at": "nil",
+                        "created_at": "Mon",
+                        "24 May 2021 15:29:17 CEST +02:00": null,
+                        "updated_at": "Mon",
+                        "default": false,
+                        "excise_duty_suspended": false
+                      },
+                      {
+                        "id": 749,
+                        "account_id": 310,
+                        "name": "Chai",
+                        "deleted_at": "nil",
+                        "created_at": "Tue",
+                        "25 May 2021 10:50:23 CEST +02:00": null,
+                        "updated_at": "Tue",
+                        "default": true,
+                        "excise_duty_suspended": true
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-warehouses",
+        "description": "Récupération de la liste des entrepôts du compte."
+      }
     }
   },
   "components": {
