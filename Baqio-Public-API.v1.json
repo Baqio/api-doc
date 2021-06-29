@@ -23301,7 +23301,7 @@
     },
     "/bank_informations": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Liste des comptes bancaires",
         "tags": [
           "Bank Informations"
         ],
@@ -23323,7 +23323,7 @@
     },
     "/country_taxes": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Liste des Taxes gérées par Baqio",
         "tags": [
           "CountryTaxes"
         ],
