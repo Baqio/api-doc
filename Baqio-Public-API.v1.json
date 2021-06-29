@@ -23392,7 +23392,9 @@
     "/warehouses": {
       "get": {
         "summary": "Liste des entrepôts",
-        "tags": [],
+        "tags": [
+          "Warehouses"
+        ],
         "responses": {
           "200": {
             "description": "OK",
