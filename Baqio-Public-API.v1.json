@@ -7378,9 +7378,6 @@
     "/product_families": {
       "get": {
         "summary": "Liste des familles de produits",
-        "tags": [
-          "Product Variants"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -7613,7 +7610,10 @@
           }
         },
         "operationId": "get-product_families",
-        "description": ""
+        "description": "",
+        "tags": [
+          "Produits"
+        ]
       }
     },
     "/product_packagings": {
@@ -7638,16 +7638,13 @@
         "operationId": "get-product_packagings",
         "description": "Récupération de la liste des conditionnements.",
         "tags": [
-          "Product Packagings"
+          "Conditionnements (product_packagings)"
         ]
       }
     },
     "/product_variants": {
       "get": {
         "summary": "Liste des variantes produits",
-        "tags": [
-          "Product Variants"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23048,7 +23045,10 @@
           }
         },
         "operationId": "get-product_variants",
-        "description": "Récupération de la liste des variantes produits"
+        "description": "Récupération de la liste des variantes produits",
+        "tags": [
+          "Produits"
+        ]
       }
     },
     "/product_variants/{id}": {
@@ -23064,9 +23064,6 @@
       ],
       "get": {
         "summary": "Récupération d'une variante produit",
-        "tags": [
-          "Product Variants"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23080,7 +23077,10 @@
           }
         },
         "operationId": "get-product_variants-id",
-        "description": "Récupération des informations d'une variante produit."
+        "description": "Récupération des informations d'une variante produit.",
+        "tags": [
+          "Produits"
+        ]
       }
     },
     "/product_variants/{id}/stock": {
@@ -23096,9 +23096,6 @@
       ],
       "get": {
         "summary": "Stock associé à une variante produit",
-        "tags": [
-          "Product Variants"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23135,15 +23132,15 @@
           }
         },
         "operationId": "get-product_variants-id-stock",
-        "description": "Récupération des stocks par entrepôt pour une variante produit."
+        "description": "Récupération des stocks par entrepôt pour une variante produit.",
+        "tags": [
+          "Produits"
+        ]
       }
     },
     "/collections": {
       "get": {
         "summary": "Liste des collections",
-        "tags": [
-          "collections"
-        ],
         "responses": {},
         "operationId": "get-collections",
         "description": "Récupère la liste des collections de produits disponibles pour votre compte.",
@@ -23159,7 +23156,10 @@
             }
           },
           "description": "OK"
-        }
+        },
+        "tags": [
+          "Produits"
+        ]
       }
     },
     "/collections/{id}": {
@@ -23175,9 +23175,6 @@
       ],
       "get": {
         "summary": "Détails d'une collection",
-        "tags": [
-          "collections"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23191,15 +23188,15 @@
           }
         },
         "operationId": "get-collections-id",
-        "description": "Récupère les détails d'une collection par son id."
+        "description": "Récupère les détails d'une collection par son id.",
+        "tags": [
+          "Produits"
+        ]
       }
     },
     "/sales_agent_categories": {
       "get": {
         "summary": "Liste des catégories de représentants commerciaux",
-        "tags": [
-          "Sales Agents"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23216,7 +23213,10 @@
           }
         },
         "operationId": "get-sales_agent_categories",
-        "description": "Récupère la liste des catégories de représentants commerciaux"
+        "description": "Récupère la liste des catégories de représentants commerciaux",
+        "tags": [
+          "Représentants (sales_agents)"
+        ]
       }
     },
     "/sales_agent_categories/{id}": {
@@ -23232,9 +23232,6 @@
       ],
       "get": {
         "summary": "Détails d'une catégorie de représentant commerciaux",
-        "tags": [
-          "Sales Agents"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23247,15 +23244,15 @@
             }
           }
         },
-        "operationId": "get-sales_agent_categories-id"
+        "operationId": "get-sales_agent_categories-id",
+        "tags": [
+          "Représentants (sales_agents)"
+        ]
       }
     },
     "/sales_agents": {
       "get": {
         "summary": "Représentants commerciaux",
-        "tags": [
-          "Sales Agents"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23272,7 +23269,10 @@
           }
         },
         "operationId": "get-sales_agents",
-        "description": "Liste des représentants commerciaux"
+        "description": "Liste des représentants commerciaux",
+        "tags": [
+          "Représentants (sales_agents)"
+        ]
       }
     },
     "/sales_agents/{id}": {
@@ -23288,9 +23288,6 @@
       ],
       "get": {
         "summary": "Détail d'un représentant commercial",
-        "tags": [
-          "Sales Agents"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23304,15 +23301,15 @@
           }
         },
         "operationId": "get-sales_agents-id",
-        "description": ""
+        "description": "",
+        "tags": [
+          "Représentants (sales_agents)"
+        ]
       }
     },
     "/bank_informations": {
       "get": {
         "summary": "Liste des comptes bancaires",
-        "tags": [
-          "Bank Informations"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23326,15 +23323,15 @@
           }
         },
         "operationId": "get-bank_informations",
-        "description": "Fetch all bank accounts for an account"
+        "description": "Fetch all bank accounts for an account",
+        "tags": [
+          "Comptes bancaires (bank_accounts)"
+        ]
       }
     },
     "/country_taxes": {
       "get": {
         "summary": "Liste des Taxes gérées par Baqio",
-        "tags": [
-          "CountryTaxes"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23394,7 +23391,10 @@
           }
         },
         "operationId": "get-country_taxes",
-        "description": "Baqio all CountryTaxes"
+        "description": "Baqio all CountryTaxes",
+        "tags": [
+          "Taxes (country_taxes)"
+        ]
       }
     },
     "/warehouses": {
@@ -23446,7 +23446,7 @@
         "operationId": "get-warehouses",
         "description": "Récupération de la liste des entrepôts du compte.",
         "tags": [
-          "Warehouses"
+          "Entrepôts (warehouses)"
         ]
       }
     }
