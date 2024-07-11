@@ -7017,7 +7017,7 @@
         "operationId": "get-fulfillments",
         "description": "Liste des expéditions.",
         "tags": [
-          "Expéditions (fulfillments)"
+          "Expéditions"
         ]
       },
       "parameters": []
@@ -7045,7 +7045,7 @@
         "parameters": [],
         "description": "Récupération de la liste des grilles tarifaires du compte.",
         "tags": [
-          "Grilles tarifaires (price_grids)"
+          "Grilles tarifaires"
         ]
       }
     },
@@ -7070,7 +7070,7 @@
         "operationId": "get-payment_sources",
         "description": "Récupère la liste des modes de paiements.",
         "tags": [
-          "Modes de paiements (payment_sources)"
+          "Modes de paiements"
         ]
       }
     },
@@ -23246,7 +23246,7 @@
         },
         "operationId": "get-sales_agent_categories-id",
         "tags": [
-          "Représentants (sales_agents)"
+          "Représentants"
         ]
       }
     },
@@ -23271,7 +23271,7 @@
         "operationId": "get-sales_agents",
         "description": "Liste des représentants commerciaux",
         "tags": [
-          "Représentants (sales_agents)"
+          "Représentants"
         ]
       }
     },
@@ -23303,7 +23303,7 @@
         "operationId": "get-sales_agents-id",
         "description": "",
         "tags": [
-          "Représentants (sales_agents)"
+          "Représentants"
         ]
       }
     },
@@ -23325,7 +23325,7 @@
         "operationId": "get-bank_informations",
         "description": "Fetch all bank accounts for an account",
         "tags": [
-          "Comptes bancaires (bank_accounts)"
+          "Comptes bancaires"
         ]
       }
     },
@@ -23393,7 +23393,7 @@
         "operationId": "get-country_taxes",
         "description": "Baqio all CountryTaxes",
         "tags": [
-          "Taxes (country_taxes)"
+          "Taxes"
         ]
       }
     },
@@ -23446,7 +23446,7 @@
         "operationId": "get-warehouses",
         "description": "Récupération de la liste des entrepôts du compte.",
         "tags": [
-          "Entrepôts (warehouses)"
+          "Entrepôts"
         ]
       }
     }
@@ -27043,28 +27043,28 @@
   ],
   "tags": [
     {
-      "name": "orders"
+      "name": "Commandes"
     },
     {
-      "name": "Payment Sources"
+      "name": "Paiements"
     },
     {
-      "name": "Accountings"
+      "name": "Comptabilité"
     },
     {
       "name": "Capsules"
     },
     {
-      "name": "Product Variants"
+      "name": "Produits"
     },
     {
-      "name": "Product Packagings"
+      "name": "Conditionnements"
     },
     {
-      "name": "collections"
+      "name": "Comptes bancaires"
     },
     {
-      "name": "Sales Agents"
+      "name": "Représentants"
     }
   ]
 }
