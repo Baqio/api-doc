@@ -23,9 +23,6 @@
     "/customers": {
       "get": {
         "summary": "Liste des clients",
-        "tags": [
-          "customers"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -169,7 +166,10 @@
         },
         "operationId": "get-customers",
         "parameters": [],
-        "description": "Récupère la liste des clients d'un compte."
+        "description": "Récupère la liste des clients d'un compte.",
+        "tags": [
+          "Clients (customers)"
+        ]
       },
       "parameters": [],
       "post": {
@@ -208,7 +208,7 @@
           "description": ""
         },
         "tags": [
-          "customers"
+          "Clients (customers)"
         ]
       }
     },
@@ -226,9 +226,6 @@
       ],
       "get": {
         "summary": "Informations sur un client",
-        "tags": [
-          "customers"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -242,7 +239,10 @@
           }
         },
         "operationId": "get-customers-id-.json",
-        "description": "Récupère les informations d'un client."
+        "description": "Récupère les informations d'un client.",
+        "tags": [
+          "Clients (customers)"
+        ]
       }
     },
     "/orders": {
@@ -23178,7 +23178,9 @@
       ],
       "get": {
         "summary": "Détails d'une collection",
-        "tags": [],
+        "tags": [
+          "collections"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -23458,9 +23460,6 @@
         "title": "Customer",
         "type": "object",
         "description": "Le modèle Customer stock les informations sur les clients d'un compte Baqio telles que ses données de facturation et livraison.",
-        "x-tags": [
-          "customers"
-        ],
         "x-examples": {
           "example": {
             "id": 124407,
@@ -23658,6 +23657,9 @@
         },
         "required": [
           "reference"
+        ],
+        "x-tags": [
+          "Clients (customers)"
         ]
       },
       "CustomerCategory": {
