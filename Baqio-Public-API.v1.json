@@ -23453,6 +23453,136 @@
   },
   "components": {
     "schemas": {
+      "AccountingEntry": {
+        "title": "AccountingEntry",
+        "type": "object",
+        "description": "Écriture comptable",
+        "properties": {
+          "journal": {
+            "type": "string",
+            "description": "Journal"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date da pièce comptable"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Référence de la pièce"
+          },
+          "number": {
+            "type": "string",
+            "description": "Numéro de compte"
+          },
+          "name": {
+            "type": "string",
+            "description": "libellé de l'écriture comptable"
+          },
+          "customer_name": {
+            "type": "string",
+            "description": "nom du client"
+          },
+          "debit": {
+            "type": "string",
+            "description": "débit"
+          },
+          "credit": {
+            "type": "string",
+            "description": "crédit"
+          },
+          "code": {
+            "type": "string",
+            "description": " code TVA"
+          },
+          "lettering_alpha": {
+            "type": "string",
+            "description": "lettrage alphabétique"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "quantité"
+          },
+          "internal_reference": {
+            "type": "string",
+            "description": "référence interne (utilisé pour récupérer la facture)"
+          }
+        },
+        "x-examples": {
+          "compte client": {
+            "journal": "VEL",
+            "date": "24/12/2019",
+            "reference": "FA-1001",
+            "number": "411GAUTIE",
+            "name": "Facture FA-1001",
+            "customer_name": "Sylvain Gautier",
+            "debit": "452,00",
+            "credit": "0,00",
+            "code": "",
+            "lettering_alpha": "A",
+            "quantity": "36,00",
+            "internal_reference": "89510"
+          },
+          "compte de vente": {
+            "journal": "VEL",
+            "date": "24/12/2019",
+            "reference": "FA-1001",
+            "number": "7010060",
+            "name": "Vin",
+            "customer_name": "Sylvain Gautier",
+            "debit": "0,00",
+            "credit": "360,00",
+            "code": "V1",
+            "lettering_alpha": "",
+            "quantity": "36,00",
+            "internal_reference": "89510"
+          },
+          "compte tva": {
+            "journal": "VEL",
+            "date": "24/12/2019",
+            "reference": "FA-1001",
+            "number": "4457150",
+            "name": "TVA France (20,00%)",
+            "customer_name": "Sylvain Gautier",
+            "debit": "0,00",
+            "credit": "75,33",
+            "code": "",
+            "lettering_alpha": "",
+            "quantity": "",
+            "internal_reference": "89510"
+          },
+          "reglement-client": {
+            "journal": "B01",
+            "date": "24/12/2019",
+            "reference": "40977",
+            "number": "411GAUTIE",
+            "name": "Carte Bancaire : FA-1001",
+            "customer_name": "Sylvain Gautier",
+            "debit": "0,00",
+            "credit": "452,00",
+            "code": "",
+            "lettering_alpha": "A",
+            "quantity": "",
+            "internal_reference": "40977"
+          },
+          "reglement-banque": {
+            "journal": "B01",
+            "date": "24/12/2019",
+            "reference": "40977",
+            "number": "5111000",
+            "name": "Carte Bancaire : FA-1001",
+            "customer_name": "Sylvain Gautier",
+            "debit": "452,00",
+            "credit": "0,00",
+            "code": "",
+            "lettering_alpha": "",
+            "quantity": "",
+            "internal_reference": "40977"
+          }
+        },
+        "x-tags": [
+          "Comptabilité (accountings)"
+        ]
+      },
       "Customer": {
         "title": "Customer",
         "type": "object",
@@ -24627,136 +24757,6 @@
           "Payments"
         ]
       },
-      "AccountingEntry": {
-        "title": "AccountingEntry",
-        "type": "object",
-        "x-tags": [
-          "Accountings"
-        ],
-        "description": "Écriture comptable",
-        "properties": {
-          "journal": {
-            "type": "string",
-            "description": "Journal"
-          },
-          "date": {
-            "type": "string",
-            "description": "Date da pièce comptable"
-          },
-          "reference": {
-            "type": "string",
-            "description": "Référence de la pièce"
-          },
-          "number": {
-            "type": "string",
-            "description": "Numéro de compte"
-          },
-          "name": {
-            "type": "string",
-            "description": "libellé de l'écriture comptable"
-          },
-          "customer_name": {
-            "type": "string",
-            "description": "nom du client"
-          },
-          "debit": {
-            "type": "string",
-            "description": "débit"
-          },
-          "credit": {
-            "type": "string",
-            "description": "crédit"
-          },
-          "code": {
-            "type": "string",
-            "description": " code TVA"
-          },
-          "lettering_alpha": {
-            "type": "string",
-            "description": "lettrage alphabétique"
-          },
-          "quantity": {
-            "type": "string",
-            "description": "quantité"
-          },
-          "internal_reference": {
-            "type": "string",
-            "description": "référence interne (utilisé pour récupérer la facture)"
-          }
-        },
-        "x-examples": {
-          "compte client": {
-            "journal": "VEL",
-            "date": "24/12/2019",
-            "reference": "FA-1001",
-            "number": "411GAUTIE",
-            "name": "Facture FA-1001",
-            "customer_name": "Sylvain Gautier",
-            "debit": "452,00",
-            "credit": "0,00",
-            "code": "",
-            "lettering_alpha": "A",
-            "quantity": "36,00",
-            "internal_reference": "89510"
-          },
-          "compte de vente": {
-            "journal": "VEL",
-            "date": "24/12/2019",
-            "reference": "FA-1001",
-            "number": "7010060",
-            "name": "Vin",
-            "customer_name": "Sylvain Gautier",
-            "debit": "0,00",
-            "credit": "360,00",
-            "code": "V1",
-            "lettering_alpha": "",
-            "quantity": "36,00",
-            "internal_reference": "89510"
-          },
-          "compte tva": {
-            "journal": "VEL",
-            "date": "24/12/2019",
-            "reference": "FA-1001",
-            "number": "4457150",
-            "name": "TVA France (20,00%)",
-            "customer_name": "Sylvain Gautier",
-            "debit": "0,00",
-            "credit": "75,33",
-            "code": "",
-            "lettering_alpha": "",
-            "quantity": "",
-            "internal_reference": "89510"
-          },
-          "reglement-client": {
-            "journal": "B01",
-            "date": "24/12/2019",
-            "reference": "40977",
-            "number": "411GAUTIE",
-            "name": "Carte Bancaire : FA-1001",
-            "customer_name": "Sylvain Gautier",
-            "debit": "0,00",
-            "credit": "452,00",
-            "code": "",
-            "lettering_alpha": "A",
-            "quantity": "",
-            "internal_reference": "40977"
-          },
-          "reglement-banque": {
-            "journal": "B01",
-            "date": "24/12/2019",
-            "reference": "40977",
-            "number": "5111000",
-            "name": "Carte Bancaire : FA-1001",
-            "customer_name": "Sylvain Gautier",
-            "debit": "452,00",
-            "credit": "0,00",
-            "code": "",
-            "lettering_alpha": "",
-            "quantity": "",
-            "internal_reference": "40977"
-          }
-        }
-      },
       "ProductSize": {
         "title": "ProductSize",
         "type": "object",
@@ -24811,9 +24811,6 @@
         "title": "ProductPackaging",
         "type": "object",
         "description": "Conditionnements (carton, vrac, etc.)",
-        "x-tags": [
-          "Product Packagings"
-        ],
         "x-examples": {
           "example": {
             "id": 2340,
@@ -24852,14 +24849,14 @@
           "net_weight": {
             "type": "string"
           }
-        }
+        },
+        "x-tags": [
+          "Conditionnements (product_packagings)"
+        ]
       },
       "ProductPrice": {
         "title": "ProductPrice",
         "type": "object",
-        "x-tags": [
-          "Product Variants"
-        ],
         "description": "Tarif d'une variante produit pour une grille tarifaire ou pour un client.",
         "properties": {
           "id": {
@@ -24952,7 +24949,10 @@
               "default": false
             }
           }
-        }
+        },
+        "x-tags": [
+          "Produits (products)"
+        ]
       },
       "ProductVintage": {
         "title": "ProductVintage",
@@ -25023,15 +25023,12 @@
           }
         },
         "x-tags": [
-          "Product Variants"
+          "Produits (products)"
         ]
       },
       "ProductColor": {
         "title": "ProductColor",
         "type": "object",
-        "x-tags": [
-          "Product Variants"
-        ],
         "description": "Couleur d'un produit",
         "properties": {
           "id": {
@@ -25063,14 +25060,14 @@
             "updated_at": "2018-09-28T17:31:41.753+02:00",
             "handle": "red"
           }
-        }
+        },
+        "x-tags": [
+          "Produits (products)"
+        ]
       },
       "Product": {
         "title": "Product",
         "type": "object",
-        "x-tags": [
-          "Product Variants"
-        ],
         "description": "",
         "x-examples": {
           "example": {
@@ -25205,7 +25202,10 @@
           "product_family": {
             "$ref": "#/components/schemas/ProductFamily"
           }
-        }
+        },
+        "x-tags": [
+          "Produits (products)"
+        ]
       },
       "Capsule": {
         "title": "Capsule",
@@ -25275,7 +25275,7 @@
           }
         },
         "x-tags": [
-          "Capsules"
+          "Capsules (capsules)"
         ]
       },
       "ProductFamily": {
@@ -25370,7 +25370,7 @@
           }
         },
         "x-tags": [
-          "Product Variants"
+          "Produits (products)"
         ]
       },
       "Fulfillment": {
@@ -25636,9 +25636,6 @@
       "ProductVariant": {
         "title": "ProductVariant",
         "type": "object",
-        "x-tags": [
-          "Product Variants"
-        ],
         "description": "Variante Produit",
         "x-examples": {
           "example": {
@@ -26134,7 +26131,10 @@
             "type": "array",
             "items": {}
           }
-        }
+        },
+        "x-tags": [
+          "Produits (products)"
+        ]
       },
       "OrderLine": {
         "title": "OrderLine",
@@ -26371,7 +26371,7 @@
           }
         },
         "x-tags": [
-          "orders"
+          "Commandes (orders)"
         ]
       },
       "CommissionLine": {
@@ -26454,7 +26454,7 @@
           }
         },
         "x-tags": [
-          "orders"
+          "Commandes (orders)"
         ]
       },
       "Payment": {
