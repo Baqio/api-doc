@@ -168,7 +168,7 @@
         "parameters": [],
         "description": "Récupère la liste des clients d'un compte.",
         "tags": [
-          "Clients (customers)"
+          "Clients"
         ]
       },
       "parameters": [],
@@ -208,7 +208,7 @@
           "description": ""
         },
         "tags": [
-          "Clients (customers)"
+          "Clients"
         ]
       }
     },
@@ -241,7 +241,7 @@
         "operationId": "get-customers-id-.json",
         "description": "Récupère les informations d'un client.",
         "tags": [
-          "Clients (customers)"
+          "Clients"
         ]
       }
     },
@@ -578,7 +578,7 @@
           }
         ],
         "tags": [
-          "Commandes (orders)"
+          "Commandes"
         ]
       },
       "parameters": [],
@@ -7105,7 +7105,7 @@
         "operationId": "get-orders-id",
         "description": "Récupère les informations sur une commande.",
         "tags": [
-          "Commandes (orders)"
+          "Commandes"
         ]
       }
     },
@@ -7133,7 +7133,7 @@
         "description": "Récupère la facture au format PDF.",
         "parameters": [],
         "tags": [
-          "Comptabilité (accountings)"
+          "Comptabilité"
         ]
       }
     },
@@ -7268,7 +7268,7 @@
         ],
         "description": "Récupère les écritures comptables sur une période donnée. ",
         "tags": [
-          "Comptabilité (accountings)"
+          "Comptabilité"
         ]
       }
     },
@@ -7371,7 +7371,7 @@
         "operationId": "get-capsules",
         "description": "Liste des capsules",
         "tags": [
-          "Capsules (capsules)"
+          "Capsules"
         ]
       }
     },
@@ -23580,7 +23580,7 @@
           }
         },
         "x-tags": [
-          "Comptabilité (accountings)"
+          "Comptabilité"
         ]
       },
       "Customer": {
@@ -23786,7 +23786,7 @@
           "reference"
         ],
         "x-tags": [
-          "Clients (customers)"
+          "Clients"
         ]
       },
       "CustomerCategory": {
@@ -23816,7 +23816,7 @@
           }
         },
         "x-tags": [
-          "Clients (customers)"
+          "Clients"
         ]
       },
       "PriceGrid": {
@@ -23897,7 +23897,7 @@
           }
         },
         "x-tags": [
-          "Grilles tarifaires (price_grids)"
+          "Grilles tarifaires"
         ]
       },
       "Order": {
@@ -24387,7 +24387,7 @@
           }
         },
         "x-tags": [
-          "Commandes (orders)"
+          "Commandes"
         ]
       },
       "BillingInformation": {
@@ -24498,7 +24498,7 @@
           }
         },
         "x-tags": [
-          "Billing Informations"
+          "Informations de facturation"
         ]
       },
       "ShippingInformation": {
@@ -24597,14 +24597,14 @@
           }
         },
         "x-tags": [
-          "Shipping Informations"
+          "Informations de livraison"
         ]
       },
       "TaxLine": {
         "title": "TaxLine",
         "type": "object",
         "x-tags": [
-          "Tax Lines"
+          "Commandes"
         ],
         "description": "Ligne de TVA",
         "x-examples": {
@@ -24655,7 +24655,7 @@
         "title": "ShippingLine",
         "type": "object",
         "x-tags": [
-          "Shipping Lines"
+          "Commandes"
         ],
         "description": "Modèle relatif aux frais de port et transporteur utilisé.",
         "properties": {
@@ -24754,14 +24754,14 @@
           }
         },
         "x-tags": [
-          "Payments"
+          "Paiements"
         ]
       },
       "ProductSize": {
         "title": "ProductSize",
         "type": "object",
         "x-tags": [
-          "Product Sizes"
+          "Produits"
         ],
         "properties": {
           "id": {
@@ -24851,7 +24851,7 @@
           }
         },
         "x-tags": [
-          "Conditionnements (product_packagings)"
+          "Conditionnements"
         ]
       },
       "ProductPrice": {
@@ -24951,7 +24951,7 @@
           }
         },
         "x-tags": [
-          "Produits (products)"
+          "Produits"
         ]
       },
       "ProductVintage": {
@@ -25023,7 +25023,7 @@
           }
         },
         "x-tags": [
-          "Produits (products)"
+          "Produits"
         ]
       },
       "ProductColor": {
@@ -25062,7 +25062,7 @@
           }
         },
         "x-tags": [
-          "Produits (products)"
+          "Produits"
         ]
       },
       "Product": {
@@ -25204,7 +25204,7 @@
           }
         },
         "x-tags": [
-          "Produits (products)"
+          "Produits"
         ]
       },
       "Capsule": {
@@ -25275,7 +25275,7 @@
           }
         },
         "x-tags": [
-          "Capsules (capsules)"
+          "Capsules"
         ]
       },
       "ProductFamily": {
@@ -25370,7 +25370,7 @@
           }
         },
         "x-tags": [
-          "Produits (products)"
+          "Produits"
         ]
       },
       "Fulfillment": {
@@ -25505,7 +25505,7 @@
           }
         },
         "x-tags": [
-          "Fulfillments"
+          "Expéditions"
         ],
         "properties": {
           "id": {
@@ -26133,7 +26133,7 @@
           }
         },
         "x-tags": [
-          "Produits (products)"
+          "Produits"
         ]
       },
       "OrderLine": {
@@ -26371,7 +26371,7 @@
           }
         },
         "x-tags": [
-          "Commandes (orders)"
+          "Commandes"
         ]
       },
       "CommissionLine": {
@@ -26454,7 +26454,7 @@
           }
         },
         "x-tags": [
-          "Commandes (orders)"
+          "Commandes"
         ]
       },
       "Payment": {
@@ -26586,14 +26586,14 @@
           }
         },
         "x-tags": [
-          "Payments"
+          "Paiements"
         ]
       },
       "PaymentLink": {
         "title": "PaymentLink",
         "type": "object",
         "x-tags": [
-          "Payments"
+          "Paiements"
         ],
         "description": "Liaison entre un paiement et une commande ou une opération.",
         "x-examples": {
@@ -26726,7 +26726,7 @@
           }
         },
         "x-tags": [
-          "Entrepôts (warehouses)"
+          "Entrepôts"
         ]
       },
       "FulfillmentLine": {
@@ -26817,7 +26817,7 @@
           }
         },
         "x-tags": [
-          "Expéditions (fulfillments)"
+          "Expéditions"
         ]
       },
       "Collection": {
@@ -26845,7 +26845,7 @@
           }
         },
         "x-tags": [
-          "Produits (products)"
+          "Produits"
         ]
       },
       "SalesAgentCategory": {
@@ -26891,7 +26891,7 @@
           "payment_periodicity"
         ],
         "x-tags": [
-          "Représentants (sales_agents)"
+          "Représentants"
         ]
       },
       "BankInformation": {
@@ -26922,7 +26922,7 @@
           }
         },
         "x-tags": [
-          "Comptes bancaires (bank_accounts)"
+          "Comptes bancaires"
         ]
       },
       "SalesAgent": {
@@ -26953,7 +26953,7 @@
           }
         },
         "x-tags": [
-          "Représentants (sales_agents)"
+          "Représentants"
         ]
       },
       "CountryTax": {
@@ -27024,7 +27024,7 @@
         },
         "title": "CountryTax",
         "x-tags": [
-          "Taxes (country_taxes)"
+          "Taxes"
         ]
       }
     },
