@@ -7268,7 +7268,7 @@
         ],
         "description": "Récupère les écritures comptables sur une période donnée. ",
         "tags": [
-          "Comptabilité (accounting)"
+          "Comptabilité (accountings)"
         ]
       }
     },
@@ -23686,7 +23686,7 @@
           }
         },
         "x-tags": [
-          "Customer Categories"
+          "Clients (customers)"
         ]
       },
       "PriceGrid": {
@@ -23711,9 +23711,6 @@
           }
         },
         "description": "Grilles tarifaires.",
-        "x-tags": [
-          "Price Grids"
-        ],
         "properties": {
           "id": {
             "type": "integer"
@@ -23768,14 +23765,14 @@
               "boolean"
             ]
           }
-        }
+        },
+        "x-tags": [
+          "Grilles tarifaires (price_grids)"
+        ]
       },
       "Order": {
         "title": "Order",
         "type": "object",
-        "x-tags": [
-          "orders"
-        ],
         "description": "Le modèle Commande contient toutes les informations sur une commande. \n\n**Valeurs possibles** \n\n- state\n    - draft : Brouillon (uniquement pour les commandes réalisées depuis le site e-commerce et non finalisées par le visiteur)\n    - pending : En attente (devis). Il est encore possible de modifier la commande\n    - validated : Validée (pro forma). Il n'est plus possible de la modifier (il faut alors la dévalider) et les produits correspondant sont marqués comme réservés dans le stock.\n    - removed : Annulée. Commande non facturée annulée.\n    - invoiced : Facturée\n    - cancelled : Annulée avec avoir. La commande était facturée et elle a été annulée. Elle a donc à la fois une facture et un avoir du même montant.\n- payment_status\n    - not_paid : Non payé\n    - partial : Règlement partiel\n    - paid : Payé\n    - cancelled : Annulé (commande non facturée annulée donc le paiement n'est plus dû ou commande facturée annulée sans paiement)\n    - to_refund : A rembourser (commande facturée et avec un paiement qu'il convient de rembourser)",
         "x-examples": {
           "example": {
@@ -24258,7 +24255,10 @@
             "type": "array",
             "items": {}
           }
-        }
+        },
+        "x-tags": [
+          "Commandes (orders)"
+        ]
       },
       "BillingInformation": {
         "title": "BillingInformation",
@@ -26726,7 +26726,7 @@
           }
         },
         "x-tags": [
-          "Warehouses"
+          "Entrepôts (warehouses)"
         ]
       },
       "FulfillmentLine": {
@@ -26817,7 +26817,7 @@
           }
         },
         "x-tags": [
-          "Fulfillments"
+          "Expéditions (fulfillments)"
         ]
       },
       "Collection": {
@@ -26845,7 +26845,7 @@
           }
         },
         "x-tags": [
-          "collections"
+          "Produits (products)"
         ]
       },
       "SalesAgentCategory": {
@@ -26891,7 +26891,7 @@
           "payment_periodicity"
         ],
         "x-tags": [
-          "Sales Agents"
+          "Représentants (sales_agents)"
         ]
       },
       "BankInformation": {
@@ -26920,7 +26920,10 @@
           "primary": {
             "type": "boolean"
           }
-        }
+        },
+        "x-tags": [
+          "Comptes bancaires (bank_accounts)"
+        ]
       },
       "SalesAgent": {
         "title": "SalesAgent",
@@ -26950,7 +26953,7 @@
           }
         },
         "x-tags": [
-          "Sales Agents"
+          "Représentants (sales_agents)"
         ]
       },
       "CountryTax": {
@@ -27021,7 +27024,7 @@
         },
         "title": "CountryTax",
         "x-tags": [
-          "CountryTaxes"
+          "Taxes (country_taxes)"
         ]
       }
     },
