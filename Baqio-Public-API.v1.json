@@ -7006,19 +7006,32 @@
               }
             }
           },
-          "": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          }
         },
         "operationId": "get-fulfillments",
         "description": "Liste des expéditions.",
+        "tags": [
+          "Expéditions"
+        ]
+      },
+      "parameters": []
+    },
+    "/fulfillment_parcels": {
+      "get": {
+        "summary": "Liste les expéditions (colisage)",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Fulfillment2"
+                },
+              }
+            }
+          },
+        },
+        "operationId": "get-fulfillment-parcels",
+        "description": "Liste les expéditions et au sein de chaque expéditions, la liste des colis et leurs contenus",
         "tags": [
           "Expéditions"
         ]
