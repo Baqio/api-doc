@@ -30527,16 +30527,16 @@
         }
       ],
       "post": {
-        "summary": "post-fulfillment-complete-picking",
+        "summary": "Marquer une expédition comme préparée",
         "tags": [
           "Expéditions"
         ],
         "responses": {},
-        "operationId": "Marquer une expédition comme préparée",
+        "operationId": "post-fulfillment-complete-picking",
         "x-stoplight": {
           "id": "n8iemsl3fio8h"
         },
-        "description": "Ce endpoint permet de faire passer une expédition au statut \"préparée\". Aucun paramètre n'est requis."
+        "description": "Ce endpoint permet de faire passer une expédition au statut \"préparée\". Aucun paramètre n'est requis.\n\n"
       }
     }
   },
