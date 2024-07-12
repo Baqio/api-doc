@@ -1,5 +1,8 @@
 {
   "openapi": "3.0.0",
+  "x-stoplight": {
+    "id": "d7a6b655e29ef"
+  },
   "info": {
     "title": "Baqio Public API",
     "version": "1.0",
@@ -169,7 +172,10 @@
         "description": "Récupère la liste des clients d'un compte.",
         "tags": [
           "Clients"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "to8y6y2tytl44"
+        }
       },
       "parameters": [],
       "post": {
@@ -209,7 +215,10 @@
         },
         "tags": [
           "Clients"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "d66ec9q5xmny1"
+        }
       }
     },
     "/customers/{id}": {
@@ -242,7 +251,10 @@
         "description": "Récupère les informations d'un client.",
         "tags": [
           "Clients"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "g2i08qzg0hl6i"
+        }
       }
     },
     "/orders": {
@@ -579,7 +591,10 @@
         ],
         "tags": [
           "Commandes"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "4pkjgf4mjdy4k"
+        }
       },
       "parameters": [],
       "post": {
@@ -711,7 +726,10 @@
         "description": "Création de commandes.",
         "tags": [
           "Commandes"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "u5di2itawpri9"
+        }
       }
     },
     "/fulfillments": {
@@ -7006,35 +7024,25 @@
               }
             }
           },
+          "": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
         },
         "operationId": "get-fulfillments",
         "description": "Liste des expéditions.",
         "tags": [
           "Expéditions"
-        ]
-      },
-      "parameters": []
-    },
-    "/fulfillment_parcels": {
-      "get": {
-        "summary": "Liste les expéditions (colisage)",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Fulfillment2"
-                },
-              }
-            }
-          },
-        },
-        "operationId": "get-fulfillment-parcels",
-        "description": "Liste les expéditions et au sein de chaque expéditions, la liste des colis et leurs contenus",
-        "tags": [
-          "Expéditions"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "ab3k0jm38ga3w"
+        }
       },
       "parameters": []
     },
@@ -7062,7 +7070,10 @@
         "description": "Récupération de la liste des grilles tarifaires du compte.",
         "tags": [
           "Grilles tarifaires"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "jullnywyip081"
+        }
       }
     },
     "/payment_sources": {
@@ -7087,7 +7098,10 @@
         "description": "Récupère la liste des modes de paiements.",
         "tags": [
           "Modes de paiements"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "63utpjpax4zqf"
+        }
       }
     },
     "/orders/{id}": {
@@ -7122,7 +7136,10 @@
         "description": "Récupère les informations sur une commande.",
         "tags": [
           "Commandes"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "nap2uzr3fw4lq"
+        }
       }
     },
     "/accountings/invoices/{id}": {
@@ -7150,7 +7167,10 @@
         "parameters": [],
         "tags": [
           "Comptabilité"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "9g9lm0jvym45a"
+        }
       }
     },
     "/accountings/entries": {
@@ -7285,7 +7305,10 @@
         "description": "Récupère les écritures comptables sur une période donnée. ",
         "tags": [
           "Comptabilité"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "zridmz3pjpby7"
+        }
       }
     },
     "/capsules": {
@@ -7388,7 +7411,10 @@
         "description": "Liste des capsules",
         "tags": [
           "Capsules"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "k8u060wrgtqbf"
+        }
       }
     },
     "/product_families": {
@@ -7629,7 +7655,10 @@
         "description": "",
         "tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "0y0rpvigsoumi"
+        }
       }
     },
     "/product_packagings": {
@@ -7655,7 +7684,10 @@
         "description": "Récupération de la liste des conditionnements.",
         "tags": [
           "Conditionnements"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "yviz9kxp3njho"
+        }
       }
     },
     "/product_variants": {
@@ -23064,7 +23096,10 @@
         "description": "Récupération de la liste des variantes produits",
         "tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "ccs96qdfcux3r"
+        }
       }
     },
     "/product_variants/{id}": {
@@ -23096,7 +23131,10 @@
         "description": "Récupération des informations d'une variante produit.",
         "tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "gldu72y9f3nir"
+        }
       }
     },
     "/product_variants/{id}/stock": {
@@ -23151,7 +23189,10 @@
         "description": "Récupération des stocks par entrepôt pour une variante produit.",
         "tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "v5iczsoqgvqi6"
+        }
       }
     },
     "/collections": {
@@ -23175,7 +23216,10 @@
         },
         "tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "evic4ix0k1ha3"
+        }
       }
     },
     "/collections/{id}": {
@@ -23207,7 +23251,10 @@
         "description": "Récupère les détails d'une collection par son id.",
         "tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "j4g40fheninhk"
+        }
       }
     },
     "/sales_agent_categories": {
@@ -23232,7 +23279,10 @@
         "description": "Récupère la liste des catégories de représentants commerciaux",
         "tags": [
           "Représentants"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "g7mby9gylo8ce"
+        }
       }
     },
     "/sales_agent_categories/{id}": {
@@ -23263,7 +23313,10 @@
         "operationId": "get-sales_agent_categories-id",
         "tags": [
           "Représentants"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "bodawmvghbc04"
+        }
       }
     },
     "/sales_agents": {
@@ -23288,7 +23341,10 @@
         "description": "Liste des représentants commerciaux",
         "tags": [
           "Représentants"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "kz0juyxmgjbis"
+        }
       }
     },
     "/sales_agents/{id}": {
@@ -23320,7 +23376,10 @@
         "description": "",
         "tags": [
           "Représentants"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "l4zfvvz9kr18q"
+        }
       }
     },
     "/bank_informations": {
@@ -23342,7 +23401,10 @@
         "description": "Fetch all bank accounts for an account",
         "tags": [
           "Comptes bancaires"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "32s5tbpr7hxdr"
+        }
       }
     },
     "/country_taxes": {
@@ -23410,7 +23472,10 @@
         "description": "Baqio all CountryTaxes",
         "tags": [
           "Taxes"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "73y205ghog4b4"
+        }
       }
     },
     "/warehouses": {
@@ -23463,7 +23528,10 @@
         "description": "Récupération de la liste des entrepôts du compte.",
         "tags": [
           "Entrepôts"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "g2xdsuum1lc8i"
+        }
       }
     }
   },
@@ -23597,7 +23665,10 @@
         },
         "x-tags": [
           "Comptabilité"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "6pwnm966demc5"
+        }
       },
       "Customer": {
         "title": "Customer",
@@ -23803,7 +23874,10 @@
         ],
         "x-tags": [
           "Clients"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "lq9ka6505pz92"
+        }
       },
       "CustomerCategory": {
         "title": "CustomerCategory",
@@ -23833,7 +23907,10 @@
         },
         "x-tags": [
           "Clients"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "jgw2r41k9jxtj"
+        }
       },
       "PriceGrid": {
         "title": "PriceGrid",
@@ -23914,7 +23991,10 @@
         },
         "x-tags": [
           "Grilles tarifaires"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "t6ghmcqa86l8g"
+        }
       },
       "Order": {
         "title": "Order",
@@ -24404,7 +24484,10 @@
         },
         "x-tags": [
           "Commandes"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "cy69kvt8cuqhq"
+        }
       },
       "BillingInformation": {
         "title": "BillingInformation",
@@ -24515,7 +24598,10 @@
         },
         "x-tags": [
           "Informations de facturation"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "nkvhr6p0rtxd5"
+        }
       },
       "ShippingInformation": {
         "title": "ShippingInformation",
@@ -24614,7 +24700,10 @@
         },
         "x-tags": [
           "Informations de livraison"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "82gfdrzw4hqkt"
+        }
       },
       "TaxLine": {
         "title": "TaxLine",
@@ -24665,6 +24754,9 @@
           "updated_at": {
             "type": "string"
           }
+        },
+        "x-stoplight": {
+          "id": "jgnazf510vocn"
         }
       },
       "ShippingLine": {
@@ -24735,7 +24827,10 @@
         },
         "required": [
           "calculation_method"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "iyap0rvlw8ltf"
+        }
       },
       "PaymentSource": {
         "title": "PaymentSource",
@@ -24771,7 +24866,10 @@
         },
         "x-tags": [
           "Paiements"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "lk3n9n0i8qeaq"
+        }
       },
       "ProductSize": {
         "title": "ProductSize",
@@ -24821,6 +24919,9 @@
             "short_name": "75 cl",
             "kind": "bottle"
           }
+        },
+        "x-stoplight": {
+          "id": "7zsz86nyzm784"
         }
       },
       "ProductPackaging": {
@@ -24868,7 +24969,10 @@
         },
         "x-tags": [
           "Conditionnements"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "3x54p65a8mawt"
+        }
       },
       "ProductPrice": {
         "title": "ProductPrice",
@@ -24968,7 +25072,10 @@
         },
         "x-tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "kqb69sun3kphw"
+        }
       },
       "ProductVintage": {
         "title": "ProductVintage",
@@ -25040,7 +25147,10 @@
         },
         "x-tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "pf5zq3exre158"
+        }
       },
       "ProductColor": {
         "title": "ProductColor",
@@ -25079,7 +25189,10 @@
         },
         "x-tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "nkivo4yexhjsh"
+        }
       },
       "Product": {
         "title": "Product",
@@ -25221,7 +25334,10 @@
         },
         "x-tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "5stgenbcduyzr"
+        }
       },
       "Capsule": {
         "title": "Capsule",
@@ -25292,7 +25408,10 @@
         },
         "x-tags": [
           "Capsules"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "4fhtu90vxgpxt"
+        }
       },
       "ProductFamily": {
         "title": "ProductFamily",
@@ -25387,7 +25506,10 @@
         },
         "x-tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "gvln8n8x9wq51"
+        }
       },
       "Fulfillment": {
         "title": "Fulfillment",
@@ -25647,6 +25769,9 @@
               "$ref": "#/components/schemas/FulfillmentLine"
             }
           }
+        },
+        "x-stoplight": {
+          "id": "t1uegrlktuoru"
         }
       },
       "ProductVariant": {
@@ -26150,7 +26275,10 @@
         },
         "x-tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "wn3h36oj7bzo7"
+        }
       },
       "OrderLine": {
         "title": "OrderLine",
@@ -26388,7 +26516,10 @@
         },
         "x-tags": [
           "Commandes"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "sczcev5p3wmkb"
+        }
       },
       "CommissionLine": {
         "title": "CommissionLine",
@@ -26471,7 +26602,10 @@
         },
         "x-tags": [
           "Commandes"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "73tm6z6936kgw"
+        }
       },
       "Payment": {
         "title": "Payment",
@@ -26603,7 +26737,10 @@
         },
         "x-tags": [
           "Paiements"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "xl1cthwdi5t39"
+        }
       },
       "PaymentLink": {
         "title": "PaymentLink",
@@ -26700,6 +26837,9 @@
           "payment": {
             "$ref": "#/components/schemas/Payment"
           }
+        },
+        "x-stoplight": {
+          "id": "wooytg23b85sv"
         }
       },
       "Warehouse": {
@@ -26743,7 +26883,10 @@
         },
         "x-tags": [
           "Entrepôts"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "q19zww4b1fseq"
+        }
       },
       "FulfillmentLine": {
         "title": "FulfillmentLine",
@@ -26834,7 +26977,10 @@
         },
         "x-tags": [
           "Expéditions"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "u7iuas9k50wow"
+        }
       },
       "Collection": {
         "title": "Collection",
@@ -26862,7 +27008,10 @@
         },
         "x-tags": [
           "Produits"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "vgv5kn28iwy5i"
+        }
       },
       "SalesAgentCategory": {
         "title": "SalesAgentCategory",
@@ -26908,7 +27057,10 @@
         ],
         "x-tags": [
           "Représentants"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "pltcvt133etmj"
+        }
       },
       "BankInformation": {
         "title": "BankInformation",
@@ -26939,7 +27091,10 @@
         },
         "x-tags": [
           "Comptes bancaires"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "t1szvu10wdmlv"
+        }
       },
       "SalesAgent": {
         "title": "SalesAgent",
@@ -26970,7 +27125,10 @@
         },
         "x-tags": [
           "Représentants"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "7auana6kwywoj"
+        }
       },
       "CountryTax": {
         "description": "",
@@ -27041,7 +27199,10 @@
         "title": "CountryTax",
         "x-tags": [
           "Taxes"
-        ]
+        ],
+        "x-stoplight": {
+          "id": "8xv3mniefezxd"
+        }
       }
     },
     "securitySchemes": {
