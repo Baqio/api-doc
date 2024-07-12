@@ -30514,6 +30514,28 @@
         },
         "description": "Liste des expéditions avec les informations de colisage"
       }
+    },
+    "/fulfillments/{id}/complete_picking": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "post-fulfillment-complete-picking",
+        "tags": [],
+        "responses": {},
+        "operationId": "Marquer une expédition comme préparée",
+        "x-stoplight": {
+          "id": "n8iemsl3fio8h"
+        },
+        "description": "Ce endpoint permet de faire passer une expédition au statut \"préparée\". Aucun paramètre n'est requis."
+      }
     }
   },
   "components": {
