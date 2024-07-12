@@ -30528,7 +30528,9 @@
       ],
       "post": {
         "summary": "post-fulfillment-complete-picking",
-        "tags": [],
+        "tags": [
+          "Expéditions"
+        ],
         "responses": {},
         "operationId": "Marquer une expédition comme préparée",
         "x-stoplight": {
