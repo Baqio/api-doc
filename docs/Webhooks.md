@@ -29,6 +29,13 @@ Liste des événements (topic) qui sont envoyés :
 - shipping_line.updated
 - commission_line.updated
 
+**Expédition (fulfillment)**
+- picking_requested: Préparation demandée
+- picking_started: Préparation commencée
+- picking_completed: Préparation terminée
+- picking_cancelled: Annulation de la demande de préparation
+
+
 **Produit (product)**
 
 - product.created
