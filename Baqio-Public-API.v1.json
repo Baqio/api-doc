@@ -248,6 +248,172 @@
         "tags": [
           "Clients"
         ]
+      },
+      "put": {
+        "summary": "Mise à jour d'un client",
+        "operationId": "put-customers-id",
+        "description": "Met à jour un client existant. Seuls les champs envoyés sont modifiés. Les informations de facturation et de livraison peuvent être mises à jour via `billing_information` et `shipping_information`. Accepte aussi la méthode `PATCH`.\n\nLa requête doit être signée avec l'en-tête `X-Baqio-Hmac-Sha256` (voir Authentification).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customer": {
+                    "type": "object",
+                    "description": "Mêmes champs que le client, tous optionnels.",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 12
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Nom du client",
+                        "example": "Agathe Fauré"
+                      },
+                      "price_grid": {
+                        "$ref": "#/components/schemas/PriceGrid"
+                      },
+                      "customer_category": {
+                        "$ref": "#/components/schemas/CustomerCategory"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "agathe.faure@gmail.com",
+                        "format": "email"
+                      },
+                      "note": {
+                        "type": "string",
+                        "description": "Commentaire sur ce client",
+                        "example": "Rencontré au Salon des Vignerons Indépendant de Paris"
+                      },
+                      "accepts_emailing": {
+                        "type": "boolean",
+                        "description": "Accepte les newsletters ?",
+                        "example": "true"
+                      },
+                      "reference": {
+                        "type": "string",
+                        "description": "Référence unique du client",
+                        "example": "CL4151414"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2020-01-15T16:56:05.592+01:00"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2020-01-15T16:56:05.592+01:00"
+                      },
+                      "price_grid_id": {
+                        "type": "integer",
+                        "description": "ID de la grille tarifaire"
+                      },
+                      "accepts_mailing": {
+                        "type": "boolean",
+                        "description": "Accepte les courriers papiers ?"
+                      },
+                      "code": {
+                        "type": "string",
+                        "description": "Code comptable du client"
+                      },
+                      "warehouse_id": {
+                        "type": "integer",
+                        "description": "ID de l'entrepôt assigné au client si existant\n"
+                      },
+                      "billing_information": {
+                        "$ref": "#/components/schemas/BillingInformation"
+                      },
+                      "shipping_information": {
+                        "$ref": "#/components/schemas/ShippingInformation"
+                      },
+                      "customer_tags": {
+                        "type": "array",
+                        "items": {}
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "customer": {
+                      "email": "contact@baqio.com",
+                      "note": "Client fidèle",
+                      "billing_information": {
+                        "phone": "0102030405"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "id": 124407
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Client introuvable"
+          },
+          "422": {
+            "description": "Erreurs de validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "errors": [
+                        "Email n'est pas valide"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Clients"
+        ]
       }
     },
     "/orders": {
@@ -13338,6 +13504,45 @@
       },
       "parameters": []
     },
+    "/fulfillments/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID de l'expédition"
+        }
+      ],
+      "get": {
+        "summary": "Informations sur une expédition",
+        "operationId": "get-fulfillments-id",
+        "description": "Récupère les informations d'une expédition, avec ses lignes.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Fulfillment"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Expéditions"
+        ]
+      }
+    },
     "/price_grids": {
       "get": {
         "summary": "Liste des grilles tarifaires",
@@ -13420,6 +13625,225 @@
         },
         "operationId": "get-orders-id",
         "description": "Récupère les informations sur une commande.",
+        "tags": [
+          "Commandes"
+        ]
+      },
+      "put": {
+        "summary": "Mise à jour d'une commande",
+        "operationId": "put-orders-id",
+        "description": "Met à jour l'en-tête d'une commande (référence, note, date, entrepôt, informations de facturation et de livraison…). Les lignes de commande ne sont pas modifiables par ce endpoint. Accepte aussi la méthode `PATCH`.\n\nLa requête doit être signée avec l'en-tête `X-Baqio-Hmac-Sha256` (voir Authentification).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "order": {
+                      "reference": "CMD-2026-001",
+                      "note": "Livrer avant midi"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Commande introuvable"
+          },
+          "422": {
+            "description": "Erreurs de validation"
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Commandes"
+        ]
+      }
+    },
+    "/bookings": {
+      "get": {
+        "summary": "Liste des réservations",
+        "operationId": "get-bookings",
+        "description": "Liste des commandes de type réservation (hors brouillons), par pages de 50. Le format est identique à celui des commandes.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "object"
+            },
+            "in": "query",
+            "name": "q",
+            "style": "deepObject",
+            "explode": true,
+            "description": "Filtres de recherche (ransack), ex. `q[date_gteq]=2026-01-01`"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (50 résultats par page)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Commandes"
+        ]
+      }
+    },
+    "/bookings/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID de la réservation"
+        }
+      ],
+      "get": {
+        "summary": "Informations sur une réservation",
+        "operationId": "get-bookings-id",
+        "description": "Récupère une commande de type réservation.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Commandes"
+        ]
+      }
+    },
+    "/order_campaigns": {
+      "get": {
+        "summary": "Liste des campagnes de commandes",
+        "operationId": "get-order_campaigns",
+        "description": "Liste des campagnes de commandes du compte.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderCampaign"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 34,
+                        "account_id": 520,
+                        "name": "Primeurs 2026",
+                        "price_grid_id": 4287,
+                        "deleted_at": null,
+                        "created_at": "2026-10-16T10:00:00.000+02:00",
+                        "updated_at": "2026-10-16T10:00:00.000+02:00"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Commandes"
+        ]
+      }
+    },
+    "/markets": {
+      "get": {
+        "summary": "Liste des marchés",
+        "operationId": "get-markets",
+        "description": "Liste des marchés du compte, triés par nom.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Market"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 12,
+                        "account_id": 520,
+                        "name": "Export",
+                        "parent_id": null,
+                        "deleted_at": null,
+                        "created_at": "2026-10-16T10:00:00.000+02:00",
+                        "updated_at": "2026-10-16T10:00:00.000+02:00"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
         "tags": [
           "Commandes"
         ]
@@ -29766,6 +30190,45 @@
         ]
       }
     },
+    "/warehouses/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID de l'entrepôt"
+        }
+      ],
+      "get": {
+        "summary": "Informations sur un entrepôt",
+        "operationId": "get-warehouses-id",
+        "description": "Récupère les informations d'un entrepôt.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Warehouse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Entrepôts"
+        ]
+      }
+    },
     "/fulfillment_parcels": {
       "get": {
         "summary": "Liste des expéditions avec colisage",
@@ -30542,6 +31005,219 @@
           "id": "n8iemsl3fio8h"
         },
         "description": "Ce endpoint permet de faire passer une expédition au statut \"préparée\". Aucun paramètre n'est requis.\n\n"
+      }
+    },
+    "/fulfillments/{id}/fulfill": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID de l'expédition"
+        }
+      ],
+      "post": {
+        "summary": "Marquer une expédition comme expédiée",
+        "operationId": "post-fulfillment-fulfill",
+        "description": "Fait passer une expédition au statut \"expédiée\" et génère les mouvements de stock associés.\n\nLa requête doit être signée avec l'en-tête `X-Baqio-Hmac-Sha256` (voir Authentification).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fulfillment": {
+                    "type": "object",
+                    "required": [
+                      "date"
+                    ],
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Date de sortie du stock"
+                      },
+                      "initial_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Date de sortie initiale, obligatoire en cas de remboursement de droits d'accises. Doit être antérieure à `date`."
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "notify_customer": {
+                        "type": "boolean",
+                        "description": "Notifier le client par email"
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "fulfillment": {
+                      "date": "2026-10-16",
+                      "notify_customer": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erreurs de validation, indexées par champ",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "example": {
+                    "value": {
+                      "date": [
+                        "n'est pas valide"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Expédition introuvable"
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Expéditions"
+        ]
+      }
+    },
+    "/registers": {
+      "get": {
+        "summary": "Liste des caisses",
+        "operationId": "get-registers",
+        "description": "Liste des caisses du compte, triées par nom.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Register"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 7,
+                        "account_id": 520,
+                        "name": "Caveau",
+                        "user_id": null,
+                        "fulfillment_service_id": null,
+                        "customer_category_id": null,
+                        "products_filter": true,
+                        "prompt_customer_address": false,
+                        "quick_quantities_buttons": false,
+                        "use_destination_vat": false,
+                        "edit_customer_category": false,
+                        "edit_customer_tag": false,
+                        "keep_customer_price_grid": false,
+                        "deleted_at": null,
+                        "created_at": "2026-10-16T10:00:00.000+02:00",
+                        "updated_at": "2026-10-16T10:00:00.000+02:00"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Caisses"
+        ]
+      }
+    },
+    "/account_events": {
+      "get": {
+        "summary": "Liste des événements du compte",
+        "operationId": "get-account_events",
+        "description": "Journal des événements du compte (création de client, commande facturée, export…), du plus récent au plus ancien, par pages de 50.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "topic",
+            "description": "Filtre exact sur le sujet de l'événement, ex. `order.invoiced`"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (50 résultats par page)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccountEvent"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 98231,
+                        "account_id": 520,
+                        "topic": "order.invoiced",
+                        "resource_type": "Order",
+                        "resource_id": 107580,
+                        "reference_type": null,
+                        "reference_id": null,
+                        "customer_id": 124389,
+                        "supplier_id": null,
+                        "user_id": 812,
+                        "destroyed_resource_metadata": null,
+                        "created_at": "2026-10-16T10:00:00.000+02:00",
+                        "updated_at": "2026-10-16T10:00:00.000+02:00"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Événements"
+        ]
       }
     }
   },
@@ -34119,6 +34795,205 @@
         "title": "CountryTax",
         "x-tags": [
           "Taxes"
+        ]
+      },
+      "AccountEvent": {
+        "title": "AccountEvent",
+        "type": "object",
+        "description": "Événement du journal du compte.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "account_id": {
+            "type": "integer"
+          },
+          "topic": {
+            "type": "string",
+            "description": "Sujet de l'événement au format `<ressource>.<action>`, ex. `customer.created`, `order.invoiced`, `export.created`"
+          },
+          "resource_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "resource_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "reference_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "reference_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "customer_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "supplier_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "user_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "destroyed_resource_metadata": {
+            "type": "object",
+            "nullable": true,
+            "description": "Données de la ressource supprimée, le cas échéant"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "x-tags": [
+          "Événements"
+        ]
+      },
+      "Market": {
+        "title": "Market",
+        "type": "object",
+        "description": "Marché commercial.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "account_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "parent_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "x-tags": [
+          "Commandes"
+        ]
+      },
+      "OrderCampaign": {
+        "title": "OrderCampaign",
+        "type": "object",
+        "description": "Campagne de commandes.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "account_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price_grid_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "x-tags": [
+          "Commandes"
+        ]
+      },
+      "Register": {
+        "title": "Register",
+        "type": "object",
+        "description": "Caisse (point de vente).",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "account_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "fulfillment_service_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "customer_category_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "products_filter": {
+            "type": "boolean"
+          },
+          "prompt_customer_address": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "quick_quantities_buttons": {
+            "type": "boolean"
+          },
+          "use_destination_vat": {
+            "type": "boolean"
+          },
+          "edit_customer_category": {
+            "type": "boolean"
+          },
+          "edit_customer_tag": {
+            "type": "boolean"
+          },
+          "keep_customer_price_grid": {
+            "type": "boolean"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "x-tags": [
+          "Caisses"
         ]
       }
     },
