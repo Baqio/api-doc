@@ -3,7 +3,7 @@
   "info": {
     "title": "Baqio Public API",
     "version": "1.0",
-    "description": "Documentation de l'API Baqio, logiciel de gestion commerciale spécialisée pour les domaines viticoles et les négoces.\n\nL'API est uniquement accessible en HTTPS. Si l'API est appelée en HTTP, elle retournera une erreur de type tls_required.\n\n### Authentification\n\nPour accéder à l'API vous devez disposer de trois informations : \n\n- une clé API (```api_key```)\n- un mot de passe (```password```)\n- une clé secrète (```secret```)\n\nVous pouvez créer ces informations sur Baqio dans Paramètres > Mon compte. Tout en bas dans \"Clés API\".\n\nLorsque vous faites un appel à l'API, vous devez utilisez une authentification basique avec la clé API et le mot de passe.\n\nL'authentification utilisée est type [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), lors des requêtes HTTP il faut transmettre un Authorization header contenant le mot \"Basic\" suivi par un espace et par un string encodé en base64 (strict) contenant api_key:password. Par exemple pour autoriser en tant que demo / p@55w0rd, le client enverrait : \n\n```\nAuthorization: Basic ZGVtbzpwQDU1dzByZA==\n```\n\nExemple en Ruby : \n\n```ruby\ncode = Base64.strict_encode64(\"#{api_key}:#{password}\")\n```\n\n### MIME Types\n\nToutes les requêtes et toutes les réponses sont au format JSON et encodées en UTF-8.\n\nUn `Accept` header est nécessaire pour les requêtes. Exemple :\n\n```jsx\n'Content-Type' => 'application/json',\n'Accept' => 'application/json'\n```\n\n### Signature des requêtes POST\n\nDans le cas des requêtes de type POST, il est nécessaire de signer les requêtes et de transmettre la signature dans un header `X-Baqio-Hmac-Sha256`\n\nCette signature est calculée à partir du body envoyé en POST et de la clef secrète : \n```ruby\nbody = {\n  \"customer\": {\n    \"billing_information\": {\n      \"company_name\": \"BAQIO\",\n      \"last_name\": \"GAUTIER\",\n      \"first_name\": \"Sylvain\",\n      \"country_code\": \"FR\",\n      \"email\": \"sylvain@baqio.com\"\n    },\n    \"reference\": \"123\"\n  }\n}.to_json\ndigest = OpenSSL::Digest.new('sha256')\nBase64.encode64(OpenSSL::HMAC.digest(digest, secret, body.to_s)).strip\n```",
+    "description": "Documentation de l'API Baqio, logiciel de gestion commerciale spécialisée pour les domaines viticoles et les négoces.\n\nL'API est uniquement accessible en HTTPS. Si l'API est appelée en HTTP, elle retournera une erreur de type tls_required.\n\n### Authentification\n\nPour accéder à l'API vous devez disposer de trois informations : \n\n- une clé API (```api_key```)\n- un mot de passe (```password```)\n- une clé secrète (```secret```)\n\nVous pouvez créer ces informations sur Baqio dans Paramètres > Mon compte. Tout en bas dans \"Clés API\".\n\nLorsque vous faites un appel à l'API, vous devez utilisez une authentification basique avec la clé API et le mot de passe.\n\nL'authentification utilisée est type [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), lors des requêtes HTTP il faut transmettre un Authorization header contenant le mot \"Basic\" suivi par un espace et par un string encodé en base64 (strict) contenant api_key:password. Par exemple pour autoriser en tant que demo / p@55w0rd, le client enverrait : \n\n```\nAuthorization: Basic ZGVtbzpwQDU1dzByZA==\n```\n\nExemple en Ruby : \n\n```ruby\ncode = Base64.strict_encode64(\"#{api_key}:#{password}\")\n```\n\n### MIME Types\n\nToutes les requêtes et toutes les réponses sont au format JSON et encodées en UTF-8.\n\nUn `Accept` header est nécessaire pour les requêtes. Exemple :\n\n```jsx\n'Content-Type' => 'application/json',\n'Accept' => 'application/json'\n```\n\n### Signature des requêtes POST\n\nDans le cas des requêtes de type POST, il est nécessaire de signer les requêtes et de transmettre la signature dans un header `X-Baqio-Hmac-Sha256`\n\nCette signature est calculée à partir du body envoyé en POST et de la clef secrète : \n```ruby\nbody = {\n  \"customer\": {\n    \"billing_information\": {\n      \"company_name\": \"BAQIO\",\n      \"last_name\": \"GAUTIER\",\n      \"first_name\": \"Sylvain\",\n      \"country_code\": \"FR\",\n      \"email\": \"sylvain@baqio.com\"\n    },\n    \"reference\": \"123\"\n  }\n}.to_json\ndigest = OpenSSL::Digest.new('sha256')\nBase64.encode64(OpenSSL::HMAC.digest(digest, secret, body.to_s)).strip\n```\n\n### Pagination\n\nLes listes paginées renvoient un tableau JSON brut, sans métadonnées de pagination. Utilisez le paramètre `page` (à partir de 1, `1` par défaut) et continuez tant que la page reçue contient le nombre maximal d'éléments. Une page vide signifie que la liste est terminée.\n\n| Endpoint | Éléments par page |\n|---|---|\n| `GET /customers` | 50 |\n| `GET /orders` | 50 |\n| `GET /bookings` | 50 |\n| `GET /fulfillments` | 50 |\n| `GET /fulfillment_parcels` | 50 |\n| `GET /account_events` | 50 |\n| `GET /product_variants` | 100 |\n\nLes autres listes ne sont pas paginées et renvoient tous les éléments.\n\n### Recherche (filtres `q`)\n\nLes endpoints `GET /customers`, `GET /orders`, `GET /bookings`, `GET /fulfillments` et `GET /fulfillment_parcels` acceptent des filtres via le paramètre `q`, au format [Ransack](https://activerecord-hackery.github.io/ransack/getting-started/search-matches/) : `q[<attribut>_<prédicat>]=<valeur>`.\n\nTous les attributs renvoyés par l'endpoint sont filtrables, y compris ceux des objets associés (ex. `customer_reference_eq`, `billing_information_city_cont`). Prédicats courants :\n\n| Prédicat | Signification | Exemple |\n|---|---|---|\n| `_eq` | égal à | `q[reference_eq]=CMD-001` |\n| `_not_eq` | différent de | `q[state_not_eq]=cancelled` |\n| `_in` | parmi une liste | `q[state_in][]=validated&q[state_in][]=invoiced` |\n| `_cont` | contient (insensible à la casse) | `q[name_cont]=dupont` |\n| `_start` | commence par | `q[code_start]=AG` |\n| `_gt` / `_gteq` | supérieur (ou égal) à | `q[updated_at_gteq]=2026-01-01` |\n| `_lt` / `_lteq` | inférieur (ou égal) à | `q[date_lteq]=2026-12-31` |\n| `_null` / `_present` | vide / renseigné | `q[reference_present]=1` |\n\nLes filtres se combinent (ET logique) et s'utilisent avec la pagination. Exemple de synchronisation incrémentale des commandes modifiées depuis une date :\n\n```\nGET /api/v1/orders?q[updated_at_gteq]=2026-10-01T00:00:00%2B02:00&page=1\n```\n\nUn filtre sur un attribut inconnu est ignoré silencieusement : vérifiez son nom si le résultat n'est pas filtré.",
     "contact": {
       "name": "Sylvain Gautier",
       "email": "support@baqio.com"
@@ -170,7 +170,29 @@
           }
         },
         "operationId": "get-customers",
-        "parameters": [],
+        "parameters": [
+          {
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "in": "query",
+            "name": "q",
+            "style": "deepObject",
+            "explode": true,
+            "description": "Filtres de recherche Ransack (voir « Recherche »). Exemples : `q[reference_eq]=123`, `q[updated_at_gteq]=2026-01-01`, `q[billing_information_email_eq]=contact@baqio.com`."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (50 éléments par page). Voir « Pagination »."
+          }
+        ],
         "description": "Récupère la liste des clients d'un compte.",
         "tags": [
           "Clients"
@@ -742,10 +764,24 @@
         "parameters": [
           {
             "schema": {
-              "type": "string"
+              "type": "object",
+              "additionalProperties": true
             },
             "in": "query",
-            "name": "page"
+            "name": "q",
+            "style": "deepObject",
+            "explode": true,
+            "description": "Filtres de recherche Ransack (voir « Recherche »). Exemples : `q[reference_eq]=CMD-001`, `q[state_in][]=validated`, `q[updated_at_gteq]=2026-01-01`, `q[customer_id_eq]=124389`."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (50 éléments par page). Voir « Pagination »."
           }
         ],
         "tags": [
@@ -758,7 +794,34 @@
         "operationId": "post-orders",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Demande acceptée, traitée en arrière-plan. Corps vide."
+          },
+          "204": {
+            "description": "Commande existante, mais la transition demandée ne s'applique pas à son état actuel : aucune action."
+          },
+          "401": {
+            "description": "Authentification ou signature invalide"
+          },
+          "422": {
+            "description": "Demande refusée",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "sku_inconnu": {
+                    "summary": "SKU inconnu (création ou remplacement)",
+                    "value": [
+                      "product variant RDP2 doesn't exists"
+                    ]
+                  },
+                  "reservation_insuffisante": {
+                    "summary": "Validation impossible",
+                    "value": {
+                      "message": "Order not validable due to booking quantities not sufficient."
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -766,109 +829,279 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "order"
+                ],
                 "properties": {
-                  "": {
-                    "type": "string",
-                    "x-stoplight": {
-                      "id": "xk7imgak8wiln"
+                  "order": {
+                    "type": "object",
+                    "properties": {
+                      "reference": {
+                        "type": "string",
+                        "description": "Référence unique de la commande dans le compte. Sert aussi à identifier la commande pour les changements d'état."
+                      },
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "validated",
+                          "removed",
+                          "cancelled",
+                          "replace"
+                        ],
+                        "description": "Création : `validated` valide la commande immédiatement. Commande existante : transition à appliquer (voir la description)."
+                      },
+                      "cancel_reason": {
+                        "type": "string",
+                        "description": "Motif d'annulation, pour `removed` et `cancelled`."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "api",
+                          "vvp"
+                        ],
+                        "default": "api"
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "order_type": {
+                        "type": "string",
+                        "enum": [
+                          "normal",
+                          "samples",
+                          "primeur"
+                        ]
+                      },
+                      "note": {
+                        "type": "string",
+                        "description": "Note interne"
+                      },
+                      "sales_agent_id": {
+                        "type": "integer"
+                      },
+                      "warehouse_id": {
+                        "type": "integer"
+                      },
+                      "price_grid_id": {
+                        "type": "integer"
+                      },
+                      "register_id": {
+                        "type": "integer"
+                      },
+                      "order_campaign_id": {
+                        "type": "integer"
+                      },
+                      "booking_order_id": {
+                        "type": "integer",
+                        "description": "Id de la réservation à laquelle rattacher la commande"
+                      },
+                      "order_tag_ids": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        }
+                      },
+                      "customer": {
+                        "type": "object",
+                        "description": "Client existant (`id`, `reference` ou `woocommerce_id`) ou nouveau client (mêmes champs que `POST /customers`).",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "reference": {
+                            "type": "string"
+                          },
+                          "woocommerce_id": {
+                            "type": "string"
+                          },
+                          "billing_information": {
+                            "$ref": "#/components/schemas/BillingInformation"
+                          },
+                          "shipping_information": {
+                            "$ref": "#/components/schemas/ShippingInformation"
+                          }
+                        }
+                      },
+                      "shipping_information": {
+                        "$ref": "#/components/schemas/ShippingInformation"
+                      },
+                      "order_lines": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "product_variant_sku",
+                            "quantity"
+                          ],
+                          "properties": {
+                            "product_variant_sku": {
+                              "type": "string"
+                            },
+                            "quantity": {
+                              "type": "number"
+                            },
+                            "manual_price": {
+                              "type": "number",
+                              "description": "Prix unitaire forcé (HT ou TTC selon la grille tarifaire)"
+                            },
+                            "capsule_id": {
+                              "type": "integer"
+                            },
+                            "product_label_id": {
+                              "type": "integer"
+                            },
+                            "batch_id": {
+                              "type": "integer"
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "shipping_line": {
+                        "type": "object",
+                        "properties": {
+                          "fulfillment_service_id": {
+                            "type": "integer",
+                            "nullable": true
+                          },
+                          "calculation_method": {
+                            "type": "string",
+                            "enum": [
+                              "auto",
+                              "manual"
+                            ],
+                            "default": "auto"
+                          },
+                          "price": {
+                            "type": "number",
+                            "description": "Frais de port HT"
+                          },
+                          "price_with_tax": {
+                            "type": "number",
+                            "description": "Frais de port TTC"
+                          }
+                        }
+                      },
+                      "payments": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "date",
+                            "payment_source_id",
+                            "amount"
+                          ],
+                          "properties": {
+                            "date": {
+                              "type": "string"
+                            },
+                            "payment_source_id": {
+                              "type": "integer"
+                            },
+                            "amount": {
+                              "type": "number"
+                            },
+                            "source_reference": {
+                              "type": "string"
+                            },
+                            "comment": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
               },
               "examples": {
-                "example": {
+                "creation": {
+                  "summary": "Créer une commande",
                   "value": {
                     "order": {
-                      "customer_id": 124389,
-                      "sales_agent_id": null,
-                      "note": "",
-                      "price_grid_id": 4287,
-                      "date": "2020-02-11",
-                      "name": "#1274",
-                      "reference": null,
+                      "reference": "CMD-2026-001",
+                      "date": "2026-10-16",
+                      "order_type": "normal",
+                      "note": "Commande site e-commerce",
                       "warehouse_id": 638,
-                      "invoice_note": null,
-                      "price_with_tax": true,
-                      "tag_list": [],
+                      "price_grid_id": 4287,
+                      "state": "validated",
                       "customer": {
-                        "id": 124389,
-                        "name": "Lucas Picard",
-                        "email": "sylvain@baqio.com",
-                        "note": null,
-                        "accepts_emailing": true,
-                        "sales_agent_id": null,
-                        "price_grid_id": 4287,
-                        "reference": null,
-                        "accepts_mailing": true,
-                        "warehouse_id": null,
-                        "customer_category_id": 5071,
-                        "automatic_discount_rate": null,
-                        "commission_rate": null,
-                        "tag_list": [],
+                        "reference": "BAQIO",
                         "billing_information": {
-                          "company_name": "",
-                          "first_name": "Lucas",
-                          "last_name": "Picard",
-                          "email": "sylvain@baqio.com",
-                          "address1": "",
-                          "address2": "",
-                          "city": "MONTPELLIER",
-                          "zip": "34000",
-                          "country_code": "FR",
-                          "phone": "",
-                          "company_number": "",
-                          "vat_number": "",
-                          "excise_number": "",
-                          "legal_form": "",
-                          "mobile": "",
-                          "address3": "",
-                          "fax": null,
-                          "tax_exempt": false,
-                          "website": ""
-                        },
-                        "shipping_information": {
-                          "use_billing_address": true,
-                          "company_name": null,
-                          "first_name": null,
-                          "last_name": null,
-                          "address1": null,
-                          "address2": null,
-                          "city": null,
-                          "zip": null,
-                          "country_code": null,
-                          "phone": null,
-                          "note": null,
-                          "delivery_schedules": null,
-                          "closing_days": null,
-                          "dae_number": null,
-                          "address3": null,
-                          "mobile": null,
-                          "excise_number": null
+                          "company_name": "BAQIO",
+                          "first_name": "Sylvain",
+                          "last_name": "Gautier",
+                          "email": "contact@baqio.com",
+                          "country_code": "FR"
                         }
                       },
                       "order_lines": [
                         {
-                          "product_variant_sku": 6182,
-                          "capsule_id": 430,
-                          "product_label_id": null,
-                          "batch_id": null,
-                          "note": null,
-                          "quantity": "36.0",
-                          "manual_price": 11.67
+                          "product_variant_sku": "RDP",
+                          "quantity": 12
+                        },
+                        {
+                          "product_variant_sku": "BLC75",
+                          "quantity": 6,
+                          "manual_price": 11.67,
+                          "note": "Prix négocié"
                         }
                       ],
                       "shipping_line": {
-                        "price_cents": 0,
-                        "fulfillment_service_id": null,
-                        "price_with_tax_cents": 0
+                        "fulfillment_service_id": 12,
+                        "calculation_method": "manual",
+                        "price": 10.0,
+                        "price_with_tax": 12.0
                       },
                       "payments": [
                         {
-                          "date": "09/06/2020",
+                          "date": "2026-10-16",
                           "payment_source_id": 709,
                           "source_reference": "ST8171",
                           "comment": "paiement stripe",
-                          "amount": 100
+                          "amount": 100.0
+                        }
+                      ]
+                    }
+                  }
+                },
+                "validation": {
+                  "summary": "Valider une commande existante",
+                  "value": {
+                    "order": {
+                      "reference": "CMD-2026-001",
+                      "state": "validated"
+                    }
+                  }
+                },
+                "annulation": {
+                  "summary": "Annuler une commande facturée (avoir)",
+                  "value": {
+                    "order": {
+                      "reference": "CMD-2026-001",
+                      "state": "cancelled",
+                      "cancel_reason": "Erreur de saisie"
+                    }
+                  }
+                },
+                "remplacement": {
+                  "summary": "Remplacer une commande",
+                  "value": {
+                    "order": {
+                      "reference": "CMD-2026-001",
+                      "state": "replace",
+                      "customer": {
+                        "reference": "BAQIO"
+                      },
+                      "order_lines": [
+                        {
+                          "product_variant_sku": "RDP",
+                          "quantity": 12
                         }
                       ]
                     }
@@ -879,7 +1112,7 @@
           },
           "description": "Plusieurs possibilités sont offertes pour la création d'une commande en API sur Baqio. \n\n### Informations minimales à fournir\n\nNous décrivons ici les informations minimales à fournir pour la création d'une commande. \n\n#### Client\n\nDans le cas d'un client existant, vous pouvez transmettre son id, sa référence ou son identifiant woocommerce : \n\n```json\n\"customer\": {\n\tid: 123,\n\treference: 'BAQIO',\n\twoocommerce_id: '123456789'\n}\n```\n\nDans le cas d'un nouveau client, il faudra transmettre au minimum les informations suivantes: \n\n```json\n\"customer\": {\n\t\"billing_information\": {\n\t\t\"company_name\": \"BAQIO\",\n\t\t\"last_name\": \"Gautier\",\n\t\t\"first_name\": \"Sylvain\",\n\t\t\"country_code\": \"FR\"\n\t}\n}\n```\n\nSoit company_name est indiqué et les deux autres champs ne sont pas obligatoires, sinon il faut remplir first_name et last_name.\n\n#### Commande\n\nLes informations facultatives suivantes peuvent être indiquées : \n\n- `date` : Date de la commande\n- `order_type` (normal / samples / primeur) : type de commande (normale, primeur, échantillons)\n- `note` : Note interne sur cette commande\n- `reference` : Référence de la commande, **obligatoire** et unique parmi les commandes\n- `sales_agent_id` : Id du représentant commercial\n- `warehouse_id` : Id de l'entrepôt de départ des produits\n- `register_id`: Id du point de vente\n- `price_grid_id` : Id de la grille tarifaire. Si elle n'est pas renseignée, c'est celle du point de vente si il est renseignée. Sinon c'est celle du client qui s'applique. Si il n'en a pas, c'est celle par défaut définie au niveau du compte.\n\n#### Lignes de commandes\n\nAu niveau des lignes de commande, il faut au minimum fournir un tableau de hash contenant pour chaque ligne : \n\n```json\n\"order_lines\": [\n\t{\n\t\t\"product_variant_sku\": 'RDP',\n\t\t\"quantity\": 12\n\t}\n]\n```\n\nPar défaut, c'est le prix unitaire du produit pour la grille tarifaire qui est appliqué sur une ligne de commande. Si vous souhaitez modifier manuellement le prix unitaire, il faut renseigner le montant unitaire de la ligne. Dans le cas où la grille est définie en HT il s'agit du montant unitaire HT, dans le cas où la grille est définie en TTC, c'est le montant unitaire TTC :\n\n```json\n\"order_lines\": [\n\t{\n\t\t\"product_variant_sku\": 'RDP',\n\t\t\"quantity\": 12,\n\t\t\"manual_price\": 7.5\n\t}\n]\n```\n\nLes informations facultatives suivantes peuvent être renseignée :\n\n- `capsule_id` : Id de la capsule CRD utilisée. Sinon par défaut celle applicable (CRD ou Neutre) définie au niveau du produit qui s'applique\n- `product_label_id` : Id de l'habillage utilisé. Sinon par défaut, c'est celui applicable pour le client ou pour la grille tarifaire qui s'applique.\n- `batch_id` : Id du numéro de lot. Sinon c'est celui par défaut qui s'applique.\n- `note` : Information complémentaire indiquée sur la ligne de commande.\n\n#### Frais de port\n\nIl est possible d'indiquer des frais de port sur la commande.\n\n```json\n\"shipping_line\": {\n   \"fulfillment_service_id\": null,\n\t \"calculation_method\": 'auto',\n\t \"price\": 0,\n   \"price_with_tax\": 0,\n}\n```\n\nVous pouvez spécifier manuellement des frais de port à appliquer à la commande. \n\nDans ce cas le champ `calculation_method` doit prendre la valeur '`manual`'. Vous pouvez alors indiquer le montant HT et TTC des frais de port avec `price` et `price_with_tax`.\n\nIl est également possible d'indiquer un transporteur (`fulfillment_service_id`), si le champ `calculation_method` est vide ou à auto, les frais de transport seront calculés automatiquement en fonction de la grille définie au niveau du transporteur.\n\nDe la même façon, vous pouvez définir manuellement les frais de port quand un transporteur est sélectionné.\n\n#### Règlements\n\nIl est possible d'indiquer un ou plusieurs règlements sur la commande.\n\nDans un premier temps, vous pouvez récupérer la liste des moyens de paiements via le endpoint \"payment_sources\".\n\nVous pouvez ensuite indiquer la liste des règlements : \n\n```json\n\"payments\": [\n    {\n      \"date\": '09/06/2020',\n      \"payment_source_id\": 709,\n      \"source_reference\": 'ST8171',\n      \"comment\": 'paiement stripe',\n      \"amount\": 100.0\n    }\n  ]\n```\n\nLes champs date, payment_source_id et amount sont obligatoires.\n\n### Etats de la commande \n\nSi vous renvoyez une commande avec la même référence mais que vous spécifiez un state différent, celle-ci sera mise à jour. \n\n- Si la commande est à l'état 'pending' et que vous passez le state 'validated', cela validera la commande et réservera le stock.\n- Si la commande est à l'état 'pending' ou 'validated' et que vous passez l'état 'removed', cela annulera la commande.\n- Si la commande est à l'état 'invoiced' et que vous passez l'état 'cancelled', la commande sera annulée et un avoir sera créé."
         },
-        "description": "Création de commandes.",
+        "description": "Crée une commande, ou change l'état d'une commande existante identifiée par sa `reference`. La requête doit être signée avec l'en-tête `X-Baqio-Hmac-Sha256` (voir « Signature des requêtes POST »).\n\n### Traitement asynchrone\n\nLa requête est d'abord contrôlée, puis la création ou le changement d'état est exécuté **en arrière-plan**. Une réponse `200` signifie que la demande est acceptée, pas que la commande existe déjà : le corps est vide et ne contient pas l'id de la commande. Pour la retrouver, interrogez `GET /orders?q[reference_eq]=<reference>` quelques secondes plus tard.\n\n### Choix du traitement\n\nLe traitement dépend de `order.reference` et `order.state` :\n\n1. **Une commande du compte porte déjà cette `reference` et `state` est renseigné** : changement d'état de cette commande (voir ci-dessous).\n2. **Sinon** : création d'une nouvelle commande.\n\n#### Changements d'état d'une commande existante\n\n| État actuel | `state` envoyé | Effet | Réponse |\n|---|---|---|---|\n| `pending` | `validated` | Valide la commande et réserve le stock. | `200`, ou `422` si les quantités de la réservation liée sont insuffisantes |\n| `pending` ou `validated` | `removed` | Annule la commande, avec le motif `cancel_reason` s'il est fourni. | `200` |\n| `invoiced` | `cancelled` | Annule la commande et crée un avoir, avec le motif `cancel_reason`. | `200` |\n| quel qu'il soit | `replace` | Annule la dernière commande non annulée portant cette référence (motif « Remplacement via API ») et renomme sa référence en `<reference>_cancelled`, puis crée une nouvelle commande avec le contenu envoyé. | `200`, ou `422` si un SKU est inconnu |\n| autre combinaison | | Aucune action. | `204` |\n\nPour un changement d'état autre que `replace`, seuls `reference`, `state` et `cancel_reason` sont lus : le reste du contenu est ignoré.\n\n#### Création\n\n- **Contrôle préalable** : chaque `order_lines[].product_variant_sku` doit correspondre à une variante produit non supprimée du compte, sinon la requête est refusée en `422` avec la liste des SKU inconnus. Aucun autre champ n'est contrôlé de façon synchrone.\n- **Référence déjà utilisée** : si une commande du compte porte déjà cette `reference` (et que `state` n'est pas renseigné), la requête répond `200` mais **aucune commande n'est créée**.\n- **Client** : recherché successivement par `customer.id`, `customer.reference` puis `customer.woocommerce_id` parmi les clients visibles du compte. S'il n'est pas trouvé, un nouveau client est créé avec le contenu de `customer` (et `woocommerce_id` lui est associé s'il est fourni).\n- **Validation immédiate** : avec `\"state\": \"validated\"`, la commande créée est validée directement si les quantités de la réservation liée le permettent ; sinon elle reste à l'état `pending`.\n- **Canal** : `channel` vaut `api` (par défaut) ou `vvp`. Toute autre valeur est remplacée par `api`.\n- **Identifiants liés** : `sales_agent_id`, `warehouse_id`, `price_grid_id`, `register_id`, `order_campaign_id` et `booking_order_id` sont ignorés s'ils ne correspondent à aucun élément actif du compte. Avec `booking_order_id`, la commande est rattachée à la réservation et reprend sa campagne.\n- **Étiquettes** : les `order_tag_ids` inconnus sont ignorés.\n- **Adresse de livraison** : `shipping_information` remplace l'adresse de facturation du client pour la livraison (`use_billing_address` est forcé à `false`) et recalcule le régime de droits d'accises.\n- **Règlements** : un règlement invalide (champ obligatoire manquant, date hors période comptable…) est ignoré sans erreur.\n\nLe détail de chaque bloc (client, lignes, frais de port, règlements) est décrit dans le corps de la requête.",
         "tags": [
           "Commandes"
         ]
@@ -7192,6 +7425,29 @@
         "description": "Liste des expéditions.",
         "tags": [
           "Expéditions"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "in": "query",
+            "name": "q",
+            "style": "deepObject",
+            "explode": true,
+            "description": "Filtres de recherche Ransack (voir « Recherche »). Exemples : `q[status_eq]=fulfilled`, `q[order_id_eq]=107580`, `q[updated_at_gteq]=2026-01-01`."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (50 éléments par page). Voir « Pagination »."
+          }
         ]
       },
       "get - copy": {
@@ -13684,21 +13940,24 @@
         "parameters": [
           {
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "in": "query",
             "name": "q",
             "style": "deepObject",
             "explode": true,
-            "description": "Filtres de recherche (ransack), ex. `q[date_gteq]=2026-01-01`"
+            "description": "Filtres de recherche Ransack (voir « Recherche »). Exemples : `q[reference_eq]=CMD-001`, `q[customer_id_eq]=124389`, `q[date_gteq]=2026-01-01`."
           },
           {
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
             },
             "in": "query",
             "name": "page",
-            "description": "Numéro de page (50 résultats par page)"
+            "description": "Numéro de page (50 éléments par page). Voir « Pagination »."
           }
         ],
         "responses": {
@@ -29788,6 +30047,18 @@
         "description": "Récupération de la liste des variantes produits",
         "tags": [
           "Produits"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (100 éléments par page). Voir « Pagination »."
+          }
         ]
       }
     },
@@ -30980,7 +31251,30 @@
         "x-stoplight": {
           "id": "nch094p61m51r"
         },
-        "description": "Liste des expéditions avec les informations de colisage"
+        "description": "Liste des expéditions avec les informations de colisage",
+        "parameters": [
+          {
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "in": "query",
+            "name": "q",
+            "style": "deepObject",
+            "explode": true,
+            "description": "Filtres de recherche Ransack (voir « Recherche »). Exemples : `q[status_eq]=fulfilled`, `q[order_id_eq]=107580`."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (50 éléments par page). Voir « Pagination »."
+          }
+        ]
       }
     },
     "/fulfillments/{id}/complete_picking": {
@@ -31169,11 +31463,13 @@
           },
           {
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
             },
             "in": "query",
             "name": "page",
-            "description": "Numéro de page (50 résultats par page)"
+            "description": "Numéro de page (50 éléments par page). Voir « Pagination »."
           }
         ],
         "responses": {
