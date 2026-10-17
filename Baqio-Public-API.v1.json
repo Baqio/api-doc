@@ -250,6 +250,75 @@
         ]
       }
     },
+    "/customers/{id}/contacts": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID du client"
+        }
+      ],
+      "get": {
+        "summary": "Contacts d'un client",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 1204,
+                        "customer_id": 8312,
+                        "kind": "administratif",
+                        "title": "mrs",
+                        "name": "Marie Martin",
+                        "email": "marie.martin@example.com",
+                        "note": "Contact pour la facturation",
+                        "primary_id": null,
+                        "deleted_at": null,
+                        "created_at": "2026-09-16T21:22:12.000+02:00",
+                        "updated_at": "2026-09-16T21:22:12.000+02:00",
+                        "email_notification": {
+                          "id": 3051,
+                          "notifiable_type": "Contact",
+                          "notifiable_id": 1204,
+                          "quote": false,
+                          "proforma": false,
+                          "invoice": true,
+                          "order_recovery": false,
+                          "created_at": "2026-09-16T21:22:12.000+02:00",
+                          "updated_at": "2026-09-16T21:22:12.000+02:00"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Client introuvable"
+          }
+        },
+        "operationId": "get-customers-id-contacts",
+        "description": "Récupère la liste des contacts d'un client. Les contacts supprimés ne sont pas renvoyés.",
+        "tags": [
+          "Clients"
+        ]
+      }
+    },
     "/orders": {
       "get": {
         "summary": "Liste des commandes",
@@ -30879,6 +30948,107 @@
         "required": [
           "reference"
         ],
+        "x-tags": [
+          "Clients"
+        ]
+      },
+      "Contact": {
+        "title": "Contact",
+        "type": "object",
+        "description": "Contact rattaché à un client.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "customer_id": {
+            "type": "integer",
+            "description": "ID du client"
+          },
+          "kind": {
+            "type": "string",
+            "nullable": true,
+            "description": "Type de contact (texte libre)"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "description": "Civilité"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "primary_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "email_notification": {
+            "$ref": "#/components/schemas/EmailNotification"
+          }
+        },
+        "x-tags": [
+          "Clients"
+        ]
+      },
+      "EmailNotification": {
+        "title": "EmailNotification",
+        "type": "object",
+        "description": "Documents envoyés automatiquement par email au contact.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "notifiable_type": {
+            "type": "string"
+          },
+          "notifiable_id": {
+            "type": "integer"
+          },
+          "quote": {
+            "type": "boolean",
+            "description": "Envoi des devis"
+          },
+          "proforma": {
+            "type": "boolean",
+            "description": "Envoi des proformas"
+          },
+          "invoice": {
+            "type": "boolean",
+            "description": "Envoi des factures"
+          },
+          "order_recovery": {
+            "type": "boolean",
+            "description": "Envoi des relances de commande"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
         "x-tags": [
           "Clients"
         ]
