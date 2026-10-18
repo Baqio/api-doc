@@ -160,7 +160,20 @@
                           "payment_method": null,
                           "payment_period": null,
                           "kiosk": false
-                        }
+                        },
+                        "current_pipeline_steps": [
+                          {
+                            "id": 31,
+                            "name": "Dégustation",
+                            "kind": null,
+                            "position": 2,
+                            "entered_at": "2026-10-12T14:30:00.000+02:00",
+                            "pipeline": {
+                              "id": 4,
+                              "name": "Prospection cavistes"
+                            }
+                          }
+                        ]
                       }
                     ]
                   }
@@ -1272,6 +1285,66 @@
                         "type": "string"
                       }
                     }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Clients"
+        ]
+      }
+    },
+    "/pipelines": {
+      "get": {
+        "summary": "Liste des pipelines",
+        "operationId": "get-pipelines",
+        "description": "Liste des pipelines commerciaux du compte, triés par nom, avec leurs étapes triées par position. Les pipelines et étapes supprimés ne sont pas renvoyés. Cette liste n'est pas paginée.\n\nL'étape actuelle de chaque client est renvoyée dans `current_pipeline_steps` sur `GET /customers` et `GET /customers/{id}`.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pipeline"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 4,
+                        "name": "Prospection cavistes",
+                        "created_at": "2026-09-01T09:00:00.000+02:00",
+                        "updated_at": "2026-09-01T09:00:00.000+02:00",
+                        "steps": [
+                          {
+                            "id": 30,
+                            "name": "Premier contact",
+                            "kind": null,
+                            "position": 1
+                          },
+                          {
+                            "id": 31,
+                            "name": "Dégustation",
+                            "kind": null,
+                            "position": 2
+                          },
+                          {
+                            "id": 32,
+                            "name": "Première commande",
+                            "kind": null,
+                            "position": 3
+                          }
+                        ]
+                      }
+                    ]
                   }
                 }
               }
@@ -32694,6 +32767,14 @@
           "customer_tags": {
             "type": "array",
             "items": {}
+          },
+          "current_pipeline_steps": {
+            "type": "array",
+            "readOnly": true,
+            "description": "Étape actuelle du client dans chacun des pipelines où il se trouve (une entrée par pipeline). Lecture seule. Liste des pipelines et de leurs étapes : `GET /pipelines`.",
+            "items": {
+              "$ref": "#/components/schemas/CustomerPipelineStep"
+            }
           }
         },
         "required": [
@@ -36338,6 +36419,107 @@
           "updated_at": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "x-tags": [
+          "Clients"
+        ]
+      },
+      "PipelineStep": {
+        "title": "PipelineStep",
+        "type": "object",
+        "description": "Étape d'un pipeline commercial.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nom de l'étape"
+          },
+          "kind": {
+            "type": "string",
+            "nullable": true,
+            "description": "Type d'étape"
+          },
+          "position": {
+            "type": "integer",
+            "description": "Position de l'étape dans le pipeline (à partir de 1)"
+          }
+        },
+        "x-tags": [
+          "Clients"
+        ]
+      },
+      "Pipeline": {
+        "title": "Pipeline",
+        "type": "object",
+        "description": "Pipeline commercial : suite d'étapes que parcourent les clients.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "steps": {
+            "type": "array",
+            "description": "Étapes non supprimées, triées par position",
+            "items": {
+              "$ref": "#/components/schemas/PipelineStep"
+            }
+          }
+        },
+        "x-tags": [
+          "Clients"
+        ]
+      },
+      "CustomerPipelineStep": {
+        "title": "CustomerPipelineStep",
+        "type": "object",
+        "description": "Étape actuelle d'un client dans un pipeline.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nom de l'étape"
+          },
+          "kind": {
+            "type": "string",
+            "nullable": true,
+            "description": "Type d'étape"
+          },
+          "position": {
+            "type": "integer",
+            "description": "Position de l'étape dans le pipeline (à partir de 1)"
+          },
+          "entered_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Date d'entrée du client dans l'étape"
+          },
+          "pipeline": {
+            "type": "object",
+            "description": "Pipeline de l'étape",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
           }
         },
         "x-tags": [
