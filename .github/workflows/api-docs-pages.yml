@@ -5,8 +5,12 @@ on:
     branches: [master]
     paths:
       - 'Baqio-Public-API.v1.json'
-      - 'api-reference/**'
+      - 'docs/**'
+      - 'site/**'
+      - 'scripts/**'
+      - 'package*.json'
       - '.github/workflows/api-docs-pages.yml'
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -15,33 +19,44 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build static documentation
-        run: |
-          mkdir -p dist
-          cp api-reference/index.html dist/index.html
-          cp Baqio-Public-API.v1.json dist/openapi.json
-          touch dist/.nojekyll
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static documentation
+        run: npm run build
 
       - name: Upload artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
       - name: Deploy to GitHub Pages
         id: deployment
