@@ -519,6 +519,227 @@
         "tags": [
           "Clients"
         ]
+      },
+      "post": {
+        "summary": "Création d'un contact client",
+        "operationId": "post-customers-id-contacts",
+        "description": "Crée un contact pour un client et renvoie le contact créé. Le nom (`name`) et l'email (`email`) du contact sont déduits de `billing_information` (`first_name`, `last_name`, `email`). Les notifications email non envoyées valent `false`. Si la clé API est limitée à un représentant, seuls ses clients sont accessibles (404 sinon).\n\nLa requête doit être signée avec l'en-tête `X-Baqio-Hmac-Sha256` (voir Authentification).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contact"
+                ],
+                "properties": {
+                  "contact": {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "description": "Type de contact (texte libre)"
+                      },
+                      "note": {
+                        "type": "string",
+                        "description": "Note sur le contact"
+                      },
+                      "billing_information": {
+                        "type": "object",
+                        "description": "Coordonnées du contact",
+                        "properties": {
+                          "title": {
+                            "type": "string",
+                            "description": "Civilité"
+                          },
+                          "first_name": {
+                            "type": "string",
+                            "description": "Prénom"
+                          },
+                          "last_name": {
+                            "type": "string",
+                            "description": "Nom"
+                          },
+                          "company_name": {
+                            "type": "string",
+                            "description": "Raison sociale"
+                          },
+                          "email": {
+                            "type": "string",
+                            "description": "Email"
+                          },
+                          "address1": {
+                            "type": "string",
+                            "description": "Adresse (ligne 1)"
+                          },
+                          "address2": {
+                            "type": "string",
+                            "description": "Adresse (ligne 2)"
+                          },
+                          "address3": {
+                            "type": "string",
+                            "description": "Adresse (ligne 3)"
+                          },
+                          "zip": {
+                            "type": "string",
+                            "description": "Code postal"
+                          },
+                          "city": {
+                            "type": "string",
+                            "description": "Ville"
+                          },
+                          "province": {
+                            "type": "string",
+                            "description": "Région / province"
+                          },
+                          "country_code": {
+                            "type": "string",
+                            "description": "Code pays (ISO 3166-1 alpha-2)"
+                          },
+                          "phone": {
+                            "type": "string",
+                            "description": "Téléphone"
+                          },
+                          "mobile": {
+                            "type": "string",
+                            "description": "Mobile"
+                          },
+                          "naf_code": {
+                            "type": "string",
+                            "description": "Code NAF (doit exister dans la nomenclature NAF)"
+                          }
+                        }
+                      },
+                      "email_notification": {
+                        "type": "object",
+                        "description": "Documents envoyés par email au contact",
+                        "properties": {
+                          "quote": {
+                            "type": "boolean",
+                            "description": "Devis"
+                          },
+                          "proforma": {
+                            "type": "boolean",
+                            "description": "Factures proforma"
+                          },
+                          "invoice": {
+                            "type": "boolean",
+                            "description": "Factures"
+                          },
+                          "order_recovery": {
+                            "type": "boolean",
+                            "description": "Relances de commande"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "contact": {
+                      "kind": "direction",
+                      "billing_information": {
+                        "first_name": "Jane",
+                        "last_name": "Smith",
+                        "email": "jane.smith@example.com",
+                        "address1": "1 rue de la Paix",
+                        "city": "Paris",
+                        "zip": "75002",
+                        "phone": "0102030405",
+                        "mobile": "0607080910"
+                      },
+                      "email_notification": {
+                        "invoice": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK : renvoie le contact créé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "id": 1257,
+                      "customer_id": 8312,
+                      "kind": "direction",
+                      "title": "mrs",
+                      "name": "Jane Smith",
+                      "email": "jane.smith@example.com",
+                      "note": null,
+                      "primary_id": null,
+                      "deleted_at": null,
+                      "created_at": "2026-10-26T15:02:47.000+01:00",
+                      "updated_at": "2026-10-26T15:02:47.000+01:00",
+                      "email_notification": {
+                        "id": 3112,
+                        "notifiable_type": "Contact",
+                        "notifiable_id": 1257,
+                        "quote": false,
+                        "proforma": false,
+                        "invoice": true,
+                        "order_recovery": false,
+                        "created_at": "2026-10-26T15:02:47.000+01:00",
+                        "updated_at": "2026-10-26T15:02:47.000+01:00"
+                      },
+                      "billing_information": {
+                        "address1": "1 rue de la Paix",
+                        "address2": null,
+                        "address3": null,
+                        "zip": "75002",
+                        "city": "Paris",
+                        "province": null,
+                        "subdivision_code": null,
+                        "country_code": "FR",
+                        "phone": "0102030405",
+                        "mobile": "0607080910"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide (signature HMAC absente ou incorrecte)"
+          },
+          "404": {
+            "description": "Client introuvable"
+          },
+          "422": {
+            "description": "Erreurs de validation (par exemple un `naf_code` au format invalide ou inconnu)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Clients"
+        ]
       }
     },
     "/customers/{customer_id}/contacts/{id}": {
