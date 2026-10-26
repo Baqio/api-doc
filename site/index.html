@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>API Baqio — Documentation développeurs</title>
+    <meta name="description" content="Documentation de l'API publique Baqio : connectez votre logiciel de gestion commerciale vins et alcools à vos outils (e-commerce, logistique, comptabilité, CRM)." />
+    <meta name="theme-color" content="#689534" />
+    <meta property="og:title" content="API Baqio — Documentation développeurs" />
+    <meta property="og:description" content="Connectez Baqio à vos outils grâce à l'API REST publique." />
+    <link rel="icon" href="{{root}}favicon.ico" />
+    <link rel="apple-touch-icon" href="{{root}}apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
+    <link rel="stylesheet" href="{{root}}assets/baqio.css" />
+  </head>
+  <body data-page="home">
+    {{header}}
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="pill"><b>v1</b> API REST · OpenAPI 3 · {{operations}} endpoints</span>
+            <h1>Connectez Baqio à <em>vos outils</em></h1>
+            <p class="lead">
+              Synchronisez clients, commandes, produits et expéditions entre Baqio et votre site e-commerce,
+              votre logistique, votre comptabilité ou votre CRM.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="{{root}}reference/">
+                Explorer la référence
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <a class="btn btn-outline" href="#demarrage">Démarrage rapide</a>
+            </div>
+          </div>
+
+          <div class="code-window" aria-label="Exemple de requête">
+            <div class="code-window-bar"><span></span><span></span><span></span><em>Lister les commandes</em></div>
+<pre><span class="tok-c"># Authentification Basic : api_key:password</span>
+<span class="tok-k">curl</span> <span class="tok-s">"https://app.baqio.com/api/v1/orders?page=1"</span> \
+  -u <span class="tok-s">"$BAQIO_API_KEY:$BAQIO_PASSWORD"</span> \
+  -H <span class="tok-s">"Accept: application/json"</span>
+
+<span class="tok-c"># Réponse</span>
+[
+  {
+    <span class="tok-n">"id"</span>: 48213,
+    <span class="tok-n">"name"</span>: <span class="tok-s">"CMD-2026-0412"</span>,
+    <span class="tok-n">"state"</span>: <span class="tok-s">"validated"</span>,
+    …
+  }
+]</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="demarrage">
+        <div class="container">
+          <span class="eyebrow">Démarrage rapide</span>
+          <h2 class="section-title">Votre premier appel en trois étapes</h2>
+          <p class="section-lead">
+            L'API est accessible uniquement en HTTPS. Requêtes et réponses sont au format JSON, encodées en UTF-8.
+          </p>
+
+          <div class="grid grid-3">
+            <div class="card">
+              <h3><span class="step-num">1</span> Créez vos clés</h3>
+              <p>
+                Dans Baqio, ouvrez <strong>Paramètres › Mon compte</strong>, section <strong>Clés API</strong>.
+                Vous obtenez une <code>api_key</code>, un <code>password</code> et un <code>secret</code>.
+              </p>
+            </div>
+            <div class="card">
+              <h3><span class="step-num">2</span> Authentifiez-vous</h3>
+              <p>Authentification HTTP Basic avec <code>api_key:password</code> encodé en base64.</p>
+<pre>Authorization: Basic ZGVtbzpwQDU1dzByZA==
+Accept: application/json
+Content-Type: application/json</pre>
+            </div>
+            <div class="card">
+              <h3><span class="step-num">3</span> Signez vos POST</h3>
+              <p>Ajoutez le header <code>X-Baqio-Hmac-Sha256</code>, HMAC-SHA256 du body signé avec votre <code>secret</code>.</p>
+<pre>digest = OpenSSL::Digest.new("sha256")
+Base64.strict_encode64(
+  OpenSSL::HMAC.digest(digest, secret, body)
+)</pre>
+            </div>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="card">
+              <h3>
+                <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+                Environnements
+              </h3>
+              <div class="env-list">
+                <div class="env"><b>Production</b><code>https://app.baqio.com/api/v1</code></div>
+                <div class="env"><b>Démo</b><code>https://demo.baqio.com/api/v1</code></div>
+              </div>
+            </div>
+            <div class="card">
+              <h3>
+                <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+                Pagination et recherche
+              </h3>
+              <p>
+                Paramètre <code>page</code> (50 éléments par page) et filtres <code>q[…]</code> au format Ransack, par exemple
+                <code>q[updated_at_gteq]=2026-10-01</code> pour une synchronisation incrémentale.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="ressources">
+        <div class="container">
+          <span class="eyebrow">Ressources</span>
+          <h2 class="section-title">Tout votre domaine, accessible par API</h2>
+          <p class="section-lead">Les principaux objets métier de Baqio, documentés avec exemples de requêtes et de réponses.</p>
+
+          <div class="grid grid-3">
+            <a class="card" href="{{root}}reference/#tag/clients">
+              <h3>
+                <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                Clients <span class="count">{{count:Clients}}</span>
+              </h3>
+              <p>Fiches clients, contacts, notes, relances et étapes de pipeline.</p>
+            </a>
+            <a class="card" href="{{root}}reference/#tag/commandes">
+              <h3>
+                <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></span>
+                Commandes <span class="count">{{count:Commandes}}</span>
+              </h3>
+              <p>Création, mise à jour, réservations et campagnes de commandes.</p>
+            </a>
+            <a class="card" href="{{root}}reference/#tag/produits">
+              <h3>
+                <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 22h8M12 15v7M7 2h10l1 7a6 6 0 0 1-12 0Z"/></svg></span>
+                Produits <span class="count">{{count:Produits}}</span>
+              </h3>
+              <p>Familles, variantes, collections et stocks.</p>
+            </a>
+            <a class="card" href="{{root}}reference/#tag/expéditions">
+              <h3>
+                <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M15 18H9M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></span>
+                Expéditions <span class="count">{{count:Expéditions}}</span>
+              </h3>
+              <p>Préparations, colis et suivi logistique.</p>
+            </a>
+            <a class="card" href="{{root}}reference/#tag/comptabilité">
+              <h3>
+                <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h4"/></svg></span>
+                Comptabilité <span class="count">{{count:Comptabilité}}</span>
+              </h3>
+              <p>Factures et écritures comptables sur une période.</p>
+            </a>
+            <a class="card" href="{{root}}guides/webhooks/">
+              <h3>
+                <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2M6 17l3.13-5.78c.53-.97.1-2.18-.5-3.1a4 4 0 1 1 6.89-4.06"/><path d="m12 6 3.13 5.73C15.66 12.7 16.9 13 18 13a4 4 0 0 1 0 8"/></svg></span>
+                Webhooks
+              </h3>
+              <p>Recevez un appel POST à chaque événement : client, commande, expédition, produit…</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta">
+            <div>
+              <h2>Prêt à intégrer Baqio ?</h2>
+              <p>Testez vos appels directement depuis la référence interactive, sur l'environnement de démo.</p>
+            </div>
+            <div class="hero-actions">
+              <a class="btn btn-outline" href="{{root}}reference/">Ouvrir la référence</a>
+              <a class="btn btn-outline" href="{{root}}openapi.json" download>Télécharger OpenAPI</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    {{footer}}
+  </body>
+</html>

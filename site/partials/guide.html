@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{title}} — API Baqio</title>
+    <meta name="description" content="{{title}} — documentation de l'API publique Baqio." />
+    <meta name="theme-color" content="#689534" />
+    <link rel="icon" href="{{root}}favicon.ico" />
+    <link rel="apple-touch-icon" href="{{root}}apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
+    <link rel="stylesheet" href="{{root}}assets/baqio.css" />
+  </head>
+  <body data-page="{{slug}}">
+    {{header}}
+
+    <div class="container guide-layout">
+      <nav class="guide-nav" aria-label="Guides">
+        <h4>Guides</h4>
+        <a href="{{root}}#demarrage">Démarrage rapide</a>
+        {{guides_nav}}
+        <a href="{{root}}reference/">Référence API</a>
+      </nav>
+      <article class="prose">
+        {{content}}
+      </article>
+    </div>
+
+    {{footer}}
+  </body>
+</html>

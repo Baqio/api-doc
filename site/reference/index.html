@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Référence interactive de l'API publique Baqio" />
+    <meta name="theme-color" content="#689534" />
+    <title>Référence API — Baqio</title>
+    <link rel="icon" href="{{root}}favicon.ico" />
+    <link rel="apple-touch-icon" href="{{root}}apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
+    <link rel="stylesheet" href="{{root}}assets/scalar-baqio.css" />
+  </head>
+  <body>
+    <header class="baqio-header">
+      <a class="baqio-brand" href="{{root}}" aria-label="Baqio API — accueil">
+        <img class="logo-light" src="{{root}}assets/logo.svg" alt="Baqio" width="84" height="26" />
+        <img class="logo-dark" src="{{root}}assets/logo-dark.svg" alt="" width="84" height="26" />
+        <span class="baqio-badge">API</span>
+      </a>
+      <nav class="baqio-nav" aria-label="Navigation principale">
+        <a href="{{root}}#demarrage">Démarrage</a>
+        <a href="{{root}}reference/" aria-current="page">Référence</a>
+        <a href="{{root}}guides/webhooks/">Webhooks</a>
+        <a href="https://github.com/Baqio/api-doc">GitHub</a>
+      </nav>
+      <a class="baqio-cta" href="https://app.baqio.com">Accès client</a>
+    </header>
+    <div id="app"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.67.0"></script>
+    <script>
+      Scalar.createApiReference('#app', {
+        url: '{{root}}openapi.json',
+        pageTitle: 'Référence API — Baqio',
+        theme: 'none',
+        layout: 'modern',
+        showSidebar: true,
+        showOperationId: false,
+        defaultOpenAllTags: false,
+        persistAuth: true,
+        withDefaultFonts: false,
+        servers: [
+          { url: 'https://app.baqio.com/api/v1', description: 'Production' },
+          { url: 'https://demo.baqio.com/api/v1', description: 'Démo' }
+        ]
+      })
+    </script>
+  </body>
+</html>

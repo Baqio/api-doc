@@ -1,0 +1,104 @@
+/* Baqio palette applied to the Scalar API reference */
+html, body { margin: 0; }
+:root { --scalar-custom-header-height: 4rem; }
+
+.light-mode, .dark-mode {
+  --scalar-font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --scalar-radius: 0.5rem;
+  --scalar-radius-lg: 0.625rem;
+  --scalar-radius-xl: 0.75rem;
+}
+
+.light-mode {
+  --scalar-color-1: #1c2620;
+  --scalar-color-2: #4a544d;
+  --scalar-color-3: #6b746d;
+  --scalar-color-accent: #689534;
+  --scalar-background-1: #ffffff;
+  --scalar-background-2: #f9f7f1;
+  --scalar-background-3: #f1eee5;
+  --scalar-background-accent: #eef3e8;
+  --scalar-border-color: #e6e4dc;
+  --scalar-sidebar-background-1: #f9f7f1;
+  --scalar-sidebar-color-1: #1c2620;
+  --scalar-sidebar-color-2: #5d6670;
+  --scalar-sidebar-border-color: #e6e4dc;
+  --scalar-sidebar-item-hover-background: #eef3e8;
+  --scalar-sidebar-item-hover-color: #1c2620;
+  --scalar-sidebar-item-active-background: #eef3e8;
+  --scalar-sidebar-color-active: #386641;
+  --scalar-sidebar-search-background: #ffffff;
+  --scalar-sidebar-search-border-color: #e6e4dc;
+  --scalar-button-1: #689534;
+  --scalar-button-1-hover: #386641;
+  --scalar-button-1-color: #ffffff;
+  --scalar-color-green: #4f7a26;
+  --scalar-color-blue: #2f6f9f;
+  --scalar-color-orange: #b5651d;
+  --scalar-color-red: #b33a3a;
+  --scalar-color-yellow: #8a6a1f;
+  --scalar-color-purple: #6d4fa3;
+}
+
+.dark-mode {
+  --scalar-color-1: #eef1ea;
+  --scalar-color-2: #b8c0b9;
+  --scalar-color-3: #8b958d;
+  --scalar-color-accent: #8eba54;
+  --scalar-background-1: #0f1412;
+  --scalar-background-2: #161d19;
+  --scalar-background-3: #1e2721;
+  --scalar-background-accent: #1d2a1a;
+  --scalar-border-color: #26302a;
+  --scalar-sidebar-background-1: #121815;
+  --scalar-sidebar-color-1: #eef1ea;
+  --scalar-sidebar-color-2: #9aa49c;
+  --scalar-sidebar-border-color: #26302a;
+  --scalar-sidebar-item-hover-background: #1d2a1a;
+  --scalar-sidebar-item-hover-color: #eef1ea;
+  --scalar-sidebar-item-active-background: #1d2a1a;
+  --scalar-sidebar-color-active: #a9cd7a;
+  --scalar-sidebar-search-background: #161d19;
+  --scalar-sidebar-search-border-color: #26302a;
+  --scalar-button-1: #689534;
+  --scalar-button-1-hover: #8eba54;
+  --scalar-button-1-color: #ffffff;
+  --scalar-color-green: #8eba54;
+  --scalar-color-blue: #7fb2dd;
+  --scalar-color-orange: #e09a5b;
+  --scalar-color-red: #e07a7a;
+  --scalar-color-yellow: #e8d3a0;
+  --scalar-color-purple: #b39ddb;
+}
+
+/* Header shared with the rest of the site, follows Scalar's light/dark toggle */
+.baqio-header {
+  position: fixed; inset: 0 0 auto 0; z-index: 1000;
+  height: var(--scalar-custom-header-height);
+  display: flex; align-items: center; gap: 1.5rem; padding: 0 1rem;
+  background: var(--scalar-background-1, #fff);
+  border-bottom: 1px solid var(--scalar-border-color, #e6e4dc);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif; font-size: .9rem;
+  box-sizing: border-box;
+}
+@media (min-width: 640px) { .baqio-header { padding: 0 1.5rem; } }
+.baqio-header a { text-decoration: none; }
+.baqio-brand { display: flex; align-items: center; gap: .6rem; }
+.baqio-brand img { height: 26px; width: auto; display: block; }
+.baqio-brand .logo-dark { display: none; }
+.dark-mode .baqio-brand .logo-light { display: none; }
+.dark-mode .baqio-brand .logo-dark { display: block; }
+.baqio-badge {
+  font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--scalar-sidebar-color-active, #386641); background: var(--scalar-background-accent, #eef3e8);
+  padding: .1rem .45rem; border-radius: 999px;
+}
+.baqio-nav { display: none; gap: 1.5rem; font-weight: 500; }
+.baqio-nav a { color: var(--scalar-color-3, #5d6670); }
+.baqio-nav a:hover, .baqio-nav a[aria-current="page"] { color: var(--scalar-color-1, #1c2620); }
+@media (min-width: 768px) { .baqio-nav { display: flex; } }
+.baqio-cta {
+  margin-left: auto; font-weight: 600; font-size: .82rem; color: #fff !important;
+  background: #689534; padding: .5rem .8rem; border-radius: .5rem;
+}
+.baqio-cta:hover { background: #386641; }

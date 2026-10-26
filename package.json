@@ -1,0 +1,12 @@
+{
+  "name": "baqio-api-doc",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "serve": "npx --yes serve@14.2.4 dist"
+  },
+  "devDependencies": {
+    "marked": "^15.0.12"
+  }
+}
