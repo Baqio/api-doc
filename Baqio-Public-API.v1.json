@@ -218,6 +218,28 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "422": {
+            "description": "Référence déjà utilisée, erreurs de validation ou tags de client inconnus",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {}
+                  }
+                },
+                "examples": {
+                  "tag_inconnu": {
+                    "value": {
+                      "errors": [
+                        "customer tag 999 doesn't exist"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "description": "Créé un nouveau client. Le champ `reference` doit être unique pour le compte (`account_id`).",
@@ -368,6 +390,13 @@
                       "customer_tags": {
                         "type": "array",
                         "items": {}
+                      },
+                      "customer_tag_ids": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        },
+                        "description": "Ids de tags de customer (voir `GET /customer_tags`). Un id qui n'appartient pas au compte est refusé (422)."
                       }
                     }
                   }
@@ -435,6 +464,13 @@
                     "value": {
                       "errors": [
                         "Email n'est pas valide"
+                      ]
+                    }
+                  },
+                  "tag_inconnu": {
+                    "value": {
+                      "errors": [
+                        "customer tag 999 doesn't exist"
                       ]
                     }
                   }
@@ -1780,6 +1816,60 @@
         ]
       }
     },
+    "/customer_tags": {
+      "get": {
+        "summary": "Liste des tags de clients",
+        "operationId": "get-customer_tags",
+        "description": "Liste des tags de clients du compte, triés par nom, avec leur `id` et leur `name`. Les ids servent à renseigner le champ `customer_tag_ids` lors de la création ou de la mise à jour.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (50 éléments par page). Voir « Pagination »."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomerTag"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 31,
+                        "name": "Désabonné newsletter"
+                      },
+                      {
+                        "id": 18,
+                        "name": "Parrain"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Clients"
+        ]
+      }
+    },
     "/pipelines": {
       "get": {
         "summary": "Liste des pipelines",
@@ -2220,6 +2310,12 @@
                     "value": {
                       "message": "Order not validable due to booking quantities not sufficient."
                     }
+                  },
+                  "tag_inconnu": {
+                    "summary": "Tag de commande inconnu (création ou remplacement)",
+                    "value": [
+                      "order tag 999 doesn't exist"
+                    ]
                   }
                 }
               }
@@ -2303,7 +2399,8 @@
                         "type": "array",
                         "items": {
                           "type": "integer"
-                        }
+                        },
+                        "description": "Ids de tags de order (voir `GET /order_tags`). Un id qui n'appartient pas au compte est refusé (422)."
                       },
                       "customer": {
                         "type": "object",
@@ -9015,7 +9112,31 @@
             "description": "Commande introuvable"
           },
           "422": {
-            "description": "Erreurs de validation"
+            "description": "Erreurs de validation (corps vide), ou tags de commande inconnus",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "tag_inconnu": {
+                    "value": {
+                      "errors": [
+                        "order tag 999 doesn't exist"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Authentification invalide"
@@ -9143,6 +9264,60 @@
                         "deleted_at": null,
                         "created_at": "2026-10-16T10:00:00.000+02:00",
                         "updated_at": "2026-10-16T10:00:00.000+02:00"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Commandes"
+        ]
+      }
+    },
+    "/order_tags": {
+      "get": {
+        "summary": "Liste des tags de commandes",
+        "operationId": "get-order_tags",
+        "description": "Liste des tags de commandes du compte, triés par nom, avec leur `id` et leur `name`. Les ids servent à renseigner le champ `order_tag_ids` lors de la création ou de la mise à jour.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (50 éléments par page). Voir « Pagination »."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderTag"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 12,
+                        "name": "Parrainage"
+                      },
+                      {
+                        "id": 7,
+                        "name": "Salon Vinexpo 2026"
                       }
                     ]
                   }
@@ -26939,7 +27114,9 @@
           },
           "customer_tags": {
             "type": "array",
-            "items": {}
+            "items": {
+              "$ref": "#/components/schemas/CustomerTag"
+            }
           },
           "current_pipeline_steps": {
             "type": "array",
@@ -26948,6 +27125,14 @@
             "items": {
               "$ref": "#/components/schemas/CustomerPipelineStep"
             }
+          },
+          "customer_tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "Ids de tags de customer (voir `GET /customer_tags`). Un id qui n'appartient pas au compte est refusé (422).",
+            "writeOnly": true
           }
         },
         "required": [
@@ -27709,7 +27894,17 @@
           },
           "order_tags": {
             "type": "array",
-            "items": {}
+            "items": {
+              "$ref": "#/components/schemas/OrderTag"
+            }
+          },
+          "order_tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "Ids de tags de order (voir `GET /order_tags`). Un id qui n'appartient pas au compte est refusé (422).",
+            "writeOnly": true
           }
         },
         "x-tags": [
@@ -30755,6 +30950,32 @@
         "x-tags": [
           "Clients"
         ]
+      },
+      "OrderTag": {
+        "title": "OrderTag",
+        "type": "object",
+        "description": "Tag de commande.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CustomerTag": {
+        "title": "CustomerTag",
+        "type": "object",
+        "description": "Tag de client.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {
