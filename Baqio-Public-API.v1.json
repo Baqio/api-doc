@@ -9147,6 +9147,105 @@
         ]
       }
     },
+    "/orders/{order_id}/account_events": {
+      "get": {
+        "summary": "Historique d'une commande",
+        "operationId": "get-orders-id-account-events",
+        "description": "Événements de l'historique affiché en bas de la fiche commande : événements de la commande et de ses expéditions, et commentaires saisis par les équipes (relance, appel, rendez-vous…). Du plus récent au plus ancien, par pages de 50.\n\nPour les commentaires, le champ `customer_note` contient le détail de la note (texte, type, auteur). Les notes supprimées ne sont pas exposées (`customer_note` vaut `null`).",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "description": "ID de la commande"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "topic",
+            "description": "Filtre exact sur le sujet de l'événement, ex. `customer_note.created` pour ne récupérer que les commentaires"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (50 éléments par page). Voir « Pagination »."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderAccountEvent"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 98245,
+                        "topic": "customer_note.created",
+                        "resource_type": "CustomerNote",
+                        "resource_id": 5531,
+                        "reference_type": "Order",
+                        "reference_id": 107580,
+                        "customer_id": 124389,
+                        "user_id": 812,
+                        "created_at": "2026-10-20T09:30:00.000+02:00",
+                        "customer_note": {
+                          "id": 5531,
+                          "customer_id": 124389,
+                          "contact_id": null,
+                          "user_id": 812,
+                          "kind": "phone",
+                          "body": "Relance effectuée, pas de réponse du client",
+                          "created_at": "2026-10-20T09:30:00.000+02:00",
+                          "updated_at": "2026-10-20T09:30:00.000+02:00"
+                        }
+                      },
+                      {
+                        "id": 98231,
+                        "topic": "order.invoiced",
+                        "resource_type": "Order",
+                        "resource_id": 107580,
+                        "reference_type": null,
+                        "reference_id": null,
+                        "customer_id": 124389,
+                        "user_id": 812,
+                        "created_at": "2026-10-16T10:00:00.000+02:00",
+                        "customer_note": null
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          },
+          "404": {
+            "description": "Commande introuvable (ou brouillon)"
+          }
+        },
+        "tags": [
+          "Commandes"
+        ]
+      }
+    },
     "/bookings": {
       "get": {
         "summary": "Liste des réservations",
@@ -27764,7 +27863,8 @@
             "type": "string"
           },
           "updated_at": {
-            "type": "string"
+            "type": "string",
+            "description": "Date de dernière modification de la commande. Elle est aussi mise à jour lors de l'ajout ou du retrait d'un tag de commande."
           },
           "commission_price_cents": {
             "type": "integer"
@@ -27903,7 +28003,7 @@
             "items": {
               "type": "integer"
             },
-            "description": "Ids de tags de order (voir `GET /order_tags`). Un id qui n'appartient pas au compte est refusé (422).",
+            "description": "Ids de tags de order (voir `GET /order_tags`). Un id qui n'appartient pas au compte est refusé (422). Ajouter ou retirer un tag met à jour `updated_at`.",
             "writeOnly": true
           }
         },
@@ -30976,6 +31076,64 @@
             "type": "string"
           }
         }
+      },
+      "OrderAccountEvent": {
+        "title": "OrderAccountEvent",
+        "type": "object",
+        "description": "Événement de l'historique d'une commande, avec le détail de la note pour les commentaires.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "topic": {
+            "type": "string",
+            "description": "Sujet de l'événement au format `<ressource>.<action>`, ex. `order.validated`, `customer_note.created`, `fulfillment.created`"
+          },
+          "resource_type": {
+            "type": "string",
+            "nullable": true,
+            "description": "Type de la ressource concernée, ex. `Order`, `Fulfillment`, `CustomerNote`"
+          },
+          "resource_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "reference_type": {
+            "type": "string",
+            "nullable": true,
+            "description": "Type de l'objet auquel l'événement est rattaché, ex. `Order` pour un commentaire saisi sur la commande"
+          },
+          "reference_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "customer_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "user_id": {
+            "type": "integer",
+            "nullable": true,
+            "description": "ID de l'utilisateur à l'origine de l'événement"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "customer_note": {
+            "type": "object",
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CustomerNote"
+              }
+            ],
+            "description": "Détail de la note pour les événements de commentaire (`resource_type` = `CustomerNote`). `null` pour les autres événements et pour les notes supprimées."
+          }
+        },
+        "x-tags": [
+          "Commandes"
+        ]
       }
     },
     "securitySchemes": {
