@@ -3,7 +3,7 @@
   "info": {
     "title": "Baqio Public API",
     "version": "1.0",
-    "description": "Documentation de l'API Baqio, logiciel de gestion commerciale spécialisée pour les domaines viticoles et les négoces.\n\nL'API est uniquement accessible en HTTPS. Si l'API est appelée en HTTP, elle retournera une erreur de type tls_required.\n\n### Authentification\n\nPour accéder à l'API vous devez disposer de trois informations : \n\n- une clé API (```api_key```)\n- un mot de passe (```password```)\n- une clé secrète (```secret```)\n\nVous pouvez créer ces informations sur Baqio dans Paramètres > Mon compte. Tout en bas dans \"Clés API\".\n\nLorsque vous faites un appel à l'API, vous devez utilisez une authentification basique avec la clé API et le mot de passe.\n\nL'authentification utilisée est type [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), lors des requêtes HTTP il faut transmettre un Authorization header contenant le mot \"Basic\" suivi par un espace et par un string encodé en base64 (strict) contenant api_key:password. Par exemple pour autoriser en tant que demo / p@55w0rd, le client enverrait : \n\n```\nAuthorization: Basic ZGVtbzpwQDU1dzByZA==\n```\n\nExemple en Ruby : \n\n```ruby\ncode = Base64.strict_encode64(\"#{api_key}:#{password}\")\n```\n\n### MIME Types\n\nToutes les requêtes et toutes les réponses sont au format JSON et encodées en UTF-8.\n\nUn `Accept` header est nécessaire pour les requêtes. Exemple :\n\n```jsx\n'Content-Type' => 'application/json',\n'Accept' => 'application/json'\n```\n\n### Signature des requêtes POST\n\nDans le cas des requêtes de type POST, il est nécessaire de signer les requêtes et de transmettre la signature dans un header `X-Baqio-Hmac-Sha256`\n\nCette signature est calculée à partir du body envoyé en POST et de la clef secrète : \n```ruby\nbody = {\n  \"customer\": {\n    \"billing_information\": {\n      \"company_name\": \"BAQIO\",\n      \"last_name\": \"GAUTIER\",\n      \"first_name\": \"Sylvain\",\n      \"country_code\": \"FR\",\n      \"email\": \"sylvain@baqio.com\"\n    },\n    \"reference\": \"123\"\n  }\n}.to_json\ndigest = OpenSSL::Digest.new('sha256')\nBase64.encode64(OpenSSL::HMAC.digest(digest, secret, body.to_s)).strip\n```\n\n### Pagination\n\nLes listes paginées renvoient un tableau JSON brut, sans métadonnées de pagination. Utilisez le paramètre `page` (à partir de 1, `1` par défaut) et continuez tant que la page reçue contient le nombre maximal d'éléments. Une page vide signifie que la liste est terminée.\n\n| Endpoint | Éléments par page |\n|---|---|\n| `GET /customers` | 50 |\n| `GET /customers/{customer_id}/customer_notes` | 50 |\n| `GET /customers/{customer_id}/customer_reminders` | 50 |\n| `GET /orders` | 50 |\n| `GET /bookings` | 50 |\n| `GET /fulfillments` | 50 |\n| `GET /fulfillment_parcels` | 50 |\n| `GET /account_events` | 50 |\n| `GET /product_variants` | 100 |\n\nLes autres listes ne sont pas paginées et renvoient tous les éléments.\n\n### Recherche (filtres `q`)\n\nLes endpoints `GET /customers`, `GET /orders`, `GET /bookings`, `GET /fulfillments` et `GET /fulfillment_parcels` acceptent des filtres via le paramètre `q`, au format [Ransack](https://activerecord-hackery.github.io/ransack/getting-started/search-matches/) : `q[<attribut>_<prédicat>]=<valeur>`.\n\nTous les attributs renvoyés par l'endpoint sont filtrables, y compris ceux des objets associés (ex. `customer_reference_eq`, `billing_information_city_cont`). Prédicats courants :\n\n| Prédicat | Signification | Exemple |\n|---|---|---|\n| `_eq` | égal à | `q[reference_eq]=CMD-001` |\n| `_not_eq` | différent de | `q[state_not_eq]=cancelled` |\n| `_in` | parmi une liste | `q[state_in][]=validated&q[state_in][]=invoiced` |\n| `_cont` | contient (insensible à la casse) | `q[name_cont]=dupont` |\n| `_start` | commence par | `q[code_start]=AG` |\n| `_gt` / `_gteq` | supérieur (ou égal) à | `q[updated_at_gteq]=2026-01-01` |\n| `_lt` / `_lteq` | inférieur (ou égal) à | `q[date_lteq]=2026-12-31` |\n| `_null` / `_present` | vide / renseigné | `q[reference_present]=1` |\n\nLes filtres se combinent (ET logique) et s'utilisent avec la pagination. Exemple de synchronisation incrémentale des commandes modifiées depuis une date :\n\n```\nGET /api/v1/orders?q[updated_at_gteq]=2026-10-01T00:00:00%2B02:00&page=1\n```\n\nUn filtre sur un attribut inconnu est ignoré silencieusement : vérifiez son nom si le résultat n'est pas filtré.",
+    "description": "Documentation de l'API Baqio, logiciel de gestion commerciale spécialisée pour les domaines viticoles et les négoces.\n\nL'API est uniquement accessible en HTTPS. Si l'API est appelée en HTTP, elle retournera une erreur de type tls_required.\n\n### Authentification\n\nPour accéder à l'API vous devez disposer de trois informations : \n\n- une clé API (```api_key```)\n- un mot de passe (```password```)\n- une clé secrète (```secret```)\n\nVous pouvez créer ces informations sur Baqio dans Paramètres > Mon compte. Tout en bas dans \"Clés API\".\n\nLorsque vous faites un appel à l'API, vous devez utilisez une authentification basique avec la clé API et le mot de passe.\n\nL'authentification utilisée est type [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), lors des requêtes HTTP il faut transmettre un Authorization header contenant le mot \"Basic\" suivi par un espace et par un string encodé en base64 (strict) contenant api_key:password. Par exemple pour autoriser en tant que demo / p@55w0rd, le client enverrait : \n\n```\nAuthorization: Basic ZGVtbzpwQDU1dzByZA==\n```\n\nExemple en Ruby : \n\n```ruby\ncode = Base64.strict_encode64(\"#{api_key}:#{password}\")\n```\n\n### MIME Types\n\nToutes les requêtes et toutes les réponses sont au format JSON et encodées en UTF-8.\n\nUn `Accept` header est nécessaire pour les requêtes. Exemple :\n\n```jsx\n'Content-Type' => 'application/json',\n'Accept' => 'application/json'\n```\n\n### Signature des requêtes POST\n\nDans le cas des requêtes de type POST, il est nécessaire de signer les requêtes et de transmettre la signature dans un header `X-Baqio-Hmac-Sha256`\n\nCette signature est calculée à partir du body envoyé en POST et de la clef secrète : \n```ruby\nbody = {\n  \"customer\": {\n    \"billing_information\": {\n      \"company_name\": \"BAQIO\",\n      \"last_name\": \"GAUTIER\",\n      \"first_name\": \"Sylvain\",\n      \"country_code\": \"FR\",\n      \"email\": \"sylvain@baqio.com\"\n    },\n    \"reference\": \"123\"\n  }\n}.to_json\ndigest = OpenSSL::Digest.new('sha256')\nBase64.encode64(OpenSSL::HMAC.digest(digest, secret, body.to_s)).strip\n```\n\n### Pagination\n\nLes listes paginées renvoient un tableau JSON brut, sans métadonnées de pagination. Utilisez le paramètre `page` (à partir de 1, `1` par défaut) et continuez tant que la page reçue contient le nombre maximal d'éléments. Une page vide signifie que la liste est terminée.\n\n| Endpoint | Éléments par page |\n|---|---|\n| `GET /customers` | 50 |\n| `GET /customers/{customer_id}/customer_notes` | 50 |\n| `GET /customers/{customer_id}/customer_reminders` | 50 |\n| `GET /orders` | 50 |\n| `GET /payments` | 50 |\n| `GET /bookings` | 50 |\n| `GET /fulfillments` | 50 |\n| `GET /fulfillment_parcels` | 50 |\n| `GET /account_events` | 50 |\n| `GET /product_variants` | 100 |\n\nLes autres listes ne sont pas paginées et renvoient tous les éléments.\n\n### Recherche (filtres `q`)\n\nLes endpoints `GET /customers`, `GET /orders`, `GET /payments`, `GET /bookings`, `GET /fulfillments` et `GET /fulfillment_parcels` acceptent des filtres via le paramètre `q`, au format [Ransack](https://activerecord-hackery.github.io/ransack/getting-started/search-matches/) : `q[<attribut>_<prédicat>]=<valeur>`.\n\nTous les attributs renvoyés par l'endpoint sont filtrables, y compris ceux des objets associés (ex. `customer_reference_eq`, `billing_information_city_cont`). Prédicats courants :\n\n| Prédicat | Signification | Exemple |\n|---|---|---|\n| `_eq` | égal à | `q[reference_eq]=CMD-001` |\n| `_not_eq` | différent de | `q[state_not_eq]=cancelled` |\n| `_in` | parmi une liste | `q[state_in][]=validated&q[state_in][]=invoiced` |\n| `_cont` | contient (insensible à la casse) | `q[name_cont]=dupont` |\n| `_start` | commence par | `q[code_start]=AG` |\n| `_gt` / `_gteq` | supérieur (ou égal) à | `q[updated_at_gteq]=2026-01-01` |\n| `_lt` / `_lteq` | inférieur (ou égal) à | `q[date_lteq]=2026-12-31` |\n| `_null` / `_present` | vide / renseigné | `q[reference_present]=1` |\n\nLes filtres se combinent (ET logique) et s'utilisent avec la pagination. Exemple de synchronisation incrémentale des commandes modifiées depuis une date :\n\n```\nGET /api/v1/orders?q[updated_at_gteq]=2026-10-01T00:00:00%2B02:00&page=1\n```\n\nUn filtre sur un attribut inconnu est ignoré silencieusement : vérifiez son nom si le résultat n'est pas filtré.",
     "contact": {
       "name": "Sylvain Gautier",
       "email": "support@baqio.com"
@@ -9042,6 +9042,216 @@
         ]
       }
     },
+    "/payments": {
+      "get": {
+        "summary": "Liste des règlements",
+        "operationId": "get-payments",
+        "description": "Règlements et remboursements du compte, hors règlements supprimés, du plus récent au plus ancien (par `date` puis par `id`), par pages de 50.\n\nChaque règlement est renvoyé avec son mode de paiement (`payment_source`) et ses affectations (`payment_links_not_deleted`).\n\nLes avances et acomptes non affectés sont inclus : leur montant restant à affecter est dans `not_associated_amount_cents`. Le filtre `q[payment_association]` accepte `not_associated` (règlements ayant un montant restant à affecter), `associated` (règlements entièrement affectés) et `all`.\n\nLes écarts de caisse sont aussi renvoyés, avec `kind` égal à `cash_error` : ignorez-les si besoin en testant `kind` dans la réponse.\n\nSi la clé API est limitée à un représentant, seuls les règlements de ses clients sont renvoyés, donc aucun règlement sans client.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "in": "query",
+            "name": "q",
+            "style": "deepObject",
+            "explode": true,
+            "description": "Filtres de recherche Ransack (voir « Recherche »). Exemples : `q[date_gteq]=2026-11-01`, `q[updated_at_gteq]=2026-11-01`, `q[customer_id_eq]=124389`, `q[payment_source_id_eq]=1052`, `q[payment_association]=not_associated`."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Numéro de page (50 éléments par page). Voir « Pagination »."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Payment"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "payment_links_not_deleted": {
+                            "type": "array",
+                            "description": "Affectations du règlement, hors affectations supprimées. Vide pour un règlement qui n'est affecté à aucune commande.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "payment_id": {
+                                  "type": "integer"
+                                },
+                                "parent_id": {
+                                  "type": "integer",
+                                  "description": "ID de l'objet réglé (la commande quand `parent_type` vaut `Order`)"
+                                },
+                                "parent_type": {
+                                  "type": "string"
+                                },
+                                "amount_cents": {
+                                  "type": "integer",
+                                  "description": "Part du règlement affectée à cet objet"
+                                },
+                                "amount_currency": {
+                                  "type": "string"
+                                },
+                                "deleted_at": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "updated_at": {
+                                  "type": "string"
+                                },
+                                "accounting_date": {
+                                  "type": "string"
+                                },
+                                "accounted_at": {
+                                  "type": "string"
+                                },
+                                "down_payment_id": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 265301,
+                        "account_id": 128,
+                        "date": "2026-11-18",
+                        "customer_id": 151091,
+                        "amount_cents": 3000,
+                        "amount_currency": "EUR",
+                        "kind": "payment",
+                        "source_name": null,
+                        "source_reference": "VIR-2026-0057",
+                        "created_at": "2026-11-18T10:12:03.104+01:00",
+                        "updated_at": "2026-11-18T10:12:03.104+01:00",
+                        "stripe": null,
+                        "refunded": null,
+                        "deleted_at": null,
+                        "refund_amount_cents": 0,
+                        "refund_amount_currency": "EUR",
+                        "accounted_at": null,
+                        "payment_source_id": 1052,
+                        "bank_name": null,
+                        "comment": "Acompte",
+                        "customer_name": null,
+                        "register_id": null,
+                        "not_associated_amount_cents": 3000,
+                        "not_associated_amount_currency": "EUR",
+                        "payment_source": {
+                          "id": 1052,
+                          "account_id": 128,
+                          "custom_name": null,
+                          "handle": "transfer",
+                          "displayed": true,
+                          "deletable": false,
+                          "deleted_at": null,
+                          "created_at": "2019-07-04T16:31:29.659+02:00",
+                          "updated_at": "2019-07-04T16:31:29.659+02:00",
+                          "website": false,
+                          "before_instruction": null,
+                          "after_instruction": null
+                        },
+                        "payment_links_not_deleted": []
+                      },
+                      {
+                        "id": 265265,
+                        "account_id": 128,
+                        "date": "2026-11-16",
+                        "customer_id": 151091,
+                        "amount_cents": 4000,
+                        "amount_currency": "EUR",
+                        "kind": "payment",
+                        "source_name": null,
+                        "source_reference": "VIR-2026-0042",
+                        "created_at": "2026-11-16T09:04:44.519+01:00",
+                        "updated_at": "2026-11-16T09:04:44.631+01:00",
+                        "stripe": null,
+                        "refunded": null,
+                        "deleted_at": null,
+                        "refund_amount_cents": 0,
+                        "refund_amount_currency": "EUR",
+                        "accounted_at": null,
+                        "payment_source_id": 1052,
+                        "bank_name": null,
+                        "comment": "Réglé par virement",
+                        "customer_name": null,
+                        "register_id": null,
+                        "not_associated_amount_cents": 0,
+                        "not_associated_amount_currency": "EUR",
+                        "payment_source": {
+                          "id": 1052,
+                          "account_id": 128,
+                          "custom_name": null,
+                          "handle": "transfer",
+                          "displayed": true,
+                          "deletable": false,
+                          "deleted_at": null,
+                          "created_at": "2019-07-04T16:31:29.659+02:00",
+                          "updated_at": "2019-07-04T16:31:29.659+02:00",
+                          "website": false,
+                          "before_instruction": null,
+                          "after_instruction": null
+                        },
+                        "payment_links_not_deleted": [
+                          {
+                            "id": 266521,
+                            "payment_id": 265265,
+                            "parent_id": 319889,
+                            "parent_type": "Order",
+                            "amount_cents": 4000,
+                            "amount_currency": "EUR",
+                            "deleted_at": null,
+                            "created_at": "2026-11-16T09:04:44.563+01:00",
+                            "updated_at": "2026-11-16T09:04:44.792+01:00",
+                            "accounting_date": null,
+                            "accounted_at": null,
+                            "down_payment_id": null
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentification invalide"
+          }
+        },
+        "tags": [
+          "Paiements"
+        ]
+      }
+    },
     "/orders/{id}": {
       "parameters": [
         {
@@ -9243,6 +9453,226 @@
         },
         "tags": [
           "Commandes"
+        ]
+      }
+    },
+    "/orders/{order_id}/payments": {
+      "post": {
+        "summary": "Ajouter un règlement à une commande",
+        "operationId": "post-orders-id-payments",
+        "description": "Enregistre un règlement pour le client d'une commande et l'affecte à cette commande. Le traitement est synchrone : le montant payé (`paid_amount_cents`) et le statut de paiement (`payment_status`) de la commande sont à jour dès la réponse, et le webhook `order.update_paid_amount` est émis.\n\nRègles appliquées :\n\n- La commande ne doit pas être un brouillon (404) et doit avoir un reste à payer (422 sinon).\n- Le règlement est toujours un encaissement : un remboursement ne peut pas être créé par cet endpoint.\n- Si le montant dépasse le reste à payer, l'affectation à la commande est plafonnée au reste à payer. L'excédent reste sur le règlement comme avance client non affectée (`payment.not_associated_amount_cents`).\n- Une date située dans une période comptable clôturée ou couverte par une clôture de caisse est refusée (422).\n- Si la clé API est limitée à un représentant, seules ses commandes sont accessibles (404 sinon).\n\n### Idempotence\n\nPour éviter un doublon quand une requête est renvoyée (coupure réseau, délai dépassé), transmettez un en-tête `Idempotency-Key` contenant une valeur unique par règlement, par exemple un UUID. L'en-tête est facultatif : sans lui, deux envois identiques créent deux règlements.\n\n| Situation | Réponse |\n|---|---|\n| Premier envoi avec la clé | `201`, règlement créé |\n| Même requête renvoyée avec la même clé | `201` avec le règlement déjà créé et l'en-tête `Idempotent-Replayed: true`, sans nouveau règlement |\n| Même clé avec un autre corps ou pour une autre commande | `422` |\n| Première requête encore en cours, ou interrompue par une erreur serveur | `409` |\n| Première requête refusée en `422` | La clé est libérée : la requête corrigée peut la réutiliser |\n\nLe corps est comparé à l'octet près : renvoyez exactement le même JSON que lors du premier envoi. Après un `409` qui persiste, vérifiez les règlements de la commande (`GET /orders/{id}`) avant de réessayer avec une nouvelle clé. Une clé est propre à la clé API qui l'a envoyée.\n\nLa requête doit être signée avec l'en-tête `X-Baqio-Hmac-Sha256` (voir Authentification).",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "description": "ID de la commande"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "Clé d'idempotence, unique par règlement (ex. un UUID), 255 caractères au plus. Voir « Idempotence »."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "payment"
+                ],
+                "properties": {
+                  "payment": {
+                    "type": "object",
+                    "required": [
+                      "date",
+                      "amount",
+                      "payment_source_id"
+                    ],
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "description": "Date du règlement, au format ISO 8601 (`2026-11-16`) ou `jj/mm/aaaa` (`16/11/2026`)"
+                      },
+                      "amount": {
+                        "type": "number",
+                        "description": "Montant du règlement en unités monétaires, et non en centimes (ex. `40.5` pour 40,50 €). Doit être supérieur à 0."
+                      },
+                      "payment_source_id": {
+                        "type": "integer",
+                        "description": "ID du mode de paiement (voir `GET /payment_sources`). Il doit appartenir au compte et ne pas être supprimé."
+                      },
+                      "source_reference": {
+                        "type": "string",
+                        "description": "Référence du règlement (numéro de virement, de chèque…)"
+                      },
+                      "comment": {
+                        "type": "string",
+                        "description": "Commentaire libre"
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "payment": {
+                      "date": "2026-11-16",
+                      "amount": 40,
+                      "payment_source_id": 1052,
+                      "source_reference": "VIR-2026-0042",
+                      "comment": "Réglé par virement"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Règlement créé et affecté à la commande. Renvoie le lien de règlement, au même format que les `payment_links` d'une commande.",
+            "headers": {
+              "Idempotent-Replayed": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "true"
+                  ]
+                },
+                "description": "Présent uniquement quand la réponse est celle d'une requête déjà traitée avec la même `Idempotency-Key`."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentLink"
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "id": 266521,
+                      "payment_id": 265265,
+                      "parent_id": 319889,
+                      "parent_type": "Order",
+                      "amount_cents": 4000,
+                      "amount_currency": "EUR",
+                      "deleted_at": null,
+                      "created_at": "2026-11-16T09:04:44.563+01:00",
+                      "updated_at": "2026-11-16T09:04:44.792+01:00",
+                      "accounting_date": null,
+                      "accounted_at": null,
+                      "down_payment_id": null,
+                      "payment": {
+                        "id": 265265,
+                        "account_id": 128,
+                        "date": "2026-11-16",
+                        "customer_id": 151091,
+                        "amount_cents": 4000,
+                        "amount_currency": "EUR",
+                        "kind": "payment",
+                        "source_name": null,
+                        "source_reference": "VIR-2026-0042",
+                        "created_at": "2026-11-16T09:04:44.519+01:00",
+                        "updated_at": "2026-11-16T09:04:44.631+01:00",
+                        "stripe": null,
+                        "refunded": null,
+                        "deleted_at": null,
+                        "refund_amount_cents": 0,
+                        "refund_amount_currency": "EUR",
+                        "accounted_at": null,
+                        "payment_source_id": 1052,
+                        "bank_name": null,
+                        "comment": "Réglé par virement",
+                        "customer_name": null,
+                        "register_id": null,
+                        "not_associated_amount_cents": 0,
+                        "not_associated_amount_currency": "EUR",
+                        "payment_source": {
+                          "id": 1052,
+                          "account_id": 128,
+                          "custom_name": null,
+                          "handle": "transfer",
+                          "displayed": true,
+                          "deletable": false,
+                          "deleted_at": null,
+                          "created_at": "2019-07-04T16:31:29.659+02:00",
+                          "updated_at": "2019-07-04T16:31:29.659+02:00",
+                          "website": false,
+                          "before_instruction": null,
+                          "after_instruction": null
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Corps de la requête illisible (JSON invalide)"
+          },
+          "401": {
+            "description": "Authentification ou signature invalide"
+          },
+          "404": {
+            "description": "Commande introuvable, en brouillon ou hors du périmètre de la clé API"
+          },
+          "409": {
+            "description": "Une requête précédente avec la même `Idempotency-Key` n'a pas renvoyé de résultat (encore en cours, ou interrompue). Aucun règlement n'est créé par cet appel.",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "example": {
+                    "value": {
+                      "errors": [
+                        "a previous request with this Idempotency-Key returned no result: check what it created before retrying with a new key"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Règlement refusé. `errors` contient un ou plusieurs messages : commande sans reste à payer, date absente ou invalide, montant nul ou négatif, mode de paiement inconnu, date dans une période clôturée, `Idempotency-Key` déjà utilisée avec une requête différente ou trop longue.",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "validation": {
+                    "summary": "Règlement invalide",
+                    "value": {
+                      "errors": [
+                        "order has nothing left to pay",
+                        "amount must be greater than 0"
+                      ]
+                    }
+                  },
+                  "idempotency": {
+                    "summary": "Clé déjà utilisée avec une autre requête",
+                    "value": {
+                      "errors": [
+                        "Idempotency-Key was already used with a different request"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Paiements"
         ]
       }
     },
